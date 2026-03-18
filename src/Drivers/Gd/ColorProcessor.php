@@ -22,7 +22,7 @@ class ColorProcessor implements ColorProcessorInterface
      */
     public function __construct(protected ColorspaceInterface $colorspace = new Colorspace())
     {
-        //
+
     }
 
     /**

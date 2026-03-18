@@ -7,12 +7,12 @@ namespace Intervention\Image\Geometry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use Traversable;
-use IteratorAggregate;
 use Intervention\Image\Geometry\Traits\HasBackgroundColor;
 use Intervention\Image\Geometry\Traits\HasBorder;
 use Intervention\Image\Interfaces\DrawableInterface;
 use Intervention\Image\Interfaces\PointInterface;
+use IteratorAggregate;
+use Traversable;
 
 /**
  * @implements IteratorAggregate<PointInterface>
@@ -32,7 +32,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
         protected array $points = [],
         protected PointInterface $pivot = new Point()
     ) {
-        //
+
     }
 
     /**
@@ -182,7 +182,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, fn(PointInterface $a, PointInterface $b): int => $a->x() <=> $b->x());
+        usort($points, fn (PointInterface $a, PointInterface $b): int => $a->x() <=> $b->x());
 
         return $points[0];
     }
@@ -194,7 +194,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, fn(PointInterface $a, PointInterface $b): int => $b->x() <=> $a->x());
+        usort($points, fn (PointInterface $a, PointInterface $b): int => $b->x() <=> $a->x());
 
         return $points[0];
     }
@@ -206,7 +206,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, fn(PointInterface $a, PointInterface $b): int => $b->y() <=> $a->y());
+        usort($points, fn (PointInterface $a, PointInterface $b): int => $b->y() <=> $a->y());
 
         return $points[0];
     }
@@ -218,7 +218,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, fn(PointInterface $a, PointInterface $b): int => $a->y() <=> $b->y());
+        usort($points, fn (PointInterface $a, PointInterface $b): int => $a->y() <=> $b->y());
 
         return $points[0];
     }

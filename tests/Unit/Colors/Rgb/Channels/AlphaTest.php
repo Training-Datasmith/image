@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Colors\Rgb\Channels;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Rgb\Channels\Alpha;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Alpha::class)]
 final class AlphaTest extends BaseTestCase

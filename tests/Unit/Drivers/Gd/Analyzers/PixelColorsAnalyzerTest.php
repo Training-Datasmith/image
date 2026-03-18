@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Analyzers;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Collection;
 use Intervention\Image\Drivers\Gd\Analyzers\PixelColorsAnalyzer;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Tests\GdTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(PixelColorsAnalyzer::class)]
@@ -23,8 +23,8 @@ final class PixelColorsAnalyzerTest extends GdTestCase
         $analyzer->setDriver(new Driver());
         $result = $analyzer->analyze($image);
         $this->assertInstanceOf(Collection::class, $result);
-        $colors = array_map(fn(ColorInterface $color) => $color->toHex(), $result->toArray());
-        $this->assertEquals($colors, ["394b63", "394b63", "394b63", "ffa601", "ffa601", "ffa601", "ffa601", "394b63"]);
+        $colors = array_map(fn (ColorInterface $color) => $color->toHex(), $result->toArray());
+        $this->assertEquals($colors, ['394b63', '394b63', '394b63', 'ffa601', 'ffa601', 'ffa601', 'ffa601', '394b63']);
     }
 
     public function testAnalyzeNonAnimated(): void

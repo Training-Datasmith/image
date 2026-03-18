@@ -7,10 +7,10 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Encoders;
 use Intervention\Image\Drivers\Imagick\Decoders\FilePointerImageDecoder;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Drivers\Imagick\Encoders\JpegEncoder;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Tests\ImagickTestCase;
 use Intervention\Image\Tests\Traits\CanDetectProgressiveJpeg;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(JpegEncoder::class)]

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Decoders;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Drivers\Gd\Decoders\DataUriImageDecoder;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Image;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use stdClass;
 
 #[RequiresPhpExtension('gd')]

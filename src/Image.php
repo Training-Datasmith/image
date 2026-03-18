@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Intervention\Image;
 
 use Closure;
-use Intervention\Image\Exceptions\RuntimeException;
-use Traversable;
 use Intervention\Image\Analyzers\ColorspaceAnalyzer;
 use Intervention\Image\Analyzers\HeightAnalyzer;
 use Intervention\Image\Analyzers\PixelColorAnalyzer;
@@ -28,6 +26,7 @@ use Intervention\Image\Encoders\PngEncoder;
 use Intervention\Image\Encoders\TiffEncoder;
 use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\Exceptions\EncoderException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Geometry\Bezier;
 use Intervention\Image\Geometry\Circle;
 use Intervention\Image\Geometry\Ellipse;
@@ -64,6 +63,8 @@ use Intervention\Image\Modifiers\ColorizeModifier;
 use Intervention\Image\Modifiers\ColorspaceModifier;
 use Intervention\Image\Modifiers\ContainModifier;
 use Intervention\Image\Modifiers\ContrastModifier;
+use Intervention\Image\Modifiers\CoverDownModifier;
+use Intervention\Image\Modifiers\CoverModifier;
 use Intervention\Image\Modifiers\CropModifier;
 use Intervention\Image\Modifiers\DrawBezierModifier;
 use Intervention\Image\Modifiers\DrawEllipseModifier;
@@ -72,8 +73,6 @@ use Intervention\Image\Modifiers\DrawPixelModifier;
 use Intervention\Image\Modifiers\DrawPolygonModifier;
 use Intervention\Image\Modifiers\DrawRectangleModifier;
 use Intervention\Image\Modifiers\FillModifier;
-use Intervention\Image\Modifiers\CoverDownModifier;
-use Intervention\Image\Modifiers\CoverModifier;
 use Intervention\Image\Modifiers\FlipModifier;
 use Intervention\Image\Modifiers\FlopModifier;
 use Intervention\Image\Modifiers\GammaModifier;
@@ -99,6 +98,7 @@ use Intervention\Image\Modifiers\SliceAnimationModifier;
 use Intervention\Image\Modifiers\TextModifier;
 use Intervention\Image\Modifiers\TrimModifier;
 use Intervention\Image\Typography\FontFactory;
+use Traversable;
 
 final class Image implements ImageInterface
 {

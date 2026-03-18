@@ -39,7 +39,7 @@ abstract class AbstractColor implements ColorInterface, Stringable
     {
         $channels = array_filter(
             $this->channels(),
-            fn(ColorChannelInterface $channel): bool => $channel::class === $classname,
+            fn (ColorChannelInterface $channel): bool => $channel::class === $classname,
         );
 
         if (count($channels) == 0) {
@@ -57,7 +57,7 @@ abstract class AbstractColor implements ColorInterface, Stringable
     public function normalize(): array
     {
         return array_map(
-            fn(ColorChannelInterface $channel): float => $channel->normalize(),
+            fn (ColorChannelInterface $channel): float => $channel->normalize(),
             $this->channels(),
         );
     }
@@ -70,7 +70,7 @@ abstract class AbstractColor implements ColorInterface, Stringable
     public function toArray(): array
     {
         return array_map(
-            fn(ColorChannelInterface $channel): int => $channel->value(),
+            fn (ColorChannelInterface $channel): int => $channel->value(),
             $this->channels()
         );
     }

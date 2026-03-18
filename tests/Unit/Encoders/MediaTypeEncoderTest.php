@@ -30,8 +30,7 @@ final class MediaTypeEncoderTest extends BaseTestCase
      */
     private function testEncoder(string|MediaType $mediaType, array $options = []): EncoderInterface
     {
-        $encoder = new class ($mediaType, ...$options) extends MediaTypeEncoder
-        {
+        $encoder = new class ($mediaType, ...$options) extends MediaTypeEncoder {
             public function __construct(string|MediaType $mediaType, mixed ...$options)
             {
                 parent::__construct($mediaType, ...$options);

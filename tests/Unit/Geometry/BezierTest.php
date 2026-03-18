@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Geometry;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Bezier;
+use Intervention\Image\Geometry\Point;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Bezier::class)]
 final class BezierTest extends BaseTestCase
@@ -25,7 +25,7 @@ final class BezierTest extends BaseTestCase
             new Point(),
             new Point(),
             new Point(),
-            new Point()
+            new Point(),
         ]);
         $this->assertEquals(4, $bezier->count());
     }
@@ -36,7 +36,7 @@ final class BezierTest extends BaseTestCase
             new Point(),
             new Point(),
             new Point(),
-            new Point()
+            new Point(),
         ]);
         $this->assertInstanceOf(Point::class, $bezier[0]);
         $this->assertInstanceOf(Point::class, $bezier[1]);
@@ -48,7 +48,7 @@ final class BezierTest extends BaseTestCase
     {
         $bezier = new Bezier([
             new Point(),
-            new Point()
+            new Point(),
         ]);
         $this->assertEquals(2, $bezier->count());
         $result = $bezier->addPoint(new Point());

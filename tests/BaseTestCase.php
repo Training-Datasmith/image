@@ -55,7 +55,7 @@ abstract class BaseTestCase extends MockeryTestCase
                 'Failed asserting that color',
                 $color,
                 'equals',
-                'rgba(' . $r . ', ' . $g . ', ' . $b . ', ' . $a . ')'
+                'rgba(' . $r . ', ' . $g . ', ' . $b . ', ' . $a . ')',
             ]);
         };
 

@@ -54,7 +54,7 @@ trait CanBeDriverSpecialized
     {
         if (!$this->belongsToDriver($driver)) {
             throw new DriverException(
-                "Class '" . $this::class . "' can not be used with " . $driver->id() . " driver."
+                "Class '" . $this::class . "' can not be used with " . $driver->id() . ' driver.'
             );
         }
 
@@ -68,7 +68,7 @@ trait CanBeDriverSpecialized
      */
     protected function belongsToDriver(object $driver): bool
     {
-        $namespace = (fn(object $object): string => (new ReflectionClass($object))->getNamespaceName());
+        $namespace = (fn (object $object): string => (new ReflectionClass($object))->getNamespaceName());
 
         return str_starts_with($namespace($this), $namespace($driver));
     }

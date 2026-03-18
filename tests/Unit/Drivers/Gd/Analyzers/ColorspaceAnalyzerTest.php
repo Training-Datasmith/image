@@ -6,10 +6,10 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Analyzers;
 
 use Intervention\Image\Drivers\Gd\Analyzers\ColorspaceAnalyzer;
 use Intervention\Image\Drivers\Gd\Driver;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Interfaces\ColorspaceInterface;
 use Intervention\Image\Tests\GdTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(ColorspaceAnalyzer::class)]

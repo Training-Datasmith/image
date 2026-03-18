@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Colors\Rgb\Decoders;
 
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Rgb\Color;
 use Intervention\Image\Colors\Rgb\Decoders\HexColorDecoder;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(HexColorDecoder::class)]
@@ -31,7 +31,7 @@ final class HexColorDecoderTest extends BaseTestCase
         yield [
             'ccc',
             Color::class,
-            [204, 204, 204, 255]
+            [204, 204, 204, 255],
         ];
         yield [
             'ccff33',

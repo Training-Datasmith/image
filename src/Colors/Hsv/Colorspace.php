@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Intervention\Image\Colors\Hsv;
 
 use Intervention\Image\Colors\Cmyk\Color as CmykColor;
-use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Colors\Hsl\Color as HslColor;
+use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\ColorChannelInterface;
@@ -23,7 +23,7 @@ class Colorspace implements ColorspaceInterface
     public static array $channels = [
         Channels\Hue::class,
         Channels\Saturation::class,
-        Channels\Value::class
+        Channels\Value::class,
     ];
 
     /**
@@ -34,7 +34,7 @@ class Colorspace implements ColorspaceInterface
     public function colorFromNormalized(array $normalized): ColorInterface
     {
         return new Color(...array_map(
-            fn(string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
+            fn (string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
             self::$channels,
             $normalized
         ));
@@ -63,7 +63,7 @@ class Colorspace implements ColorspaceInterface
         }
 
         // normalized values of rgb channels
-        $values = array_map(fn(ColorChannelInterface $channel): float => $channel->normalize(), $color->channels());
+        $values = array_map(fn (ColorChannelInterface $channel): float => $channel->normalize(), $color->channels());
 
         // take only RGB
         $values = array_slice($values, 0, 3);
@@ -110,7 +110,7 @@ class Colorspace implements ColorspaceInterface
 
         // normalized values of hsl channels
         [$h, $s, $l] = array_map(
-            fn(ColorChannelInterface $channel): float => $channel->normalize(),
+            fn (ColorChannelInterface $channel): float => $channel->normalize(),
             $color->channels()
         );
 

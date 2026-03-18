@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Decoders\BinaryImageDecoder;
 use Intervention\Image\Decoders\FilePathImageDecoder;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[CoversClass(ImageManager::class)]
 #[RequiresPhpExtension('gd')]

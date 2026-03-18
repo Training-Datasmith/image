@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Modifiers;
 
+use Intervention\Image\Colors\Rgb\Color;
+use Intervention\Image\Geometry\Point;
+use Intervention\Image\Modifiers\FillModifier;
+use Intervention\Image\Tests\GdTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Colors\Rgb\Color;
-use Intervention\Image\Modifiers\FillModifier;
-use Intervention\Image\Geometry\Point;
-use Intervention\Image\Tests\GdTestCase;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(\Intervention\Image\Modifiers\FillModifier::class)]

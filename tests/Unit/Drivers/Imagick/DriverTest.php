@@ -6,16 +6,15 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick;
 
 use Generator;
 use Intervention\Image\Analyzers\WidthAnalyzer as GenericWidthAnalyzer;
-use Intervention\Image\Decoders\FilePathImageDecoder as GenericFilePathImageDecoder;
-use Intervention\Image\Encoders\PngEncoder as GenericPngEncoder;
-use Intervention\Image\Modifiers\ResizeModifier as GenericResizeModifier;
 use Intervention\Image\Colors\Rgb\Colorspace;
 use Intervention\Image\Colors\Rgb\Decoders\HexColorDecoder;
+use Intervention\Image\Decoders\FilePathImageDecoder as GenericFilePathImageDecoder;
 use Intervention\Image\Drivers\Imagick\Analyzers\WidthAnalyzer;
 use Intervention\Image\Drivers\Imagick\Decoders\FilePathImageDecoder;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Drivers\Imagick\Encoders\PngEncoder;
 use Intervention\Image\Drivers\Imagick\Modifiers\ResizeModifier;
+use Intervention\Image\Encoders\PngEncoder as GenericPngEncoder;
 use Intervention\Image\Exceptions\NotSupportedException;
 use Intervention\Image\FileExtension;
 use Intervention\Image\Format;
@@ -26,6 +25,7 @@ use Intervention\Image\Interfaces\DriverInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializableInterface;
 use Intervention\Image\MediaType;
+use Intervention\Image\Modifiers\ResizeModifier as GenericResizeModifier;
 use Intervention\Image\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -84,7 +84,7 @@ final class DriverTest extends BaseTestCase
     public function testHandleInputObjects(): void
     {
         $result = $this->driver->handleInput('ffffff', [
-            new HexColorDecoder()
+            new HexColorDecoder(),
         ]);
         $this->assertInstanceOf(ColorInterface::class, $result);
     }
@@ -92,7 +92,7 @@ final class DriverTest extends BaseTestCase
     public function testHandleInputClassnames(): void
     {
         $result = $this->driver->handleInput('ffffff', [
-            HexColorDecoder::class
+            HexColorDecoder::class,
         ]);
         $this->assertInstanceOf(ColorInterface::class, $result);
     }
@@ -248,8 +248,7 @@ final class DriverTest extends BaseTestCase
     public function testSpecializeFailure(): void
     {
         $this->expectException(NotSupportedException::class);
-        $this->driver->specialize(new class () implements AnalyzerInterface, SpecializableInterface
-        {
+        $this->driver->specialize(new class () implements AnalyzerInterface, SpecializableInterface {
             protected DriverInterface $driver;
 
             public function analyze(ImageInterface $image): mixed

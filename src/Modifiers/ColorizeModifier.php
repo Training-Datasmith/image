@@ -16,6 +16,6 @@ class ColorizeModifier extends SpecializableModifier
         public int $green = 0,
         public int $blue = 0
     ) {
-        //
+
     }
 }

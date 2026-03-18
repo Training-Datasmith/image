@@ -7,8 +7,8 @@ namespace Intervention\Image\Drivers\Gd;
 use Intervention\Image\Drivers\AbstractDriver;
 use Intervention\Image\Exceptions\DriverException;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Format;
 use Intervention\Image\FileExtension;
+use Intervention\Image\Format;
 use Intervention\Image\Image;
 use Intervention\Image\Interfaces\ColorProcessorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
@@ -63,7 +63,7 @@ class Driver extends AbstractDriver
         return new Image(
             $this,
             new Core([
-                new Frame($data)
+                new Frame($data),
             ])
         );
     }
@@ -77,13 +77,12 @@ class Driver extends AbstractDriver
      */
     public function createAnimation(callable $init): ImageInterface
     {
-        $animation = new class ($this)
-        {
+        $animation = new class ($this) {
             public function __construct(
                 protected DriverInterface $driver,
                 public Core $core = new Core()
             ) {
-                //
+
             }
 
             /**

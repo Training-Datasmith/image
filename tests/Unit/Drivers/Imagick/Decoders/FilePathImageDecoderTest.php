@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Decoders;
 
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Drivers\Imagick\Decoders\FilePathImageDecoder;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Image;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(FilePathImageDecoder::class)]

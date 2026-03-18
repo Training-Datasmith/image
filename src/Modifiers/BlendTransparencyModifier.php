@@ -21,7 +21,7 @@ class BlendTransparencyModifier extends SpecializableModifier
      */
     public function __construct(public mixed $color = null)
     {
-        //
+
     }
 
     /**

@@ -6,9 +6,9 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Encoders;
 
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Drivers\Imagick\Encoders\HeicEncoder;
+use Intervention\Image\Tests\ImagickTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\ImagickTestCase;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(HeicEncoder::class)]

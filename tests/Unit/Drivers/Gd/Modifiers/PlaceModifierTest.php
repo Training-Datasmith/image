@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Modifiers;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
+use Intervention\Image\Drivers\Gd\Modifiers\PlaceModifier as PlaceModifierGd;
 use Intervention\Image\Modifiers\PlaceModifier;
 use Intervention\Image\Tests\GdTestCase;
-use Intervention\Image\Drivers\Gd\Modifiers\PlaceModifier as PlaceModifierGd;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(PlaceModifier::class)]

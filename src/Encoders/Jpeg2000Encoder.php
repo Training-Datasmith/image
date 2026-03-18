@@ -17,6 +17,6 @@ class Jpeg2000Encoder extends SpecializableEncoder
         public int $quality = self::DEFAULT_QUALITY,
         public ?bool $strip = null
     ) {
-        //
+
     }
 }

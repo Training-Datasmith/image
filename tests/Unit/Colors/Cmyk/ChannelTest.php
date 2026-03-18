@@ -30,16 +30,16 @@ final class ChannelTest extends BaseTestCase
         $this->assertInstanceOf(Cyan::class, $channel);
 
         $this->expectException(ColorException::class);
-         new Cyan();
+        new Cyan();
 
         $this->expectException(ColorException::class);
-         new Cyan(normalized: 2);
+        new Cyan(normalized: 2);
     }
 
     public function testConstructorFail(): void
     {
         $this->expectException(ColorException::class);
-         new Cyan(200);
+        new Cyan(200);
     }
 
     public function testToInt(): void
@@ -51,8 +51,8 @@ final class ChannelTest extends BaseTestCase
     public function testToString(): void
     {
         $channel = new Cyan(10);
-        $this->assertEquals("10", $channel->toString());
-        $this->assertEquals("10", (string) $channel);
+        $this->assertEquals('10', $channel->toString());
+        $this->assertEquals('10', (string) $channel);
     }
 
     public function testValue(): void
@@ -74,9 +74,9 @@ final class ChannelTest extends BaseTestCase
     public function testValidate(): void
     {
         $this->expectException(ColorException::class);
-         new Cyan(101);
+        new Cyan(101);
 
         $this->expectException(ColorException::class);
-         new Cyan(-1);
+        new Cyan(-1);
     }
 }

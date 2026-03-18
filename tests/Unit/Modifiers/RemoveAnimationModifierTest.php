@@ -18,8 +18,7 @@ final class RemoveAnimationModifierTest extends BaseTestCase
     #[DataProvider('normalizePositionProvider')]
     public function testNormalizePosition(int|string $position, int $frames, int $normalized): void
     {
-        $modifier = new class ($position) extends RemoveAnimationModifier
-        {
+        $modifier = new class ($position) extends RemoveAnimationModifier {
             public function testResult(int $frames): int
             {
                 $image = Mockery::mock(ImageInterface::class)->makePartial();

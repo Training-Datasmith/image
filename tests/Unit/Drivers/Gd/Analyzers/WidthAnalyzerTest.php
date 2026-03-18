@@ -6,9 +6,9 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Analyzers;
 
 use Intervention\Image\Drivers\Gd\Analyzers\WidthAnalyzer;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Tests\GdTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\GdTestCase;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(WidthAnalyzer::class)]

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Modifiers;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
+use Intervention\Image\Drivers\Imagick\Modifiers\PlaceModifier as PlaceModifierImagick;
 use Intervention\Image\Modifiers\PlaceModifier;
 use Intervention\Image\Tests\ImagickTestCase;
-use Intervention\Image\Drivers\Imagick\Modifiers\PlaceModifier as PlaceModifierImagick;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(PlaceModifier::class)]

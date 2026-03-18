@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Colors\Cmyk;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Cmyk\Channels\Cyan;
 use Intervention\Image\Colors\Cmyk\Channels\Key;
 use Intervention\Image\Colors\Cmyk\Channels\Magenta;
@@ -13,6 +12,7 @@ use Intervention\Image\Colors\Cmyk\Color;
 use Intervention\Image\Colors\Cmyk\Colorspace;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Color::class)]
 final class ColorTest extends BaseTestCase

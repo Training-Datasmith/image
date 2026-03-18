@@ -10,6 +10,6 @@ class BmpEncoder extends SpecializableEncoder
 {
     public function __construct()
     {
-        //
+
     }
 }

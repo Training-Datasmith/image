@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Decoders;
 
+use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Exceptions\RuntimeException;
+use Intervention\Image\Format;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\DecoderInterface;
 use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Format;
 use Intervention\Image\Modifiers\AlignRotationModifier;
 
 class BinaryImageDecoder extends NativeObjectDecoder implements DecoderInterface

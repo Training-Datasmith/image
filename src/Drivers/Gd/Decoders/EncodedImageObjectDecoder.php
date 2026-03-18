@@ -6,8 +6,8 @@ namespace Intervention\Image\Drivers\Gd\Decoders;
 
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ColorInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class EncodedImageObjectDecoder extends BinaryImageDecoder
 {

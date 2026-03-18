@@ -30,8 +30,7 @@ final class FileExtensionEncoderTest extends BaseTestCase
      */
     private function testEncoder(string|FileExtension $extension, array $options = []): EncoderInterface
     {
-        $encoder = new class ($extension, ...$options) extends FileExtensionEncoder
-        {
+        $encoder = new class ($extension, ...$options) extends FileExtensionEncoder {
             public function __construct(string|FileExtension $extension, mixed ...$options)
             {
                 parent::__construct($extension, ...$options);

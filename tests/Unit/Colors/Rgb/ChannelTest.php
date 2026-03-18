@@ -6,11 +6,11 @@ namespace Intervention\Image\Tests\Unit\Colors\Rgb;
 
 use Intervention\Image\Colors\Rgb\Channels\Blue;
 use Intervention\Image\Colors\Rgb\Channels\Green;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Intervention\Image\Colors\Rgb\Channels\Red as Channel;
 use Intervention\Image\Colors\Rgb\Channels\Red;
+use Intervention\Image\Colors\Rgb\Channels\Red as Channel;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Red::class)]
 #[CoversClass(Green::class)]
@@ -50,8 +50,8 @@ final class ChannelTest extends BaseTestCase
     public function testToString(): void
     {
         $channel = new Channel(10);
-        $this->assertEquals("10", $channel->toString());
-        $this->assertEquals("10", (string) $channel);
+        $this->assertEquals('10', $channel->toString());
+        $this->assertEquals('10', (string) $channel);
     }
 
     public function testValue(): void

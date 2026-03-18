@@ -20,7 +20,7 @@ class CoverModifier extends SpecializableModifier
         public int $height,
         public string $position = 'center'
     ) {
-        //
+
     }
 
     /**

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Exception;
 use Intervention\Image\Drivers\AbstractDecoder;
 use Intervention\Image\Interfaces\CollectionInterface;
@@ -12,6 +11,7 @@ use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Tests\BaseTestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\CoversClass;
 use stdClass;
 
 #[CoversClass(AbstractDecoder::class)]
@@ -55,8 +55,7 @@ final class AbstractDecoderTest extends BaseTestCase
 
     public function testParseDataUri(): void
     {
-        $decoder = new class () extends AbstractDecoder
-        {
+        $decoder = new class () extends AbstractDecoder {
             public function parse(mixed $input): object
             {
                 return parent::parseDataUri($input);
@@ -98,8 +97,7 @@ final class AbstractDecoderTest extends BaseTestCase
 
     public function testIsValidBase64(): void
     {
-        $decoder = new class () extends AbstractDecoder
-        {
+        $decoder = new class () extends AbstractDecoder {
             public function isValid(mixed $input): bool
             {
                 return parent::isValidBase64($input);

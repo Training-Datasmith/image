@@ -6,10 +6,10 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Encoders;
 
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Drivers\Gd\Encoders\JpegEncoder;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Tests\GdTestCase;
 use Intervention\Image\Tests\Traits\CanDetectProgressiveJpeg;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(JpegEncoder::class)]

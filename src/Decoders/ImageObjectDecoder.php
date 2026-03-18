@@ -6,8 +6,8 @@ namespace Intervention\Image\Decoders;
 
 use Intervention\Image\Drivers\AbstractDecoder;
 use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ColorInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class ImageObjectDecoder extends AbstractDecoder
 {

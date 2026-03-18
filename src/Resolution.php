@@ -26,7 +26,7 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
         protected float $y,
         protected int $per_unit = self::PER_INCH
     ) {
-        //
+
     }
 
     /**
@@ -147,7 +147,7 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
      */
     public function toString(): string
     {
-        return sprintf("%1\$.2f x %2\$.2f %3\$s", $this->x, $this->y, $this->unit());
+        return sprintf('%1$.2f x %2$.2f %3$s', $this->x, $this->y, $this->unit());
     }
 
     /**

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors\Cmyk;
 
-use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Colors\Cmyk\Color as CmykColor;
-use Intervention\Image\Colors\Hsv\Color as HsvColor;
 use Intervention\Image\Colors\Hsl\Color as HslColor;
+use Intervention\Image\Colors\Hsv\Color as HsvColor;
+use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\ColorInterface;
@@ -24,7 +24,7 @@ class Colorspace implements ColorspaceInterface
         Channels\Cyan::class,
         Channels\Magenta::class,
         Channels\Yellow::class,
-        Channels\Key::class
+        Channels\Key::class,
     ];
 
     /**
@@ -35,7 +35,7 @@ class Colorspace implements ColorspaceInterface
     public function colorFromNormalized(array $normalized): ColorInterface
     {
         return new Color(...array_map(
-            fn(string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
+            fn (string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
             self::$channels,
             $normalized,
         ));

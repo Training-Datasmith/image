@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Modifiers;
 
 use Intervention\Image\Exceptions\NotSupportedException;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Modifiers\TrimModifier;
 use Intervention\Image\Tests\ImagickTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(\Intervention\Image\Modifiers\TrimModifier::class)]

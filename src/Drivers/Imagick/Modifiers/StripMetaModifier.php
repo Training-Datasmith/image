@@ -27,7 +27,7 @@ class StripMetaModifier implements ModifierInterface, SpecializedInterface
 
         if ($profiles !== []) {
             // re-apply icc profiles
-            $image->core()->native()->profileImage("icc", $profiles['icc']);
+            $image->core()->native()->profileImage('icc', $profiles['icc']);
         }
         return $image;
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(EncodedImage::class)]
 final class EncodedImageTest extends BaseTestCase

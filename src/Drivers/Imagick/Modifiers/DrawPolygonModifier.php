@@ -6,10 +6,10 @@ namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
 use ImagickDraw;
 use ImagickPixel;
-use RuntimeException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\DrawPolygonModifier as GenericDrawPolygonModifier;
+use RuntimeException;
 
 class DrawPolygonModifier extends GenericDrawPolygonModifier implements SpecializedInterface
 {

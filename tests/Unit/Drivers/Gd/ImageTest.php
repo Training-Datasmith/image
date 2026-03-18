@@ -43,7 +43,7 @@ final class ImageTest extends GdTestCase
                 new Frame(imagecreatetruecolor(3, 2)),
             ]),
             new Collection([
-                'test' => 'foo'
+                'test' => 'foo',
             ]),
         );
     }

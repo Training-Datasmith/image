@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Intervention\Image;
 
-use Intervention\Image\Interfaces\CollectionInterface;
 use ArrayIterator;
 use Countable;
-use Traversable;
+use Intervention\Image\Interfaces\CollectionInterface;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * @implements IteratorAggregate<int|string, mixed>
@@ -22,7 +22,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      */
     public function __construct(protected array $items = [])
     {
-        //
+
     }
 
     /**
@@ -171,7 +171,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
 
         return new self(
             array_map(
-                fn(mixed $item) => $callback($item),
+                fn (mixed $item) => $callback($item),
                 $this->items,
             )
         );
@@ -185,7 +185,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
         return new self(
             array_filter(
                 $this->items,
-                fn(mixed $item) => $callback($item),
+                fn (mixed $item) => $callback($item),
             )
         );
     }

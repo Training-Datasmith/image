@@ -6,9 +6,9 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Encoders;
 
 use Intervention\Gif\Decoder;
 use Intervention\Image\Drivers\Gd\Encoders\GifEncoder;
+use Intervention\Image\Tests\GdTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\GdTestCase;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(GifEncoder::class)]

@@ -8,8 +8,8 @@ use Imagick;
 use Intervention\Image\Drivers\Imagick\Modifiers\StripMetaModifier;
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Encoders\Jpeg2000Encoder as GenericJpeg2000Encoder;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\EncodedImageInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 
 class Jpeg2000Encoder extends GenericJpeg2000Encoder implements SpecializedInterface

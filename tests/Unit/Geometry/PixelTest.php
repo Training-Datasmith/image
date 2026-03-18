@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Geometry;
 
 use Intervention\Image\Colors\Rgb\Color;
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Geometry\Pixel;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Pixel::class)]
 final class PixelTest extends BaseTestCase

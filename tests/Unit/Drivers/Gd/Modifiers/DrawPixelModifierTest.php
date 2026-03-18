@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Modifiers;
 
+use Intervention\Image\Geometry\Point;
+use Intervention\Image\Modifiers\DrawPixelModifier;
+use Intervention\Image\Tests\GdTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Modifiers\DrawPixelModifier;
-use Intervention\Image\Geometry\Point;
-use Intervention\Image\Tests\GdTestCase;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(\Intervention\Image\Modifiers\DrawPixelModifier::class)]

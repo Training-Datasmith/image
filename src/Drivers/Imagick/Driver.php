@@ -10,8 +10,8 @@ use Intervention\Image\Drivers\AbstractDriver;
 use Intervention\Image\Exceptions\DriverException;
 use Intervention\Image\Exceptions\NotSupportedException;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Format;
 use Intervention\Image\FileExtension;
+use Intervention\Image\Format;
 use Intervention\Image\Image;
 use Intervention\Image\Interfaces\ColorProcessorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
@@ -80,13 +80,12 @@ class Driver extends AbstractDriver
         $imagick = new Imagick();
         $imagick->setFormat('gif');
 
-        $animation = new class ($this, $imagick)
-        {
+        $animation = new class ($this, $imagick) {
             public function __construct(
                 protected DriverInterface $driver,
                 public Imagick $imagick
             ) {
-                //
+
             }
 
             /**

@@ -23,7 +23,7 @@ class CropModifier extends SpecializableModifier
         public mixed $background = 'ffffff',
         public string $position = 'top-left'
     ) {
-        //
+
     }
 
     /**

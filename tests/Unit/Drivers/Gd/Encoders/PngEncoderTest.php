@@ -6,12 +6,12 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Encoders;
 
 use Generator;
 use Intervention\Image\Drivers\Gd\Encoders\PngEncoder;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Tests\GdTestCase;
 use Intervention\Image\Tests\Traits\CanInspectPngFormat;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(PngEncoder::class)]

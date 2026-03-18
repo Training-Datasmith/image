@@ -84,7 +84,7 @@ final class DriverTest extends BaseTestCase
     public function testHandleInputObjects(): void
     {
         $result = $this->driver->handleInput('ffffff', [
-            new HexColorDecoder()
+            new HexColorDecoder(),
         ]);
         $this->assertInstanceOf(ColorInterface::class, $result);
     }
@@ -92,7 +92,7 @@ final class DriverTest extends BaseTestCase
     public function testHandleInputClassnames(): void
     {
         $result = $this->driver->handleInput('ffffff', [
-            HexColorDecoder::class
+            HexColorDecoder::class,
         ]);
         $this->assertInstanceOf(ColorInterface::class, $result);
     }
@@ -248,8 +248,7 @@ final class DriverTest extends BaseTestCase
     public function testSpecializeFailure(): void
     {
         $this->expectException(NotSupportedException::class);
-        $this->driver->specialize(new class () implements AnalyzerInterface, SpecializableInterface
-        {
+        $this->driver->specialize(new class () implements AnalyzerInterface, SpecializableInterface {
             protected DriverInterface $driver;
 
             public function analyze(ImageInterface $image): mixed

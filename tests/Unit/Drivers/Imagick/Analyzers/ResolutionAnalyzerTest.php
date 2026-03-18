@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Analyzers;
 
 use Intervention\Image\Drivers\Imagick\Analyzers\ResolutionAnalyzer;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Resolution;
 use Intervention\Image\Tests\ImagickTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(ResolutionAnalyzer::class)]

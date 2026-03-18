@@ -7,12 +7,12 @@ namespace Intervention\Image\Geometry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use Traversable;
-use IteratorAggregate;
 use Intervention\Image\Geometry\Traits\HasBackgroundColor;
 use Intervention\Image\Geometry\Traits\HasBorder;
 use Intervention\Image\Interfaces\DrawableInterface;
 use Intervention\Image\Interfaces\PointInterface;
+use IteratorAggregate;
+use Traversable;
 
 /**
  * @implements IteratorAggregate<PointInterface>
@@ -32,7 +32,7 @@ class Bezier implements IteratorAggregate, Countable, ArrayAccess, DrawableInter
         protected array $points = [],
         protected PointInterface $pivot = new Point()
     ) {
-        //
+
     }
 
     /**

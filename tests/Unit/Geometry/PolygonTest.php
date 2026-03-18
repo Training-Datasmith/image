@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Geometry;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Polygon;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Polygon::class)]
 final class PolygonTest extends BaseTestCase
@@ -396,7 +396,7 @@ final class PolygonTest extends BaseTestCase
     {
         $poly = new Polygon([
             new Point(10, 20),
-            new Point(30, 40)
+            new Point(30, 40),
         ]);
 
         $result = $poly->movePointsX(100);

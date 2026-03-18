@@ -22,7 +22,7 @@ class TextModifier extends SpecializableModifier
         public PointInterface $position,
         public FontInterface $font
     ) {
-        //
+
     }
 
     /**

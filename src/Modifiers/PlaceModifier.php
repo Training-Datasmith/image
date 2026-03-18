@@ -21,7 +21,7 @@ class PlaceModifier extends SpecializableModifier
         public int $offset_y = 0,
         public int $opacity = 100
     ) {
-        //
+
     }
 
     /**

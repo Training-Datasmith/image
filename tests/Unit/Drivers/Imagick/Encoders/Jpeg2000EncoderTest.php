@@ -6,9 +6,9 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Encoders;
 
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Drivers\Imagick\Encoders\Jpeg2000Encoder;
+use Intervention\Image\Tests\ImagickTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\ImagickTestCase;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(Jpeg2000Encoder::class)]

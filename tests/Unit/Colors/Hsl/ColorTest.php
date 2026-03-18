@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Colors\Hsl;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Hsl\Channels\Hue;
 use Intervention\Image\Colors\Hsl\Channels\Luminance;
 use Intervention\Image\Colors\Hsl\Channels\Saturation;
@@ -12,6 +11,7 @@ use Intervention\Image\Colors\Hsl\Color;
 use Intervention\Image\Colors\Hsl\Colorspace;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Color::class)]
 final class ColorTest extends BaseTestCase

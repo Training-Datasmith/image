@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Colors\Hsv;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Cmyk\Color as CmykColor;
+use Intervention\Image\Colors\Hsl\Color as HslColor;
 use Intervention\Image\Colors\Hsv\Channels\Hue;
 use Intervention\Image\Colors\Hsv\Channels\Saturation;
 use Intervention\Image\Colors\Hsv\Channels\Value;
 use Intervention\Image\Colors\Hsv\Color as HsvColor;
-use Intervention\Image\Colors\Rgb\Color as RgbColor;
-use Intervention\Image\Colors\Hsl\Color as HslColor;
 use Intervention\Image\Colors\Hsv\Colorspace;
+use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Colorspace::class)]
 final class ColorspaceTest extends BaseTestCase

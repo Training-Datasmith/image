@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Encoders;
 
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\EncodedImageInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class FilePathEncoder extends FileExtensionEncoder
 {

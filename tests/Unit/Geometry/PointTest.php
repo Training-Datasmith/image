@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Geometry;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Point::class)]
 final class PointTest extends BaseTestCase

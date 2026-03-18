@@ -18,6 +18,6 @@ class JpegEncoder extends SpecializableEncoder
         public bool $progressive = false,
         public ?bool $strip = null
     ) {
-        //
+
     }
 }

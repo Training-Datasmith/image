@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Colors\Hsv;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Hsv\Channels\Hue;
 use Intervention\Image\Colors\Hsv\Channels\Saturation;
 use Intervention\Image\Colors\Hsv\Channels\Value;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Hue::class)]
 #[CoversClass(Saturation::class)]
@@ -49,8 +49,8 @@ final class ChannelTest extends BaseTestCase
     public function testToString(): void
     {
         $channel = new Hue(10);
-        $this->assertEquals("10", $channel->toString());
-        $this->assertEquals("10", (string) $channel);
+        $this->assertEquals('10', $channel->toString());
+        $this->assertEquals('10', (string) $channel);
     }
 
     public function testValue(): void

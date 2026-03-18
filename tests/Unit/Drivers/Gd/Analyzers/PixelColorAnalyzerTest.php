@@ -6,10 +6,10 @@ namespace Intervention\Image\Tests\Unit\Drivers\Gd\Analyzers;
 
 use Intervention\Image\Drivers\Gd\Analyzers\PixelColorAnalyzer;
 use Intervention\Image\Drivers\Gd\Driver;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Tests\GdTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(PixelColorAnalyzer::class)]

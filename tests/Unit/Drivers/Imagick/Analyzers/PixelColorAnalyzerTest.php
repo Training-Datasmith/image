@@ -6,10 +6,10 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Analyzers;
 
 use Intervention\Image\Drivers\Imagick\Analyzers\PixelColorAnalyzer;
 use Intervention\Image\Drivers\Imagick\Driver;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Tests\ImagickTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(PixelColorAnalyzer::class)]

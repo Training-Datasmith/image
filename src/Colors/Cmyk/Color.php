@@ -6,9 +6,9 @@ namespace Intervention\Image\Colors\Cmyk;
 
 use Intervention\Image\Colors\AbstractColor;
 use Intervention\Image\Colors\Cmyk\Channels\Cyan;
+use Intervention\Image\Colors\Cmyk\Channels\Key;
 use Intervention\Image\Colors\Cmyk\Channels\Magenta;
 use Intervention\Image\Colors\Cmyk\Channels\Yellow;
-use Intervention\Image\Colors\Cmyk\Channels\Key;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\InputHandler;
 use Intervention\Image\Interfaces\ColorChannelInterface;

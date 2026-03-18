@@ -13,6 +13,6 @@ class TrimModifier extends SpecializableModifier
      */
     public function __construct(public int $tolerance = 0)
     {
-        //
+
     }
 }

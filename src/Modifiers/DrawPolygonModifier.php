@@ -11,7 +11,7 @@ class DrawPolygonModifier extends AbstractDrawModifier
 {
     public function __construct(public Polygon $drawable)
     {
-        //
+
     }
 
     public function drawable(): DrawableInterface

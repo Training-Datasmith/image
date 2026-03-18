@@ -6,12 +6,12 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Decoders;
 
 use Imagick;
 use ImagickPixel;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Drivers\Imagick\Decoders\NativeObjectDecoder;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Intervention\Image\Image;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(NativeObjectDecoder::class)]

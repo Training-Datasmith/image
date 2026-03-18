@@ -17,7 +17,7 @@ class Config
         public mixed $blendingColor = 'ffffff',
         public bool $strip = false,
     ) {
-        //
+
     }
 
     /**

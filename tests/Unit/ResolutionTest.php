@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Resolution;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Resolution::class)]
 final class ResolutionTest extends BaseTestCase

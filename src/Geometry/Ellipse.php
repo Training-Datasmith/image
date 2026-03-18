@@ -22,7 +22,7 @@ class Ellipse implements DrawableInterface
         protected int $height,
         protected PointInterface $pivot = new Point()
     ) {
-        //
+
     }
 
     /**

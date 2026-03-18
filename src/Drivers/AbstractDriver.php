@@ -76,7 +76,7 @@ abstract class AbstractDriver implements DriverInterface
         }
 
         // resolve classname for specializable object
-        $specialized_classname = implode("\\", [
+        $specialized_classname = implode('\\', [
             (new ReflectionClass($this))->getNamespaceName(), // driver's namespace
             match (true) {
                 $object instanceof ModifierInterface => 'Modifiers',
@@ -90,7 +90,7 @@ abstract class AbstractDriver implements DriverInterface
         // fail if driver specialized classname does not exists
         if (!class_exists($specialized_classname)) {
             throw new NotSupportedException(
-                "Class '" . $object_shortname . "' is not supported by " . $this->id() . " driver."
+                "Class '" . $object_shortname . "' is not supported by " . $this->id() . ' driver.'
             );
         }
 
@@ -112,7 +112,7 @@ abstract class AbstractDriver implements DriverInterface
     public function specializeMultiple(array $objects): array
     {
         return array_map(
-            fn(string|object $object): ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface => $this->specialize(
+            fn (string|object $object): ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface => $this->specialize(
                 match (true) {
                     is_string($object) => new $object(),
                     is_object($object) => $object,

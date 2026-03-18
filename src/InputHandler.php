@@ -65,7 +65,7 @@ class InputHandler implements InputHandlerInterface
     public function __construct(array $decoders = [], /**
      * Driver with which the decoder classes are specialized
      */
-    protected ?DriverInterface $driver = null)
+        protected ?DriverInterface $driver = null)
     {
         $this->decoders = count($decoders) ? $decoders : $this->decoders;
     }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Colors\Rgb\Decoders;
 
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Colors\Rgb\Color;
 use Intervention\Image\Colors\Rgb\Decoders\HtmlColornameDecoder;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 #[CoversClass(HtmlColorNameDecoder::class)]

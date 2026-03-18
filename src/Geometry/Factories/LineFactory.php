@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Intervention\Image\Geometry\Factories;
 
 use Closure;
-use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Line;
+use Intervention\Image\Geometry\Point;
 use Intervention\Image\Interfaces\DrawableFactoryInterface;
 use Intervention\Image\Interfaces\DrawableInterface;
 

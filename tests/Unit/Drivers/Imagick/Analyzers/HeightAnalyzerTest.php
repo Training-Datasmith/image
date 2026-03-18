@@ -6,9 +6,9 @@ namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Analyzers;
 
 use Intervention\Image\Drivers\Imagick\Analyzers\HeightAnalyzer;
 use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\Tests\ImagickTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\ImagickTestCase;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(HeightAnalyzer::class)]

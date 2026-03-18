@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Geometry;
 
 use Generator;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Geometry\Tools\RectangleResizer;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RectangleResizer::class)]
@@ -222,49 +222,49 @@ final class RectangleResizerTest extends TestCase
             new Rectangle(800, 600),
             new Rectangle(100, 100),
             'center',
-            new Rectangle(100, 100, new Point(350, 250))
+            new Rectangle(100, 100, new Point(350, 250)),
         ];
         yield [
             new Rectangle(800, 600),
             new Rectangle(200, 100),
             'center',
-            new Rectangle(200, 100, new Point(300, 250))
+            new Rectangle(200, 100, new Point(300, 250)),
         ];
         yield [
             new Rectangle(800, 600),
             new Rectangle(100, 200),
             'center',
-            new Rectangle(100, 200, new Point(350, 200))
+            new Rectangle(100, 200, new Point(350, 200)),
         ];
         yield [
             new Rectangle(800, 600),
             new Rectangle(2000, 10),
             'center',
-            new Rectangle(2000, 10, new Point(-600, 295))
+            new Rectangle(2000, 10, new Point(-600, 295)),
         ];
         yield [
             new Rectangle(800, 600),
             new Rectangle(10, 2000),
             'center',
-            new Rectangle(10, 2000, new Point(395, -700))
+            new Rectangle(10, 2000, new Point(395, -700)),
         ];
         yield [
             new Rectangle(800, 600),
             new Rectangle(800, 600),
             'center',
-            new Rectangle(800, 600, new Point(0, 0))
+            new Rectangle(800, 600, new Point(0, 0)),
         ];
         yield [
             new Rectangle(400, 300),
             new Rectangle(120, 120),
             'center',
-            new Rectangle(120, 120, new Point(140, 90))
+            new Rectangle(120, 120, new Point(140, 90)),
         ];
         yield [
             new Rectangle(600, 800),
             new Rectangle(100, 100),
             'center',
-            new Rectangle(100, 100, new Point(250, 350))
+            new Rectangle(100, 100, new Point(250, 350)),
         ];
     }
 }

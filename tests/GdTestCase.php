@@ -27,7 +27,7 @@ abstract class GdTestCase extends BaseTestCase
         return new Image(
             new Driver(),
             new Core([
-                new Frame($gd)
+                new Frame($gd),
             ])
         );
     }

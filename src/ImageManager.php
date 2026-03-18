@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Intervention\Image;
 
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\Exceptions\DriverException;
 use Intervention\Image\Exceptions\InputException;
 use Intervention\Image\Interfaces\DecoderInterface;
+use Intervention\Image\Interfaces\DriverInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
 
 final class ImageManager implements ImageManagerInterface

@@ -21,7 +21,7 @@ class Point implements PointInterface, IteratorAggregate
         protected int $x = 0,
         protected int $y = 0
     ) {
-        //
+
     }
 
     /**

@@ -29,7 +29,7 @@ class StringColorDecoder extends AbstractDecoder implements DecoderInterface
         }
 
         // rgb values
-        $values = array_map(fn(string $value): int => match (strpos($value, '%')) {
+        $values = array_map(fn (string $value): int => match (strpos($value, '%')) {
             false => intval(trim($value)),
             default => intval(round(floatval(trim(str_replace('%', '', $value))) / 100 * 255)),
         }, [$matches['r'], $matches['g'], $matches['b']]);

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors\Rgb;
 
-use Intervention\Image\Colors\Hsv\Color as HsvColor;
-use Intervention\Image\Colors\Hsl\Color as HslColor;
 use Intervention\Image\Colors\Cmyk\Color as CmykColor;
+use Intervention\Image\Colors\Hsl\Color as HslColor;
+use Intervention\Image\Colors\Hsv\Color as HsvColor;
 use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\ColorChannelInterface;
 use Intervention\Image\Interfaces\ColorInterface;
@@ -23,7 +23,7 @@ class Colorspace implements ColorspaceInterface
         Channels\Red::class,
         Channels\Green::class,
         Channels\Blue::class,
-        Channels\Alpha::class
+        Channels\Alpha::class,
     ];
 
     /**
@@ -34,7 +34,7 @@ class Colorspace implements ColorspaceInterface
     public function colorFromNormalized(array $normalized): ColorInterface
     {
         return new Color(...array_map(
-            fn($classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
+            fn ($classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
             self::$channels,
             $normalized,
         ));
@@ -93,7 +93,7 @@ class Colorspace implements ColorspaceInterface
         };
 
         // add to each value
-        $values = array_map(fn(float|int $value): float => $value + $color->value()->normalize() - $chroma, $values);
+        $values = array_map(fn (float|int $value): float => $value + $color->value()->normalize() - $chroma, $values);
         $values[] = 1; // append alpha channel value
 
         return $this->colorFromNormalized($values);
@@ -110,7 +110,7 @@ class Colorspace implements ColorspaceInterface
 
         // normalized values of hsl channels
         [$h, $s, $l] = array_map(
-            fn(ColorChannelInterface $channel): float => $channel->normalize(),
+            fn (ColorChannelInterface $channel): float => $channel->normalize(),
             $color->channels()
         );
 
@@ -127,7 +127,7 @@ class Colorspace implements ColorspaceInterface
             default => [$c, 0, $x],
         };
 
-        $values = array_map(fn(float|int $value): float => $value + $m, $values);
+        $values = array_map(fn (float|int $value): float => $value + $m, $values);
         $values[] = 1; // append alpha channel value
 
         return $this->colorFromNormalized($values);

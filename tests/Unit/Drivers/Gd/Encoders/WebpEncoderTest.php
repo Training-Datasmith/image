@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Intervention\Image\Tests\Unit\Drivers\Gd\Encoders;
 
 use Intervention\Image\Drivers\Gd\Encoders\WebpEncoder;
+use Intervention\Image\Tests\GdTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Tests\GdTestCase;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(WebpEncoder::class)]

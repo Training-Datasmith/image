@@ -42,7 +42,7 @@ final class ImageTest extends ImagickTestCase
             new Driver(),
             new Core($imagick),
             new Collection([
-                'test' => 'foo'
+                'test' => 'foo',
             ]),
         );
     }

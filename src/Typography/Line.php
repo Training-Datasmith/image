@@ -32,7 +32,7 @@ class Line implements IteratorAggregate, Countable, Stringable
         protected PointInterface $position = new Point()
     ) {
         if (is_string($text)) {
-            $this->segments = $this->wordsSeperatedBySpaces($text) ? explode(" ", $text) : mb_str_split($text);
+            $this->segments = $this->wordsSeperatedBySpaces($text) ? explode(' ', $text) : mb_str_split($text);
         }
     }
 
@@ -112,10 +112,10 @@ class Line implements IteratorAggregate, Countable, Stringable
      */
     public function __toString(): string
     {
-        $string = implode("", $this->segments);
+        $string = implode('', $this->segments);
 
         if ($this->wordsSeperatedBySpaces($string)) {
-            return implode(" ", $this->segments);
+            return implode(' ', $this->segments);
         }
 
         return $string;

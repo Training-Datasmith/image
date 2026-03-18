@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers\Imagick\Modifiers;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use Intervention\Image\Modifiers\DrawRectangleModifier;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Rectangle;
+use Intervention\Image\Modifiers\DrawRectangleModifier;
 use Intervention\Image\Tests\ImagickTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('imagick')]
 #[CoversClass(\Intervention\Image\Modifiers\DrawRectangleModifier::class)]

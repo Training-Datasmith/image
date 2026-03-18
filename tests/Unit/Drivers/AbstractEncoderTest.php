@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Drivers;
 
-use Intervention\Image\EncodedImage;
 use Intervention\Image\Drivers\AbstractEncoder;
+use Intervention\Image\EncodedImage;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Tests\BaseTestCase;
 use Mockery;

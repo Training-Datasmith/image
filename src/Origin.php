@@ -13,7 +13,7 @@ class Origin
         protected string $mediaType = 'application/octet-stream',
         protected ?string $filePath = null
     ) {
-        //
+
     }
 
     /**

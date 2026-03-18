@@ -33,7 +33,7 @@ class HexColorDecoder extends AbstractDecoder implements DecoderInterface
             default => throw new DecoderException('Unable to decode input'),
         };
 
-        $values = array_map(fn(string $value): float|int => match (strlen($value)) {
+        $values = array_map(fn (string $value): float|int => match (strlen($value)) {
             1 => hexdec($value . $value),
             2 => hexdec($value),
             default => throw new DecoderException('Unable to decode input'),

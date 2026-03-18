@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Intervention\Image\Colors\Rgb\Decoders;
 
 use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ColorInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class TransparentColorDecoder extends HexColorDecoder
 {

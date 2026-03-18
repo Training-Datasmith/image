@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit\Geometry\Factories;
 
-use Intervention\Image\Geometry\Factories\BezierFactory;
 use Intervention\Image\Geometry\Bezier;
+use Intervention\Image\Geometry\Factories\BezierFactory;
 use Intervention\Image\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 

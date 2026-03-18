@@ -6,11 +6,11 @@ namespace Intervention\Image\Drivers\Imagick;
 
 use Imagick;
 use ImagickException;
-use Iterator;
-use Intervention\Image\Interfaces\CoreInterface;
 use Intervention\Image\Exceptions\AnimationException;
 use Intervention\Image\Interfaces\CollectionInterface;
+use Intervention\Image\Interfaces\CoreInterface;
 use Intervention\Image\Interfaces\FrameInterface;
+use Iterator;
 
 /**
  * @implements Iterator<FrameInterface>
@@ -24,7 +24,7 @@ class Core implements CoreInterface, Iterator
      */
     public function __construct(protected Imagick $imagick)
     {
-        //
+
     }
 
     /**

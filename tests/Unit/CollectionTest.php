@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Tests\Unit;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use Intervention\Image\Collection;
 use Intervention\Image\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Collection::class)]
 final class CollectionTest extends BaseTestCase
@@ -108,9 +108,9 @@ final class CollectionTest extends BaseTestCase
                 'test1' => '1',
                 'test2' => '2',
                 'test3' => [
-                    'example' => 'value'
-                ]
-            ]
+                    'example' => 'value',
+                ],
+            ],
         ]);
 
         $this->assertEquals('first', $collection->get(0));

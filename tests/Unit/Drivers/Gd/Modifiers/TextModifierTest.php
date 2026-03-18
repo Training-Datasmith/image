@@ -8,10 +8,10 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Drivers\Gd\Modifiers\TextModifier;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Interfaces\ColorInterface;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Intervention\Image\Tests\GdTestCase;
 use Intervention\Image\Typography\Font;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('gd')]
 #[CoversClass(\Intervention\Image\Modifiers\TextModifier::class)]
@@ -22,8 +22,7 @@ final class TextModifierTest extends GdTestCase
     {
         $font = (new Font())->setColor('ff0055');
 
-        $modifier = new class ('test', new Point(), $font) extends TextModifier
-        {
+        $modifier = new class ('test', new Point(), $font) extends TextModifier {
             public function test(): ColorInterface
             {
                 return $this->textColor();

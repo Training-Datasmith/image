@@ -44,10 +44,10 @@ final class LineTest extends BaseTestCase
         $line = new Line();
         $this->assertEquals(0, $line->count());
 
-        $line = new Line("foo");
+        $line = new Line('foo');
         $this->assertEquals(1, $line->count());
 
-        $line = new Line("foo bar");
+        $line = new Line('foo bar');
         $this->assertEquals(2, $line->count());
     }
 
@@ -56,13 +56,13 @@ final class LineTest extends BaseTestCase
         $line = new Line();
         $this->assertEquals(0, $line->length());
 
-        $line = new Line("foo");
+        $line = new Line('foo');
         $this->assertEquals(3, $line->length());
 
-        $line = new Line("foo bar.");
+        $line = new Line('foo bar.');
         $this->assertEquals(8, $line->length());
 
-        $line = new Line("🫷🙂🫸");
+        $line = new Line('🫷🙂🫸');
         $this->assertEquals(3, $line->length());
     }
 

@@ -7,8 +7,8 @@ namespace Intervention\Image\Drivers\Imagick\Encoders;
 use Intervention\Image\Drivers\Imagick\Modifiers\StripMetaModifier;
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Encoders\TiffEncoder as GenericTiffEncoder;
-use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\EncodedImageInterface;
+use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 
 class TiffEncoder extends GenericTiffEncoder implements SpecializedInterface
