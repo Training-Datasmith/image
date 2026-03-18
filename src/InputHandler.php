@@ -58,20 +58,16 @@ class InputHandler implements InputHandlerInterface
     ];
 
     /**
-     * Driver with which the decoder classes are specialized
-     */
-    protected ?DriverInterface $driver = null;
-
-    /**
      * Create new input handler instance with given decoder classnames
      *
      * @param array<string|DecoderInterface> $decoders
-     * @return void
      */
-    public function __construct(array $decoders = [], ?DriverInterface $driver = null)
+    public function __construct(array $decoders = [], /**
+     * Driver with which the decoder classes are specialized
+     */
+    protected ?DriverInterface $driver = null)
     {
         $this->decoders = count($decoders) ? $decoders : $this->decoders;
-        $this->driver = $driver;
     }
 
     /**
@@ -95,7 +91,7 @@ class InputHandler implements InputHandlerInterface
             try {
                 // decode with driver specialized decoder
                 return $this->resolve($decoder)->decode($input);
-            } catch (DecoderException | NotSupportedException $e) {
+            } catch (DecoderException | NotSupportedException) {
                 // try next decoder
             }
         }
@@ -115,15 +111,15 @@ class InputHandler implements InputHandlerInterface
      */
     private function resolve(string|DecoderInterface $decoder): DecoderInterface
     {
-        if (($decoder instanceof DecoderInterface) && empty($this->driver)) {
+        if (($decoder instanceof DecoderInterface) && !$this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
             return $decoder;
         }
 
-        if (($decoder instanceof DecoderInterface) && !empty($this->driver)) {
+        if (($decoder instanceof DecoderInterface) && $this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
             return $this->driver->specialize($decoder);
         }
 
-        if (empty($this->driver)) {
+        if (!$this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
             return new $decoder();
         }
 

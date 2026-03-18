@@ -27,7 +27,6 @@ class Bezier implements IteratorAggregate, Countable, ArrayAccess, DrawableInter
      * Create new bezier instance
      *
      * @param array<PointInterface> $points
-     * @return void
      */
     public function __construct(
         protected array $points = [],

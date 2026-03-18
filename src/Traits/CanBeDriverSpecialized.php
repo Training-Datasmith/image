@@ -68,9 +68,7 @@ trait CanBeDriverSpecialized
      */
     protected function belongsToDriver(object $driver): bool
     {
-        $namespace = function (object $object): string {
-            return (new ReflectionClass($object))->getNamespaceName();
-        };
+        $namespace = (fn(object $object): string => (new ReflectionClass($object))->getNamespaceName());
 
         return str_starts_with($namespace($this), $namespace($driver));
     }

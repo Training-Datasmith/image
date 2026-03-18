@@ -10,8 +10,6 @@ class QuantizeColorsModifier extends SpecializableModifier
 {
     /**
      * Create new modifier object
-     *
-     * @return void
      */
     public function __construct(
         public int $limit,

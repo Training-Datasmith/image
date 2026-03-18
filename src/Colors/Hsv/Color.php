@@ -18,8 +18,6 @@ class Color extends AbstractColor
 {
     /**
      * Create new color object
-     *
-     * @return void
      */
     public function __construct(int $h, int $s, int $v)
     {

@@ -13,8 +13,6 @@ class PlaceModifier extends SpecializableModifier
 {
     /**
      * Create new modifier object
-     *
-     * @return void
      */
     public function __construct(
         public mixed $element,

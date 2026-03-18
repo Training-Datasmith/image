@@ -102,9 +102,8 @@ abstract class AbstractDecoder implements DecoderInterface
         {
             /**
              * @param array<mixed> $matches
-             * @return void
              */
-            public function __construct(private array $matches, private int|false $result)
+            public function __construct(private array $matches, private readonly int|false $result)
             {
                 //
             }

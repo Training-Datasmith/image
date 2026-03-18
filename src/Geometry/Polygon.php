@@ -27,7 +27,6 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
      * Create new polygon instance
      *
      * @param array<PointInterface> $points
-     * @return void
      */
     public function __construct(
         protected array $points = [],
@@ -183,12 +182,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, function (PointInterface $a, PointInterface $b): int {
-            if ($a->x() === $b->x()) {
-                return 0;
-            }
-            return $a->x() < $b->x() ? -1 : 1;
-        });
+        usort($points, fn(PointInterface $a, PointInterface $b): int => $a->x() <=> $b->x());
 
         return $points[0];
     }
@@ -200,12 +194,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, function (PointInterface $a, PointInterface $b): int {
-            if ($a->x() === $b->x()) {
-                return 0;
-            }
-            return $a->x() > $b->x() ? -1 : 1;
-        });
+        usort($points, fn(PointInterface $a, PointInterface $b): int => $b->x() <=> $a->x());
 
         return $points[0];
     }
@@ -217,12 +206,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, function (PointInterface $a, PointInterface $b): int {
-            if ($a->y() === $b->y()) {
-                return 0;
-            }
-            return $a->y() > $b->y() ? -1 : 1;
-        });
+        usort($points, fn(PointInterface $a, PointInterface $b): int => $b->y() <=> $a->y());
 
         return $points[0];
     }
@@ -234,12 +218,7 @@ class Polygon implements IteratorAggregate, Countable, ArrayAccess, DrawableInte
     {
         $points = $this->points;
 
-        usort($points, function (PointInterface $a, PointInterface $b): int {
-            if ($a->y() === $b->y()) {
-                return 0;
-            }
-            return $a->y() < $b->y() ? -1 : 1;
-        });
+        usort($points, fn(PointInterface $a, PointInterface $b): int => $a->y() <=> $b->y());
 
         return $points[0];
     }

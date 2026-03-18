@@ -14,15 +14,13 @@ class Font implements FontInterface
     protected mixed $color = '000000';
     protected mixed $strokeColor = 'ffffff';
     protected int $strokeWidth = 0;
-    protected ?string $filename = null;
     protected string $alignment = 'left';
     protected string $valignment = 'bottom';
     protected float $lineHeight = 1.25;
     protected ?int $wrapWidth = null;
 
-    public function __construct(?string $filename = null)
+    public function __construct(protected ?string $filename = null)
     {
-        $this->filename = $filename;
     }
 
     /**

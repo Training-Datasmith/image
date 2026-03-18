@@ -10,8 +10,6 @@ class TrimModifier extends SpecializableModifier
 {
     /**
      * Create new modifier object
-     *
-     * @return void
      */
     public function __construct(public int $tolerance = 0)
     {

@@ -10,8 +10,6 @@ class Config
 {
     /**
      * Create config object instance
-     *
-     * @return void
      */
     public function __construct(
         public bool $autoOrientation = true,
@@ -31,7 +29,7 @@ class Config
     {
         foreach ($this->prepareOptions($options) as $name => $value) {
             if (!property_exists($this, $name)) {
-                throw new InputException('Property ' . $name . ' does not exists for ' . $this::class . '.');
+                throw new InputException('Property ' . $name . ' does not exists for ' . static::class . '.');
             }
 
             $this->{$name} = $value;

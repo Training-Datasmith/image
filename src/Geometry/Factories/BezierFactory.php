@@ -16,8 +16,6 @@ class BezierFactory implements DrawableFactoryInterface
 
     /**
      * Create new factory instance
-     *
-     * @return void
      */
     public function __construct(null|Closure|Bezier $init = null)
     {

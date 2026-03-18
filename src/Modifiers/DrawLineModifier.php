@@ -11,8 +11,6 @@ class DrawLineModifier extends AbstractDrawModifier
 {
     /**
      * Create new modifier object
-     *
-     * @return void
      */
     public function __construct(public Line $drawable)
     {

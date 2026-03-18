@@ -13,7 +13,6 @@ class ModifierStack implements ModifierInterface
      * Create new modifier stack object with an array of modifier objects
      *
      * @param array<ModifierInterface> $modifiers
-     * @return void
      */
     public function __construct(protected array $modifiers)
     {

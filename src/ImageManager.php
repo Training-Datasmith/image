@@ -15,7 +15,7 @@ use Intervention\Image\Interfaces\ImageManagerInterface;
 
 final class ImageManager implements ImageManagerInterface
 {
-    private DriverInterface $driver;
+    private readonly DriverInterface $driver;
 
     /**
      * @link https://image.intervention.io/v3/basics/configuration-drivers#create-a-new-image-manager-instance
@@ -25,7 +25,7 @@ final class ImageManager implements ImageManagerInterface
      */
     public function __construct(string|DriverInterface $driver, mixed ...$options)
     {
-        $this->driver = $this->resolveDriver($driver, ...$options);
+        $this->driver = self::resolveDriver($driver, ...$options);
     }
 
     /**

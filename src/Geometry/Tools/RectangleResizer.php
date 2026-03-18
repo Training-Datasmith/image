@@ -12,7 +12,6 @@ class RectangleResizer
 {
     /**
      * @throws GeometryException
-     * @return void
      */
     public function __construct(
         protected ?int $width = null,

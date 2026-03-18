@@ -19,8 +19,6 @@ class ColorProcessor implements ColorProcessorInterface
 {
     /**
      * Create new color processor object
-     *
-     * @return void
      */
     public function __construct(protected ColorspaceInterface $colorspace = new Colorspace())
     {

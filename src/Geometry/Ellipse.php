@@ -16,8 +16,6 @@ class Ellipse implements DrawableInterface
 
     /**
      * Create new Ellipse
-     *
-     * @return void
      */
     public function __construct(
         protected int $width,

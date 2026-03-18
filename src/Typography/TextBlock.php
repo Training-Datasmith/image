@@ -10,8 +10,6 @@ class TextBlock extends Collection
 {
     /**
      * Create new text block object
-     *
-     * @return void
      */
     public function __construct(string $text)
     {
@@ -60,12 +58,7 @@ class TextBlock extends Collection
     public function longestLine(): Line
     {
         $lines = $this->lines();
-        usort($lines, function (Line $a, Line $b): int {
-            if ($a->length() === $b->length()) {
-                return 0;
-            }
-            return $a->length() > $b->length() ? -1 : 1;
-        });
+        usort($lines, fn(Line $a, Line $b): int => $b->length() <=> $a->length());
 
         return $lines[0];
     }

@@ -22,7 +22,6 @@ class Frame extends AbstractFrame implements FrameInterface
      * Create new frame object
      *
      * @throws ImagickException
-     * @return void
      */
     public function __construct(protected Imagick $native)
     {

@@ -13,8 +13,6 @@ class Rectangle extends Polygon implements SizeInterface
 {
     /**
      * Create new rectangle instance
-     *
-     * @return void
      */
     public function __construct(
         int $width,

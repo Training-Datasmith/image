@@ -27,9 +27,7 @@ class StringColorDecoder extends AbstractDecoder implements DecoderInterface
             throw new DecoderException('Unable to decode input');
         }
 
-        $values = array_map(function (string $value): int {
-            return intval(round(floatval(trim(str_replace('%', '', $value)))));
-        }, [$matches['c'], $matches['m'], $matches['y'], $matches['k']]);
+        $values = array_map(fn(string $value): int => intval(round(floatval(trim(str_replace('%', '', $value))))), [$matches['c'], $matches['m'], $matches['y'], $matches['k']]);
 
         return new Color(...$values);
     }

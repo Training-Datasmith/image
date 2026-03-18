@@ -16,8 +16,6 @@ class LineFactory implements DrawableFactoryInterface
 
     /**
      * Create the factory instance
-     *
-     * @return void
      */
     public function __construct(null|Closure|Line $init = null)
     {

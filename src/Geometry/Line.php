@@ -16,8 +16,6 @@ class Line implements DrawableInterface
 
     /**
      * Create new line instance
-     *
-     * @return void
      */
     public function __construct(
         protected PointInterface $start,

@@ -17,8 +17,6 @@ class CircleFactory implements DrawableFactoryInterface
 
     /**
      * Create new factory instance
-     *
-     * @return void
      */
     public function __construct(
         protected PointInterface $pivot = new Point(),

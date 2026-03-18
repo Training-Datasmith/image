@@ -19,7 +19,6 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      * Create new collection object
      *
      * @param array<int|string, mixed> $items
-     * @return void
      */
     public function __construct(protected array $items = [])
     {

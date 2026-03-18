@@ -8,8 +8,6 @@ class Origin
 {
     /**
      * Create new origin instance
-     *
-     * @return void
      */
     public function __construct(
         protected string $mediaType = 'application/octet-stream',

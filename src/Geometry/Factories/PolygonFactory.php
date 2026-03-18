@@ -16,8 +16,6 @@ class PolygonFactory implements DrawableFactoryInterface
 
     /**
      * Create new factory instance
-     *
-     * @return void
      */
     public function __construct(null|Closure|Polygon $init = null)
     {

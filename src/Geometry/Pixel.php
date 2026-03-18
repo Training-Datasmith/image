@@ -10,8 +10,6 @@ class Pixel extends Point
 {
     /**
      * Create new pixel instance
-     *
-     * @return void
      */
     public function __construct(
         protected ColorInterface $background,

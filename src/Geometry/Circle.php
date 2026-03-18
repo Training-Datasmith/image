@@ -10,8 +10,6 @@ class Circle extends Ellipse
 {
     /**
      * Create new Circle instance
-     *
-     * @return void
      */
     public function __construct(
         int $diameter,

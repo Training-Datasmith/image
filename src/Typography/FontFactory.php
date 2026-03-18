@@ -17,7 +17,6 @@ class FontFactory
      *
      * @param Closure|FontInterface $init
      * @throws FontException
-     * @return void
      */
     public function __construct(callable|Closure|FontInterface $init)
     {
