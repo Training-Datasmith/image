@@ -53,10 +53,15 @@ class FontProcessor extends AbstractFontProcessor
             throw new FontException('No font file specified.');
         }
 
+        $fontPath = realpath((string) $font->filename());
+        if ($fontPath === false) {
+            throw new FontException('Font file ' . $font->filename() . ' does not exist.');
+        }
+
         $draw = new ImagickDraw();
         $draw->setStrokeAntialias(true);
         $draw->setTextAntialias(true);
-        $draw->setFont($font->filename());
+        $draw->setFont($fontPath);
         $draw->setFontSize($this->nativeFontSize($font));
         $draw->setTextAlignment(Imagick::ALIGN_LEFT);
 
