@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Modifiers;
 
-class ScaleModifier extends ResizeModifier
+class Scale_Modifier extends Resize_Modifier
 {
 }

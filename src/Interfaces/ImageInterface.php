@@ -1,50 +1,44 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Interfaces;
 
 use Closure;
 use Countable;
-use Intervention\Image\Encoders\AutoEncoder;
-use Intervention\Image\Exceptions\AnimationException;
+use Intervention\Image\Encoders\Auto_Encoder;
+use Intervention\Image\Exceptions\Animation_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\FileExtension;
+use Intervention\Image\File_Extension;
 use Intervention\Image\Geometry\Bezier;
 use Intervention\Image\Geometry\Circle;
 use Intervention\Image\Geometry\Ellipse;
 use Intervention\Image\Geometry\Line;
 use Intervention\Image\Geometry\Polygon;
 use Intervention\Image\Geometry\Rectangle;
-use Intervention\Image\MediaType;
+use Intervention\Image\Media_Type;
 use Intervention\Image\Origin;
 use IteratorAggregate;
-
 /**
  * @extends IteratorAggregate<FrameInterface>
  */
-interface ImageInterface extends IteratorAggregate, Countable
+interface Image_Interface extends IteratorAggregate, Countable
 {
     /**
      * Return driver of current image
      */
-    public function driver(): DriverInterface;
-
+    public function driver(): Driver_Interface;
     /**
      * Return core of current image
      */
-    public function core(): CoreInterface;
-
+    public function core(): Core_Interface;
     /**
      * Return the origin of the image
      */
     public function origin(): Origin;
-
     /**
      * Set the origin of the image
      */
-    public function setOrigin(Origin $origin): self;
-
+    public function set_origin(Origin $origin): self;
     /**
      * Return width of current image
      *
@@ -53,7 +47,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function width(): int;
-
     /**
      * Return height of current image
      *
@@ -62,7 +55,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function height(): int;
-
     /**
      * Return size of current image
      *
@@ -70,8 +62,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function size(): SizeInterface;
-
+    public function size(): Size_Interface;
     /**
      * Encode image with given encoder
      *
@@ -79,8 +70,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function encode(EncoderInterface $encoder = new AutoEncoder()): EncodedImageInterface;
-
+    public function encode(Encoder_Interface $encoder = new Auto_Encoder()): Encoded_Image_Interface;
     /**
      * Save the image to the specified path in the file system. If no path is
      * given, the image will be saved at its original location.
@@ -90,7 +80,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function save(?string $path = null, mixed ...$options): self;
-
     /**
      * Apply given modifier to current image
      *
@@ -98,22 +87,19 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function modify(ModifierInterface $modifier): self;
-
+    public function modify(Modifier_Interface $modifier): self;
     /**
      * Analyzer current image with given analyzer
      *
      * @throws RuntimeException
      */
-    public function analyze(AnalyzerInterface $analyzer): mixed;
-
+    public function analyze(Analyzer_Interface $analyzer): mixed;
     /**
      * Determine if current image is animated
      *
      * @link https://image.intervention.io/v3/modifying-images/animations#check-the-current-image-instance-for-animation
      */
-    public function isAnimated(): bool;
-
+    public function is_animated(): bool;
     /**
      * Remove all frames but keep the one at the specified position
      *
@@ -126,8 +112,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function removeAnimation(int|string $position = 0): self;
-
+    public function remove_animation(int|string $position = 0): self;
     /**
      * Extract animation frames based on given values and discard the rest
      *
@@ -135,34 +120,29 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function sliceAnimation(int $offset = 0, ?int $length = null): self;
-
+    public function slice_animation(int $offset = 0, ?int $length = null): self;
     /**
      * Return loop count of animated image
      *
      * @link https://image.intervention.io/v3/modifying-images/animations#read-the-animation-iteration-count
      */
     public function loops(): int;
-
     /**
      * Set loop count of animated image
      *
      * @link https://image.intervention.io/v3/modifying-images/animations#change-the-animation-iteration-count
      */
-    public function setLoops(int $loops): self;
-
+    public function set_loops(int $loops): self;
     /**
      * Return exif data of current image
      *
      * @link https://image.intervention.io/v3/basics/meta-information#exif-information
      */
     public function exif(?string $query = null): mixed;
-
     /**
      * Set exif data for the image object
      */
-    public function setExif(CollectionInterface $exif): self;
-
+    public function set_exif(Collection_Interface $exif): self;
     /**
      * Return image resolution/density
      *
@@ -170,8 +150,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function resolution(): ResolutionInterface;
-
+    public function resolution(): Resolution_Interface;
     /**
      * Set image resolution
      *
@@ -179,8 +158,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function setResolution(float $x, float $y): self;
-
+    public function set_resolution(float $x, float $y): self;
     /**
      * Get the colorspace of the image
      *
@@ -188,8 +166,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function colorspace(): ColorspaceInterface;
-
+    public function colorspace(): Colorspace_Interface;
     /**
      * Transform image to given colorspace
      *
@@ -197,8 +174,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function setColorspace(string|ColorspaceInterface $colorspace): self;
-
+    public function set_colorspace(string|Colorspace_Interface $colorspace): self;
     /**
      * Return color of pixel at given position on given frame position
      *
@@ -206,8 +182,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function pickColor(int $x, int $y, int $frame_key = 0): ColorInterface;
-
+    public function pick_color(int $x, int $y, int $frame_key = 0): Color_Interface;
     /**
      * Return all colors of pixel at given position for all frames of image
      *
@@ -215,31 +190,27 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function pickColors(int $x, int $y): CollectionInterface;
-
+    public function pick_colors(int $x, int $y): Collection_Interface;
     /**
      * Return color that is mixed with transparent areas when converting to a format which
      * does not support transparency.
      *
      * @throws RuntimeException
      */
-    public function blendingColor(): ColorInterface;
-
+    public function blending_color(): Color_Interface;
     /**
      * Set blending color will have no effect unless image is converted into a format
      * which does not support transparency.
      *
      * @throws RuntimeException
      */
-    public function setBlendingColor(mixed $color): self;
-
+    public function set_blending_color(mixed $color): self;
     /**
      * Replace transparent areas of the image with given color
      *
      * @throws RuntimeException
      */
-    public function blendTransparency(mixed $color = null): self;
-
+    public function blend_transparency(mixed $color = null): self;
     /**
      * Retrieve ICC color profile of image
      *
@@ -247,8 +218,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function profile(): ProfileInterface;
-
+    public function profile(): Profile_Interface;
     /**
      * Set given icc color profile to image
      *
@@ -256,8 +226,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function setProfile(ProfileInterface $profile): self;
-
+    public function set_profile(Profile_Interface $profile): self;
     /**
      * Remove ICC color profile from the current image
      *
@@ -265,8 +234,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function removeProfile(): self;
-
+    public function remove_profile(): self;
     /**
      * Apply color quantization to the current image
      *
@@ -274,8 +242,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function reduceColors(int $limit, mixed $background = 'transparent'): self;
-
+    public function reduce_colors(int $limit, mixed $background = 'transparent'): self;
     /**
      * Sharpen the current image with given strength
      *
@@ -284,7 +251,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function sharpen(int $amount = 10): self;
-
     /**
      * Turn image into a greyscale version
      *
@@ -293,7 +259,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function greyscale(): self;
-
     /**
      * Adjust brightness of the current image
      *
@@ -302,7 +267,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function brightness(int $level): self;
-
     /**
      * Adjust color contrast of the current image
      *
@@ -311,7 +275,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function contrast(int $level): self;
-
     /**
      * Apply gamma correction on the current image
      *
@@ -320,7 +283,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function gamma(float $gamma): self;
-
     /**
      * Adjust the intensity of the RGB color channels
      *
@@ -329,7 +291,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function colorize(int $red = 0, int $green = 0, int $blue = 0): self;
-
     /**
      * Mirror the current image vertically by swapping top and bottom
      *
@@ -338,7 +299,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function flip(): self;
-
     /**
      * Mirror the current image horizontally by swapping left and right
      *
@@ -347,7 +307,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function flop(): self;
-
     /**
      * Blur current image by given strength
      *
@@ -356,7 +315,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function blur(int $amount = 5): self;
-
     /**
      * Invert the colors of the current image
      *
@@ -365,7 +323,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function invert(): self;
-
     /**
      * Apply pixelation filter effect on current image
      *
@@ -374,7 +331,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function pixelate(int $size): self;
-
     /**
      * Rotate current image by given angle
      *
@@ -384,7 +340,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function rotate(float $angle, mixed $background = 'ffffff'): self;
-
     /**
      * Rotate the image to be upright according to exif information
      *
@@ -393,7 +348,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function orient(): self;
-
     /**
      * Draw text on image
      *
@@ -401,8 +355,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function text(string $text, int $x, int $y, callable|Closure|FontInterface $font): self;
-
+    public function text(string $text, int $x, int $y, callable|Closure|Font_Interface $font): self;
     /**
      * Resize image to the given width and/or height
      *
@@ -411,7 +364,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function resize(?int $width = null, ?int $height = null): self;
-
     /**
      * Resize image to the given width and/or height without exceeding the original dimensions
      *
@@ -419,8 +371,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function resizeDown(?int $width = null, ?int $height = null): self;
-
+    public function resize_down(?int $width = null, ?int $height = null): self;
     /**
      * Resize image to the given width and/or height and keep the original aspect ratio
      *
@@ -429,7 +380,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function scale(?int $width = null, ?int $height = null): self;
-
     /**
      * Resize image to the given width and/or height, keep the original aspect ratio
      * and do not exceed the original image width or height
@@ -438,8 +388,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function scaleDown(?int $width = null, ?int $height = null): self;
-
+    public function scale_down(?int $width = null, ?int $height = null): self;
     /**
      * Takes the specified width and height and scales them to the largest
      * possible size that fits within the original size. This scaled size is
@@ -451,7 +400,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function cover(int $width, int $height, string $position = 'center'): self;
-
     /**
      * Same as cover() but do not exceed the original image size
      *
@@ -459,8 +407,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function coverDown(int $width, int $height, string $position = 'center'): self;
-
+    public function cover_down(int $width, int $height, string $position = 'center'): self;
     /**
      * Resize the boundaries of the current image to given width and height.
      * An anchor position can be defined to determine where the original image
@@ -471,13 +418,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function resizeCanvas(
-        ?int $width = null,
-        ?int $height = null,
-        mixed $background = 'ffffff',
-        string $position = 'center'
-    ): self;
-
+    public function resize_canvas(?int $width = null, ?int $height = null, mixed $background = 'ffffff', string $position = 'center'): self;
     /**
      * Resize canvas in the same way as resizeCanvas() but takes relative values
      * for the width and height, which will be added or subtracted to the
@@ -487,13 +428,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function resizeCanvasRelative(
-        ?int $width = null,
-        ?int $height = null,
-        mixed $background = 'ffffff',
-        string $position = 'center'
-    ): self;
-
+    public function resize_canvas_relative(?int $width = null, ?int $height = null, mixed $background = 'ffffff', string $position = 'center'): self;
     /**
      * Padded resizing means that the original image is scaled until it fits the
      * defined target size with unchanged aspect ratio. The original image is
@@ -508,13 +443,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @param string $background
      * @throws RuntimeException
      */
-    public function pad(
-        int $width,
-        int $height,
-        mixed $background = 'ffffff',
-        string $position = 'center'
-    ): self;
-
+    public function pad(int $width, int $height, mixed $background = 'ffffff', string $position = 'center'): self;
     /**
      * This method does the same as pad(), but the original image is also scaled
      * up if the target size exceeds the original size.
@@ -524,13 +453,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @param string $background
      * @throws RuntimeException
      */
-    public function contain(
-        int $width,
-        int $height,
-        mixed $background = 'ffffff',
-        string $position = 'center'
-    ): self;
-
+    public function contain(int $width, int $height, mixed $background = 'ffffff', string $position = 'center'): self;
     /**
      * Cut out a rectangular part of the current image with given width and
      * height at a given position. Define optional x,y offset coordinates
@@ -540,15 +463,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function crop(
-        int $width,
-        int $height,
-        int $offset_x = 0,
-        int $offset_y = 0,
-        mixed $background = 'ffffff',
-        string $position = 'top-left'
-    ): self;
-
+    public function crop(int $width, int $height, int $offset_x = 0, int $offset_y = 0, mixed $background = 'ffffff', string $position = 'top-left'): self;
     /**
      * Trim the image by removing border areas of similar color within a the given tolerance
      *
@@ -558,7 +473,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws AnimationException
      */
     public function trim(int $tolerance = 0): self;
-
     /**
      * Place another image into the current image instance
      *
@@ -566,14 +480,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function place(
-        mixed $element,
-        string $position = 'top-left',
-        int $offset_x = 0,
-        int $offset_y = 0,
-        int $opacity = 100
-    ): self;
-
+    public function place(mixed $element, string $position = 'top-left', int $offset_x = 0, int $offset_y = 0, int $opacity = 100): self;
     /**
      * Fill image with given color
      *
@@ -589,7 +496,6 @@ interface ImageInterface extends IteratorAggregate, Countable
      * @throws RuntimeException
      */
     public function fill(mixed $color, ?int $x = null, ?int $y = null): self;
-
     /**
      * Draw a single pixel at given position defined by the coordinates x and y in a given color.
      *
@@ -597,8 +503,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawPixel(int $x, int $y, mixed $color): self;
-
+    public function draw_pixel(int $x, int $y, mixed $color): self;
     /**
      * Draw a rectangle on the current image
      *
@@ -606,8 +511,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawRectangle(int $x, int $y, callable|Closure|Rectangle $init): self;
-
+    public function draw_rectangle(int $x, int $y, callable|Closure|Rectangle $init): self;
     /**
      * Draw ellipse on the current image
      *
@@ -615,8 +519,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawEllipse(int $x, int $y, callable|Closure|Ellipse $init): self;
-
+    public function draw_ellipse(int $x, int $y, callable|Closure|Ellipse $init): self;
     /**
      * Draw circle on the current image
      *
@@ -624,8 +527,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawCircle(int $x, int $y, callable|Closure|Circle $init): self;
-
+    public function draw_circle(int $x, int $y, callable|Closure|Circle $init): self;
     /**
      * Draw a polygon on the current image
      *
@@ -633,8 +535,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawPolygon(callable|Closure|Polygon $init): self;
-
+    public function draw_polygon(callable|Closure|Polygon $init): self;
     /**
      * Draw a line on the current image
      *
@@ -642,8 +543,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawLine(callable|Closure|Line $init): self;
-
+    public function draw_line(callable|Closure|Line $init): self;
     /**
      * Draw a bezier curve on the current image
      *
@@ -651,8 +551,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function drawBezier(callable|Closure|Bezier $init): self;
-
+    public function draw_bezier(callable|Closure|Bezier $init): self;
     /**
      * Encode image to given media (mime) type. If no type is given the image
      * will be encoded to the format of the originally read image.
@@ -661,8 +560,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function encodeByMediaType(null|string|MediaType $type = null, mixed ...$options): EncodedImageInterface;
-
+    public function encode_by_media_type(null|string|Media_Type $type = null, mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode the image into the format represented by the given extension. If no
      * extension is given the image will be encoded to the format of the
@@ -672,11 +570,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function encodeByExtension(
-        null|string|FileExtension $extension = null,
-        mixed ...$options
-    ): EncodedImageInterface;
-
+    public function encode_by_extension(null|string|File_Extension $extension = null, mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode the image into the format represented by the given extension of
      * the given file path extension is given the image will be encoded to
@@ -686,8 +580,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function encodeByPath(?string $path = null, mixed ...$options): EncodedImageInterface;
-
+    public function encode_by_path(?string $path = null, mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to JPEG format
      *
@@ -695,8 +588,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toJpeg(mixed ...$options): EncodedImageInterface;
-
+    public function to_jpeg(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to Jpeg2000 format
      *
@@ -704,8 +596,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toJpeg2000(mixed ...$options): EncodedImageInterface;
-
+    public function to_jpeg2000(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to Webp format
      *
@@ -713,8 +604,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toWebp(mixed ...$options): EncodedImageInterface;
-
+    public function to_webp(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to PNG format
      *
@@ -722,8 +612,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toPng(mixed ...$options): EncodedImageInterface;
-
+    public function to_png(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to GIF format
      *
@@ -731,8 +620,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toGif(mixed ...$options): EncodedImageInterface;
-
+    public function to_gif(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to Bitmap format
      *
@@ -740,8 +628,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toBitmap(mixed ...$options): EncodedImageInterface;
-
+    public function to_bitmap(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to AVIF format
      *
@@ -749,8 +636,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toAvif(mixed ...$options): EncodedImageInterface;
-
+    public function to_avif(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to TIFF format
      *
@@ -758,8 +644,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toTiff(mixed ...$options): EncodedImageInterface;
-
+    public function to_tiff(mixed ...$options): Encoded_Image_Interface;
     /**
      * Encode image to HEIC format
      *
@@ -767,5 +652,5 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * @throws RuntimeException
      */
-    public function toHeic(mixed ...$options): EncodedImageInterface;
+    public function to_heic(mixed ...$options): Encoded_Image_Interface;
 }

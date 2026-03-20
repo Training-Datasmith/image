@@ -1,23 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd;
 
-use Intervention\Image\Drivers\AbstractDriver;
-use Intervention\Image\Exceptions\DriverException;
+use Intervention\Image\Drivers\Abstract_Driver;
+use Intervention\Image\Exceptions\Driver_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\FileExtension;
+use Intervention\Image\File_Extension;
 use Intervention\Image\Format;
 use Intervention\Image\Image;
-use Intervention\Image\Interfaces\ColorProcessorInterface;
-use Intervention\Image\Interfaces\ColorspaceInterface;
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\FontProcessorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\MediaType;
-
-class Driver extends AbstractDriver
+use Intervention\Image\Interfaces\Color_Processor_Interface;
+use Intervention\Image\Interfaces\Colorspace_Interface;
+use Intervention\Image\Interfaces\Driver_Interface;
+use Intervention\Image\Interfaces\Font_Processor_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Media_Type;
+class Driver extends Abstract_Driver
 {
     /**
      * {@inheritdoc}
@@ -28,7 +26,6 @@ class Driver extends AbstractDriver
     {
         return 'GD';
     }
-
     /**
      * {@inheritdoc}
      *
@@ -36,21 +33,18 @@ class Driver extends AbstractDriver
      *
      * @codeCoverageIgnore
      */
-    public function checkHealth(): void
+    public function check_health(): void
     {
         if (!extension_loaded('gd') || !function_exists('gd_info')) {
-            throw new DriverException(
-                'GD PHP extension must be installed to use this driver.'
-            );
+            throw new Driver_Exception('GD PHP extension must be installed to use this driver.');
         }
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::createImage()
      */
-    public function createImage(int $width, int $height): ImageInterface
+    public function create_image(int $width, int $height): Image_Interface
     {
         // build new transparent GDImage
         $data = imagecreatetruecolor($width, $height);
@@ -59,15 +53,8 @@ class Driver extends AbstractDriver
         imagealphablending($data, false);
         imagefill($data, 0, 0, $background);
         imagecolortransparent($data, $background);
-
-        return new Image(
-            $this,
-            new Core([
-                new Frame($data),
-            ])
-        );
+        return new Image($this, new Core([new Frame($data)]));
     }
-
     /**
      * {@inheritdoc}
      *
@@ -75,73 +62,58 @@ class Driver extends AbstractDriver
      *
      * @throws RuntimeException
      */
-    public function createAnimation(callable $init): ImageInterface
+    public function create_animation(callable $init): Image_Interface
     {
-        $animation = new class ($this) {
-            public function __construct(
-                protected DriverInterface $driver,
-                public Core $core = new Core()
-            ) {
-
+        $animation = new class($this)
+        {
+            public function __construct(protected Driver_Interface $driver, public Core $core = new Core())
+            {
             }
-
             /**
              * @throws RuntimeException
              */
             public function add(mixed $source, float $delay = 1): self
             {
-                $this->core->add(
-                    $this->driver->handleInput($source)->core()->first()->setDelay($delay)
-                );
-
+                $this->core->add($this->driver->handle_input($source)->core()->first()->set_delay($delay));
                 return $this;
             }
-
             /**
              * @throws RuntimeException
              */
-            public function __invoke(): ImageInterface
+            public function __invoke(): Image_Interface
             {
-                return new Image(
-                    $this->driver,
-                    $this->core
-                );
+                return new Image($this->driver, $this->core);
             }
         };
-
         $init($animation);
-
         return call_user_func($animation);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::colorProcessor()
      */
-    public function colorProcessor(ColorspaceInterface $colorspace): ColorProcessorInterface
+    public function color_processor(Colorspace_Interface $colorspace): Color_Processor_Interface
     {
-        return new ColorProcessor($colorspace);
+        return new Color_Processor($colorspace);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::fontProcessor()
      */
-    public function fontProcessor(): FontProcessorInterface
+    public function font_processor(): Font_Processor_Interface
     {
-        return new FontProcessor();
+        return new Font_Processor();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::supports()
      */
-    public function supports(string|Format|FileExtension|MediaType $identifier): bool
+    public function supports(string|Format|File_Extension|Media_Type $identifier): bool
     {
-        return match (Format::tryCreate($identifier)) {
+        return match (Format::try_create($identifier)) {
             Format::JPEG => boolval(imagetypes() & IMG_JPEG),
             Format::WEBP => boolval(imagetypes() & IMG_WEBP),
             Format::GIF => boolval(imagetypes() & IMG_GIF),
@@ -151,7 +123,6 @@ class Driver extends AbstractDriver
             default => false,
         };
     }
-
     /**
      * Return version of GD library
      */

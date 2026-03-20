@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry\Factories;
 
 class Drawable
@@ -9,48 +8,43 @@ class Drawable
     /**
      * Creeate BezierFactory statically
      */
-    public static function bezier(): BezierFactory
+    public static function bezier(): Bezier_Factory
     {
-        return new BezierFactory();
+        return new Bezier_Factory();
     }
-
     /**
      * Creeate CircleFactory statically
      */
-    public static function circle(): CircleFactory
+    public static function circle(): Circle_Factory
     {
-        return new CircleFactory();
+        return new Circle_Factory();
     }
-
     /**
      * Create EllipseFactory statically
      */
-    public static function ellipse(): EllipseFactory
+    public static function ellipse(): Ellipse_Factory
     {
-        return new EllipseFactory();
+        return new Ellipse_Factory();
     }
-
     /**
      * Creeate LineFactory statically
      */
-    public static function line(): LineFactory
+    public static function line(): Line_Factory
     {
-        return new LineFactory();
+        return new Line_Factory();
     }
-
     /**
      * Creeate PolygonFactory statically
      */
-    public static function polygon(): PolygonFactory
+    public static function polygon(): Polygon_Factory
     {
-        return new PolygonFactory();
+        return new Polygon_Factory();
     }
-
     /**
      * Creeate RectangleFactory statically
      */
-    public static function rectangle(): RectangleFactory
+    public static function rectangle(): Rectangle_Factory
     {
-        return new RectangleFactory();
+        return new Rectangle_Factory();
     }
 }

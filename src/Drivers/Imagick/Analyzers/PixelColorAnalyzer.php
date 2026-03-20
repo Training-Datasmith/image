@@ -1,36 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Analyzers;
 
 use Imagick;
-use Intervention\Image\Analyzers\PixelColorAnalyzer as GenericPixelColorAnalyzer;
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ColorspaceInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-
-class PixelColorAnalyzer extends GenericPixelColorAnalyzer implements SpecializedInterface
+use Intervention\Image\Analyzers\Pixel_Color_Analyzer as GenericPixelColorAnalyzer;
+use Intervention\Image\Exceptions\Color_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Colorspace_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+class Pixel_Color_Analyzer extends Generic_Pixel_Color_Analyzer implements Specialized_Interface
 {
-    public function analyze(ImageInterface $image): mixed
+    public function analyze(Image_Interface $image): mixed
     {
-        return $this->colorAt(
-            $image->colorspace(),
-            $image->core()->frame($this->frame_key)->native()
-        );
+        return $this->color_at($image->colorspace(), $image->core()->frame($this->frame_key)->native());
     }
-
     /**
      * @throws ColorException
      */
-    protected function colorAt(ColorspaceInterface $colorspace, Imagick $imagick): ColorInterface
+    protected function color_at(Colorspace_Interface $colorspace, Imagick $imagick): Color_Interface
     {
-        return $this->driver()
-            ->colorProcessor($colorspace)
-            ->nativeToColor(
-                $imagick->getImagePixelColor($this->x, $this->y)
-            );
+        return $this->driver()->color_processor($colorspace)->native_to_color($imagick->get_image_pixel_color($this->x, $this->y));
     }
 }

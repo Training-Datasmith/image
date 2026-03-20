@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Decoders;
 
-use Intervention\Image\Drivers\SpecializableDecoder;
-
-class Base64ImageDecoder extends SpecializableDecoder
+use Intervention\Image\Drivers\Specializable_Decoder;
+class Base64image_Decoder extends Specializable_Decoder
 {
 }

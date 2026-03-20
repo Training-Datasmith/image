@@ -1,25 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\ProfileRemovalModifier as GenericProfileRemovalModifier;
-
-class ProfileRemovalModifier extends GenericProfileRemovalModifier implements SpecializedInterface
+use Intervention\Image\Exceptions\Color_Exception;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Profile_Removal_Modifier as GenericProfileRemovalModifier;
+class Profile_Removal_Modifier extends Generic_Profile_Removal_Modifier implements Specialized_Interface
 {
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
         $imagick = $image->core()->native();
-        $result = $imagick->profileImage('icc', null);
-
+        $result = $imagick->profile_image('icc', null);
         if ($result === false) {
-            throw new ColorException('ICC color profile could not be removed.');
+            throw new Color_Exception('ICC color profile could not be removed.');
         }
-
         return $image;
     }
 }

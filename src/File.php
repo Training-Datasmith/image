@@ -1,24 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
-use Intervention\Image\Exceptions\NotWritableException;
+use Intervention\Image\Exceptions\Not_Writable_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Interfaces\FileInterface;
-use Intervention\Image\Traits\CanBuildFilePointer;
+use Intervention\Image\Interfaces\File_Interface;
+use Intervention\Image\Traits\Can_Build_File_Pointer;
 use Stringable;
-
-class File implements FileInterface, Stringable
+class File implements File_Interface, Stringable
 {
-    use CanBuildFilePointer;
-
+    use Can_Build_File_Pointer;
     /**
      * @var resource
      */
     protected $pointer;
-
     /**
      * Create new instance
      *
@@ -27,19 +23,17 @@ class File implements FileInterface, Stringable
      */
     public function __construct(mixed $data = null)
     {
-        $this->pointer = $this->buildFilePointer($data);
+        $this->pointer = $this->build_file_pointer($data);
     }
-
     /**
      * Create file object from path in file system
      *
      * @throws RuntimeException
      */
-    public static function fromPath(string $path): self
+    public static function from_path(string $path): self
     {
         return new self(fopen($path, 'r'));
     }
-
     /**
      * {@inheritdoc}
      *
@@ -48,56 +42,40 @@ class File implements FileInterface, Stringable
     public function save(string $filepath): void
     {
         $dir = pathinfo($filepath, PATHINFO_DIRNAME);
-
         if (!is_dir($dir)) {
-            throw new NotWritableException(
-                "Can't write image to path. Directory does not exist."
-            );
+            throw new Not_Writable_Exception("Can't write image to path. Directory does not exist.");
         }
-
         if (!is_writable($dir)) {
-            throw new NotWritableException(
-                "Can't write image to path. Directory is not writable."
-            );
+            throw new Not_Writable_Exception("Can't write image to path. Directory is not writable.");
         }
-
         if (is_file($filepath) && !is_writable($filepath)) {
-            throw new NotWritableException(
-                sprintf("Can't write image. Path (%s) is not writable.", $filepath)
-            );
+            throw new Not_Writable_Exception(sprintf("Can't write image. Path (%s) is not writable.", $filepath));
         }
-
         // write data
-        $saved = @file_put_contents($filepath, $this->toFilePointer());
+        $saved = @file_put_contents($filepath, $this->to_file_pointer());
         if ($saved === false) {
-            throw new NotWritableException(
-                sprintf("Can't write image data to path (%s).", $filepath)
-            );
+            throw new Not_Writable_Exception(sprintf("Can't write image data to path (%s).", $filepath));
         }
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FileInterface::toString()
      */
-    public function toString(): string
+    public function to_string(): string
     {
-        return stream_get_contents($this->toFilePointer(), offset: 0);
+        return stream_get_contents($this->to_file_pointer(), offset: 0);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FileInterface::toFilePointer()
      */
-    public function toFilePointer()
+    public function to_file_pointer()
     {
         rewind($this->pointer);
-
         return $this->pointer;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -105,11 +83,9 @@ class File implements FileInterface, Stringable
      */
     public function size(): int
     {
-        $info = fstat($this->toFilePointer());
-
+        $info = fstat($this->to_file_pointer());
         return intval($info['size']);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -117,6 +93,6 @@ class File implements FileInterface, Stringable
      */
     public function __toString(): string
     {
-        return $this->toString();
+        return $this->to_string();
     }
 }

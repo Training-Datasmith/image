@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors\Hsv\Channels;
 
-use Intervention\Image\Colors\AbstractColorChannel;
-
-class Hue extends AbstractColorChannel
+use Intervention\Image\Colors\Abstract_Color_Channel;
+class Hue extends Abstract_Color_Channel
 {
     /**
      * {@inheritdoc}
@@ -17,7 +15,6 @@ class Hue extends AbstractColorChannel
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      *

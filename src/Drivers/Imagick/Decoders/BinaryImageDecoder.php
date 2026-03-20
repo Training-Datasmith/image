@@ -1,47 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Decoders;
 
 use Imagick;
-use ImagickException;
-use Intervention\Image\Exceptions\DecoderException;
+use Imagick_Exception;
+use Intervention\Image\Exceptions\Decoder_Exception;
 use Intervention\Image\Format;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class BinaryImageDecoder extends NativeObjectDecoder
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class Binary_Image_Decoder extends Native_Object_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
         if (!is_string($input)) {
-            throw new DecoderException('Unable to decode input');
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         try {
             $imagick = new Imagick();
-            $imagick->readImageBlob($input);
-        } catch (ImagickException) {
-            throw new DecoderException('Unable to decode input');
+            $imagick->read_image_blob($input);
+        } catch (Imagick_Exception) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         // decode image
         $image = parent::decode($imagick);
-
         // get media type enum from string media type
-        $format = Format::tryCreate($image->origin()->mediaType());
-
+        $format = Format::try_create($image->origin()->media_type());
         // extract exif data for appropriate formats
         if (in_array($format, [Format::JPEG, Format::TIFF])) {
-            $image->setExif($this->extractExifData($input));
+            $image->set_exif($this->extract_exif_data($input));
         }
-
         return $image;
     }
 }

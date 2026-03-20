@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Interfaces;
 
 use Intervention\Image\Exceptions\RuntimeException;
-
-interface ImageManagerInterface
+interface Image_Manager_Interface
 {
     /**
      * Create new image instance with given width & height
@@ -15,8 +13,7 @@ interface ImageManagerInterface
      *
      * @throws RuntimeException
      */
-    public function create(int $width, int $height): ImageInterface;
-
+    public function create(int $width, int $height): Image_Interface;
     /**
      * Create new image instance from given input which can be one of the following
      *
@@ -45,8 +42,7 @@ interface ImageManagerInterface
      * @param string|array<string|DecoderInterface>|DecoderInterface $decoders
      * @throws RuntimeException
      */
-    public function read(mixed $input, string|array|DecoderInterface $decoders = []): ImageInterface;
-
+    public function read(mixed $input, string|array|Decoder_Interface $decoders = []): Image_Interface;
     /**
      * Create new animated image by given callback
      *
@@ -54,10 +50,9 @@ interface ImageManagerInterface
      *
      * @throws RuntimeException
      */
-    public function animate(callable $init): ImageInterface;
-
+    public function animate(callable $init): Image_Interface;
     /**
      * Return currently used driver
      */
-    public function driver(): DriverInterface;
+    public function driver(): Driver_Interface;
 }

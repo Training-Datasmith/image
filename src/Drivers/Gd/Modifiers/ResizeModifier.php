@@ -1,69 +1,51 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Exceptions\GeometryException;
+use Intervention\Image\Exceptions\Color_Exception;
+use Intervention\Image\Exceptions\Geometry_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Interfaces\FrameInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SizeInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\ResizeModifier as GenericResizeModifier;
-
-class ResizeModifier extends GenericResizeModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Frame_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Size_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Resize_Modifier as GenericResizeModifier;
+class Resize_Modifier extends Generic_Resize_Modifier implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        $resizeTo = $this->getAdjustedSize($image);
+        $resize_to = $this->get_adjusted_size($image);
         foreach ($image as $frame) {
-            $this->resizeFrame($frame, $resizeTo);
+            $this->resize_frame($frame, $resize_to);
         }
-
         return $image;
     }
-
     /**
      * @throws ColorException
      */
-    private function resizeFrame(FrameInterface $frame, SizeInterface $resizeTo): void
+    private function resize_frame(Frame_Interface $frame, Size_Interface $resize_to): void
     {
         // create empty canvas in target size
-        $modified = Cloner::cloneEmpty($frame->native(), $resizeTo);
-
+        $modified = Cloner::clone_empty($frame->native(), $resize_to);
         // copy content from resource
-        imagecopyresampled(
-            $modified,
-            $frame->native(),
-            $resizeTo->pivot()->x(),
-            $resizeTo->pivot()->y(),
-            0,
-            0,
-            $resizeTo->width(),
-            $resizeTo->height(),
-            $frame->size()->width(),
-            $frame->size()->height()
-        );
-
+        imagecopyresampled($modified, $frame->native(), $resize_to->pivot()->x(), $resize_to->pivot()->y(), 0, 0, $resize_to->width(), $resize_to->height(), $frame->size()->width(), $frame->size()->height());
         // set new content as resource
-        $frame->setNative($modified);
+        $frame->set_native($modified);
     }
-
     /**
      * Return the size the modifier will resize to
      *
      * @throws RuntimeException
      * @throws GeometryException
      */
-    protected function getAdjustedSize(ImageInterface $image): SizeInterface
+    protected function get_adjusted_size(Image_Interface $image): Size_Interface
     {
         return $image->size()->resize($this->width, $this->height);
     }

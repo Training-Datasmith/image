@@ -1,34 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
 use ArrayIterator;
-use Intervention\Image\Interfaces\ResolutionInterface;
+use Intervention\Image\Interfaces\Resolution_Interface;
 use IteratorAggregate;
 use Stringable;
 use Traversable;
-
 /**
  * @implements IteratorAggregate<float>
  */
-class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
+class Resolution implements Resolution_Interface, Stringable, IteratorAggregate
 {
     public const PER_INCH = 1;
     public const PER_CM = 2;
-
     /**
      * Create new instance
      */
-    public function __construct(
-        protected float $x,
-        protected float $y,
-        protected int $per_unit = self::PER_INCH
-    ) {
-
+    public function __construct(protected float $x, protected float $y, protected int $per_unit = self::PER_INCH)
+    {
     }
-
     /**
      * {@inheritdoc}
      *
@@ -38,7 +30,6 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
     {
         return new ArrayIterator([$this->x, $this->y]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -48,19 +39,16 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
     {
         return $this->x;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::setX()
      */
-    public function setX(float $x): self
+    public function set_x(float $x): self
     {
         $this->x = $x;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -70,31 +58,26 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
     {
         return $this->y;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::setY()
      */
-    public function setY(float $y): self
+    public function set_y(float $y): self
     {
         $this->y = $y;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::setPerUnit()
      */
-    protected function setPerUnit(int $per_unit): self
+    protected function set_per_unit(int $per_unit): self
     {
         $this->per_unit = $per_unit;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -107,49 +90,39 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
             default => 'dpi',
         };
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::perInch()
      */
-    public function perInch(): self
+    public function per_inch(): self
     {
         return match ($this->per_unit) {
-            self::PER_CM => $this
-                ->setPerUnit(self::PER_INCH)
-                ->setX($this->x * 2.54)
-                ->setY($this->y * 2.54),
-            default => $this
+            self::PER_CM => $this->set_per_unit(self::PER_INCH)->set_x($this->x * 2.54)->set_y($this->y * 2.54),
+            default => $this,
         };
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::perCm()
      */
-    public function perCm(): self
+    public function per_cm(): self
     {
         return match ($this->per_unit) {
-            self::PER_INCH => $this
-                ->setPerUnit(self::PER_CM)
-                ->setX($this->x / 2.54)
-                ->setY($this->y / 2.54),
+            self::PER_INCH => $this->set_per_unit(self::PER_CM)->set_x($this->x / 2.54)->set_y($this->y / 2.54),
             default => $this,
         };
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ResolutionInterface::toString()
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return sprintf('%1$.2f x %2$.2f %3$s', $this->x, $this->y, $this->unit());
     }
-
     /**
      * {@inheritdoc}
      *
@@ -157,6 +130,6 @@ class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
      */
     public function __toString(): string
     {
-        return $this->toString();
+        return $this->to_string();
     }
 }

@@ -1,26 +1,23 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers;
 
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializableInterface;
-use Intervention\Image\Traits\CanBeDriverSpecialized;
-
-abstract class SpecializableDecoder extends AbstractDecoder implements SpecializableInterface
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specializable_Interface;
+use Intervention\Image\Traits\Can_Be_Driver_Specialized;
+abstract class Specializable_Decoder extends Abstract_Decoder implements Specializable_Interface
 {
-    use CanBeDriverSpecialized;
-
+    use Can_Be_Driver_Specialized;
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        throw new DecoderException('Decoder must be specialized by the driver first.');
+        throw new Decoder_Exception('Decoder must be specialized by the driver first.');
     }
 }

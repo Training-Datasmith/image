@@ -1,36 +1,32 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Encoders;
 
-use GdImage;
+use Gd_Image;
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\EncodedImage;
-use Intervention\Image\Encoders\PngEncoder as GenericPngEncoder;
-use Intervention\Image\Exceptions\AnimationException;
-use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Encoded_Image;
+use Intervention\Image\Encoders\Png_Encoder as GenericPngEncoder;
+use Intervention\Image\Exceptions\Animation_Exception;
+use Intervention\Image\Exceptions\Color_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-
-class PngEncoder extends GenericPngEncoder implements SpecializedInterface
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+class Png_Encoder extends Generic_Png_Encoder implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see EncoderInterface::encode()
      */
-    public function encode(ImageInterface $image): EncodedImage
+    public function encode(Image_Interface $image): Encoded_Image
     {
-        $output = $this->prepareOutput($image);
-
-        return $this->createEncodedImage(function ($pointer) use ($output): void {
+        $output = $this->prepare_output($image);
+        return $this->create_encoded_image(function ($pointer) use ($output): void {
             imageinterlace($output, $this->interlaced);
             imagepng($output, $pointer, -1);
         }, 'image/png');
     }
-
     /**
      * Prepare given image instance for PNG format output according to encoder settings
      *
@@ -38,15 +34,13 @@ class PngEncoder extends GenericPngEncoder implements SpecializedInterface
      * @throws ColorException
      * @throws AnimationException
      */
-    private function prepareOutput(ImageInterface $image): GdImage
+    private function prepare_output(Image_Interface $image): Gd_Image
     {
         if ($this->indexed) {
             $output = clone $image;
-            $output->reduceColors(255);
-
+            $output->reduce_colors(255);
             return $output->core()->native();
         }
-
         return Cloner::clone($image->core()->native());
     }
 }

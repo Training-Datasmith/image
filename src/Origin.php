@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
 class Origin
@@ -9,68 +8,56 @@ class Origin
     /**
      * Create new origin instance
      */
-    public function __construct(
-        protected string $mediaType = 'application/octet-stream',
-        protected ?string $filePath = null
-    ) {
-
+    public function __construct(protected string $media_type = 'application/octet-stream', protected ?string $file_path = null)
+    {
     }
-
     /**
      * Return media type of origin
      */
-    public function mediaType(): string
+    public function media_type(): string
     {
-        return $this->mediaType;
+        return $this->media_type;
     }
-
     /**
      * Alias of self::mediaType()
      */
     public function mimetype(): string
     {
-        return $this->mediaType();
+        return $this->media_type();
     }
-
     /**
      * Set media type of current instance
      */
-    public function setMediaType(string|MediaType $type): self
+    public function set_media_type(string|Media_Type $type): self
     {
-        $this->mediaType = match (true) {
+        $this->media_type = match (true) {
             is_string($type) => $type,
             default => $type->value,
         };
-
         return $this;
     }
-
     /**
      * Return file path of origin
      */
-    public function filePath(): ?string
+    public function file_path(): ?string
     {
-        return $this->filePath;
+        return $this->file_path;
     }
-
     /**
      * Set file path for origin
      */
-    public function setFilePath(string $path): self
+    public function set_file_path(string $path): self
     {
-        $this->filePath = $path;
-
+        $this->file_path = $path;
         return $this;
     }
-
     /**
      * Return file extension if origin was created from file path
      */
-    public function fileExtension(): ?string
+    public function file_extension(): ?string
     {
-        return pathinfo($this->filePath ?: '', PATHINFO_EXTENSION) ?: null;
+        return pathinfo($this->file_path ?: '', PATHINFO_EXTENSION) ?: null;
     }
-
     /**
      * Show debug info for the current image
      *
@@ -78,9 +65,6 @@ class Origin
      */
     public function __debugInfo(): array
     {
-        return [
-            'mediaType' => $this->mediaType(),
-            'filePath' => $this->filePath(),
-        ];
+        return ['mediaType' => $this->media_type(), 'filePath' => $this->file_path()];
     }
 }

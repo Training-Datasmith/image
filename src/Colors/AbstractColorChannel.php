@@ -1,17 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors;
 
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Interfaces\ColorChannelInterface;
+use Intervention\Image\Exceptions\Color_Exception;
+use Intervention\Image\Interfaces\Color_Channel_Interface;
 use Stringable;
-
-abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
+abstract class Abstract_Color_Channel implements Color_Channel_Interface, Stringable
 {
     protected int $value;
-
     /**
      * {@inheritdoc}
      *
@@ -19,23 +16,19 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
      */
     public function __construct(?int $value = null, ?float $normalized = null)
     {
-        $this->value = $this->validate(
-            match (true) {
-                is_null($value) && is_numeric($normalized) => intval(round($normalized * $this->max())),
-                is_numeric($value) && is_null($normalized) => $value,
-                default => throw new ColorException('Color channels must either have a value or a normalized value')
-            }
-        );
+        $this->value = $this->validate(match (true) {
+            is_null($value) && is_numeric($normalized) => intval(round($normalized * $this->max())),
+            is_numeric($value) && is_null($normalized) => $value,
+            default => throw new Color_Exception('Color channels must either have a value or a normalized value'),
+        });
     }
-
     /**
      * Alias of value()
      */
-    public function toInt(): int
+    public function to_int(): int
     {
         return $this->value;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -45,7 +38,6 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
     {
         return $this->value;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -55,7 +47,6 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
     {
         return round(($this->value() - $this->min()) / ($this->max() - $this->min()), $precision);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -64,22 +55,19 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
     public function validate(mixed $value): mixed
     {
         if ($value < $this->min() || $value > $this->max()) {
-            throw new ColorException('Color channel value must be in range ' . $this->min() . ' to ' . $this->max());
+            throw new Color_Exception('Color channel value must be in range ' . $this->min() . ' to ' . $this->max());
         }
-
         return $value;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorChannelInterface::toString()
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return (string) $this->value();
     }
-
     /**
      * {@inheritdoc}
      *
@@ -87,6 +75,6 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
      */
     public function __toString(): string
     {
-        return $this->toString();
+        return $this->to_string();
     }
 }

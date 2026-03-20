@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Interfaces;
 
-use Intervention\Image\Exceptions\DriverException;
-
-interface SpecializableInterface
+use Intervention\Image\Exceptions\Driver_Exception;
+interface Specializable_Interface
 {
     /**
      * Return an array of constructor parameters, which is usually passed from
@@ -15,16 +13,14 @@ interface SpecializableInterface
      * @return array<string, mixed>
      */
     public function specializable(): array;
-
     /**
      * Set the driver for which the object is specialized
      *
      * @throws DriverException
      */
-    public function setDriver(DriverInterface $driver): self;
-
+    public function set_driver(Driver_Interface $driver): self;
     /**
      * Return the driver for which the object was specialized
      */
-    public function driver(): DriverInterface;
+    public function driver(): Driver_Interface;
 }

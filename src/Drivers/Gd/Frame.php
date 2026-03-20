@@ -1,77 +1,63 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd;
 
-use GdImage;
-use Intervention\Image\Drivers\AbstractFrame;
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Exceptions\InputException;
+use Gd_Image;
+use Intervention\Image\Drivers\Abstract_Frame;
+use Intervention\Image\Exceptions\Color_Exception;
+use Intervention\Image\Exceptions\Input_Exception;
 use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Image;
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\FrameInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SizeInterface;
-
-class Frame extends AbstractFrame implements FrameInterface
+use Intervention\Image\Interfaces\Driver_Interface;
+use Intervention\Image\Interfaces\Frame_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Size_Interface;
+class Frame extends Abstract_Frame implements Frame_Interface
 {
     /**
      * Create new frame instance
      */
-    public function __construct(
-        protected GdImage $native,
-        protected float $delay = 0,
-        protected int $dispose = 1,
-        protected int $offset_left = 0,
-        protected int $offset_top = 0
-    ) {
-
+    public function __construct(protected Gd_Image $native, protected float $delay = 0, protected int $dispose = 1, protected int $offset_left = 0, protected int $offset_top = 0)
+    {
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::toImage()
      */
-    public function toImage(DriverInterface $driver): ImageInterface
+    public function to_image(Driver_Interface $driver): Image_Interface
     {
         return new Image($driver, new Core([$this]));
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::setNative()
      */
-    public function setNative(mixed $native): FrameInterface
+    public function set_native(mixed $native): Frame_Interface
     {
         $this->native = $native;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::native()
      */
-    public function native(): GdImage
+    public function native(): Gd_Image
     {
         return $this->native;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::size()
      */
-    public function size(): SizeInterface
+    public function size(): Size_Interface
     {
         return new Rectangle(imagesx($this->native), imagesy($this->native));
     }
-
     /**
      * {@inheritdoc}
      *
@@ -81,19 +67,16 @@ class Frame extends AbstractFrame implements FrameInterface
     {
         return $this->delay;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::setDelay()
      */
-    public function setDelay(float $delay): FrameInterface
+    public function set_delay(float $delay): Frame_Interface
     {
         $this->delay = $delay;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -103,7 +86,6 @@ class Frame extends AbstractFrame implements FrameInterface
     {
         return $this->dispose;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -111,74 +93,63 @@ class Frame extends AbstractFrame implements FrameInterface
      *
      * @throws InputException
      */
-    public function setDispose(int $dispose): FrameInterface
+    public function set_dispose(int $dispose): Frame_Interface
     {
         if (!in_array($dispose, [0, 1, 2, 3])) {
-            throw new InputException('Value for argument $dispose must be 0, 1, 2 or 3.');
+            throw new Input_Exception('Value for argument $dispose must be 0, 1, 2 or 3.');
         }
-
         $this->dispose = $dispose;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::setOffset()
      */
-    public function setOffset(int $left, int $top): FrameInterface
+    public function set_offset(int $left, int $top): Frame_Interface
     {
         $this->offset_left = $left;
         $this->offset_top = $top;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::offsetLeft()
      */
-    public function offsetLeft(): int
+    public function offset_left(): int
     {
         return $this->offset_left;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::setOffsetLeft()
      */
-    public function setOffsetLeft(int $offset): FrameInterface
+    public function set_offset_left(int $offset): Frame_Interface
     {
         $this->offset_left = $offset;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::offsetTop()
      */
-    public function offsetTop(): int
+    public function offset_top(): int
     {
         return $this->offset_top;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FrameInterface::setOffsetTop()
      */
-    public function setOffsetTop(int $offset): FrameInterface
+    public function set_offset_top(int $offset): Frame_Interface
     {
         $this->offset_top = $offset;
-
         return $this;
     }
-
     /**
      * This workaround helps cloning GdImages which is currently not possible.
      *

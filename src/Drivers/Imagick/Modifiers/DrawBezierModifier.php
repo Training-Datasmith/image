@@ -1,77 +1,48 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
-use ImagickDraw;
-use Intervention\Image\Exceptions\GeometryException;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\DrawBezierModifier as GenericDrawBezierModifier;
+use Imagick_Draw;
+use Intervention\Image\Exceptions\Geometry_Exception;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Draw_Bezier_Modifier as GenericDrawBezierModifier;
 use RuntimeException;
-
-class DrawBezierModifier extends GenericDrawBezierModifier implements SpecializedInterface
+class Draw_Bezier_Modifier extends Generic_Draw_Bezier_Modifier implements Specialized_Interface
 {
     /**
      * @throws RuntimeException
      * @throws GeometryException
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
         if ($this->drawable->count() !== 3 && $this->drawable->count() !== 4) {
-            throw new GeometryException('You must specify either 3 or 4 points to create a bezier curve');
+            throw new Geometry_Exception('You must specify either 3 or 4 points to create a bezier curve');
         }
-
-        $drawing = new ImagickDraw();
-
-        if ($this->drawable->hasBackgroundColor()) {
-            $background_color = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-                $this->backgroundColor()
-            );
+        $drawing = new Imagick_Draw();
+        if ($this->drawable->has_background_color()) {
+            $background_color = $this->driver()->color_processor($image->colorspace())->color_to_native($this->background_color());
         } else {
             $background_color = 'transparent';
         }
-
-        $drawing->setFillColor($background_color);
-
-        if ($this->drawable->hasBorder() && $this->drawable->borderSize() > 0) {
-            $border_color = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-                $this->borderColor()
-            );
-
-            $drawing->setStrokeColor($border_color);
-            $drawing->setStrokeWidth($this->drawable->borderSize());
+        $drawing->set_fill_color($background_color);
+        if ($this->drawable->has_border() && $this->drawable->border_size() > 0) {
+            $border_color = $this->driver()->color_processor($image->colorspace())->color_to_native($this->border_color());
+            $drawing->set_stroke_color($border_color);
+            $drawing->set_stroke_width($this->drawable->border_size());
         }
-
-        $drawing->pathStart();
-        $drawing->pathMoveToAbsolute(
-            $this->drawable->first()->x(),
-            $this->drawable->first()->y()
-        );
+        $drawing->path_start();
+        $drawing->path_move_to_absolute($this->drawable->first()->x(), $this->drawable->first()->y());
         if ($this->drawable->count() === 3) {
-            $drawing->pathCurveToQuadraticBezierAbsolute(
-                $this->drawable->second()->x(),
-                $this->drawable->second()->y(),
-                $this->drawable->last()->x(),
-                $this->drawable->last()->y()
-            );
+            $drawing->path_curve_to_quadratic_bezier_absolute($this->drawable->second()->x(), $this->drawable->second()->y(), $this->drawable->last()->x(), $this->drawable->last()->y());
         } elseif ($this->drawable->count() === 4) {
-            $drawing->pathCurveToAbsolute(
-                $this->drawable->second()->x(),
-                $this->drawable->second()->y(),
-                $this->drawable->third()->x(),
-                $this->drawable->third()->y(),
-                $this->drawable->last()->x(),
-                $this->drawable->last()->y()
-            );
+            $drawing->path_curve_to_absolute($this->drawable->second()->x(), $this->drawable->second()->y(), $this->drawable->third()->x(), $this->drawable->third()->y(), $this->drawable->last()->x(), $this->drawable->last()->y());
         }
-        $drawing->pathFinish();
-
+        $drawing->path_finish();
         foreach ($image as $frame) {
-            $frame->native()->drawImage($drawing);
+            $frame->native()->draw_image($drawing);
         }
-
         return $image;
     }
 }

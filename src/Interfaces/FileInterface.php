@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Interfaces;
 
 use Intervention\Image\Exceptions\RuntimeException;
-
-interface FileInterface
+interface File_Interface
 {
     /**
      * Save data in given path in file system
@@ -14,24 +12,20 @@ interface FileInterface
      * @throws RuntimeException
      */
     public function save(string $filepath): void;
-
     /**
      * Create file pointer from encoded data
      *
      * @return resource
      */
-    public function toFilePointer();
-
+    public function to_file_pointer();
     /**
      * Return size in bytes
      */
     public function size(): int;
-
     /**
      * Turn encoded data into string
      */
-    public function toString(): string;
-
+    public function to_string(): string;
     /**
      * Cast encoded data into string
      */

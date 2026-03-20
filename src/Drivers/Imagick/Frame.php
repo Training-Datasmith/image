@@ -1,22 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick;
 
 use Imagick;
-use ImagickException;
-use ImagickPixel;
-use Intervention\Image\Drivers\AbstractFrame;
-use Intervention\Image\Exceptions\InputException;
+use Imagick_Exception;
+use Imagick_Pixel;
+use Intervention\Image\Drivers\Abstract_Frame;
+use Intervention\Image\Exceptions\Input_Exception;
 use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Image;
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\FrameInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SizeInterface;
-
-class Frame extends AbstractFrame implements FrameInterface
+use Intervention\Image\Interfaces\Driver_Interface;
+use Intervention\Image\Interfaces\Frame_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Size_Interface;
+class Frame extends Abstract_Frame implements Frame_Interface
 {
     /**
      * Create new frame object
@@ -25,33 +23,29 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function __construct(protected Imagick $native)
     {
-        $background = new ImagickPixel('rgba(255, 255, 255, 0)');
-        $this->native->setImageBackgroundColor($background);
-        $this->native->setBackgroundColor($background);
+        $background = new Imagick_Pixel('rgba(255, 255, 255, 0)');
+        $this->native->set_image_background_color($background);
+        $this->native->set_background_color($background);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::toImage()
      */
-    public function toImage(DriverInterface $driver): ImageInterface
+    public function to_image(Driver_Interface $driver): Image_Interface
     {
         return new Image($driver, new Core($this->native()));
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::setNative()
      */
-    public function setNative(mixed $native): FrameInterface
+    public function set_native(mixed $native): Frame_Interface
     {
         $this->native = $native;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -61,20 +55,15 @@ class Frame extends AbstractFrame implements FrameInterface
     {
         return $this->native;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::size()
      */
-    public function size(): SizeInterface
+    public function size(): Size_Interface
     {
-        return new Rectangle(
-            $this->native->getImageWidth(),
-            $this->native->getImageHeight()
-        );
+        return new Rectangle($this->native->get_image_width(), $this->native->get_image_height());
     }
-
     /**
      * {@inheritdoc}
      *
@@ -82,21 +71,18 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function delay(): float
     {
-        return $this->native->getImageDelay() / 100;
+        return $this->native->get_image_delay() / 100;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::setDelay()
      */
-    public function setDelay(float $delay): FrameInterface
+    public function set_delay(float $delay): Frame_Interface
     {
-        $this->native->setImageDelay(intval(round($delay * 100)));
-
+        $this->native->set_image_delay(intval(round($delay * 100)));
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -104,9 +90,8 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function dispose(): int
     {
-        return $this->native->getImageDispose();
+        return $this->native->get_image_dispose();
     }
-
     /**
      * {@inheritdoc}
      *
@@ -114,71 +99,58 @@ class Frame extends AbstractFrame implements FrameInterface
      *
      * @throws InputException
      */
-    public function setDispose(int $dispose): FrameInterface
+    public function set_dispose(int $dispose): Frame_Interface
     {
         if (!in_array($dispose, [0, 1, 2, 3])) {
-            throw new InputException('Value for argument $dispose must be 0, 1, 2 or 3.');
+            throw new Input_Exception('Value for argument $dispose must be 0, 1, 2 or 3.');
         }
-
-        $this->native->setImageDispose($dispose);
-
+        $this->native->set_image_dispose($dispose);
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::setOffset()
      */
-    public function setOffset(int $left, int $top): FrameInterface
+    public function set_offset(int $left, int $top): Frame_Interface
     {
-        $this->native->setImagePage(
-            $this->native->getImageWidth(),
-            $this->native->getImageHeight(),
-            $left,
-            $top
-        );
-
+        $this->native->set_image_page($this->native->get_image_width(), $this->native->get_image_height(), $left, $top);
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::offsetLeft()
      */
-    public function offsetLeft(): int
+    public function offset_left(): int
     {
-        return $this->native->getImagePage()['x'];
+        return $this->native->get_image_page()['x'];
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::setOffsetLeft()
      */
-    public function setOffsetLeft(int $offset): FrameInterface
+    public function set_offset_left(int $offset): Frame_Interface
     {
-        return $this->setOffset($offset, $this->offsetTop());
+        return $this->set_offset($offset, $this->offset_top());
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::offsetTop()
      */
-    public function offsetTop(): int
+    public function offset_top(): int
     {
-        return $this->native->getImagePage()['y'];
+        return $this->native->get_image_page()['y'];
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::setOffsetTop()
      */
-    public function setOffsetTop(int $offset): FrameInterface
+    public function set_offset_top(int $offset): Frame_Interface
     {
-        return $this->setOffset($this->offsetLeft(), $offset);
+        return $this->set_offset($this->offset_left(), $offset);
     }
 }

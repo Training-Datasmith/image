@@ -1,33 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
 use Imagick;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\ColorizeModifier as GenericColorizeModifier;
-
-class ColorizeModifier extends GenericColorizeModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Colorize_Modifier as GenericColorizeModifier;
+class Colorize_Modifier extends Generic_Colorize_Modifier implements Specialized_Interface
 {
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        $red = $this->normalizeLevel($this->red);
-        $green = $this->normalizeLevel($this->green);
-        $blue = $this->normalizeLevel($this->blue);
-
+        $red = $this->normalize_level($this->red);
+        $green = $this->normalize_level($this->green);
+        $blue = $this->normalize_level($this->blue);
         foreach ($image as $frame) {
-            $qrange = $frame->native()->getQuantumRange();
-            $frame->native()->levelImage(0, $red, $qrange['quantumRangeLong'], Imagick::CHANNEL_RED);
-            $frame->native()->levelImage(0, $green, $qrange['quantumRangeLong'], Imagick::CHANNEL_GREEN);
-            $frame->native()->levelImage(0, $blue, $qrange['quantumRangeLong'], Imagick::CHANNEL_BLUE);
+            $qrange = $frame->native()->get_quantum_range();
+            $frame->native()->level_image(0, $red, $qrange['quantumRangeLong'], Imagick::CHANNEL_RED);
+            $frame->native()->level_image(0, $green, $qrange['quantumRangeLong'], Imagick::CHANNEL_GREEN);
+            $frame->native()->level_image(0, $blue, $qrange['quantumRangeLong'], Imagick::CHANNEL_BLUE);
         }
-
         return $image;
     }
-
-    private function normalizeLevel(int $level): int
+    private function normalize_level(int $level): int
     {
         return $level > 0 ? intval(round($level / 5)) : intval(round(($level + 100) / 100));
     }

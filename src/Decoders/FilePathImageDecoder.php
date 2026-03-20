@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Decoders;
 
-use Intervention\Image\Drivers\SpecializableDecoder;
-
-class FilePathImageDecoder extends SpecializableDecoder
+use Intervention\Image\Drivers\Specializable_Decoder;
+class File_Path_Image_Decoder extends Specializable_Decoder
 {
 }

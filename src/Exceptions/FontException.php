@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Exceptions;
 
-class FontException extends RuntimeException
+class Font_Exception extends RuntimeException
 {
 }

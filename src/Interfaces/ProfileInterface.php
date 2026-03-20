@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Interfaces;
 
-interface ProfileInterface
+interface Profile_Interface
 {
     /**
      * Cast color profile object to string

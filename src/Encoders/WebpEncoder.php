@@ -1,22 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Encoders;
 
-use Intervention\Image\Drivers\SpecializableEncoder;
-
-class WebpEncoder extends SpecializableEncoder
+use Intervention\Image\Drivers\Specializable_Encoder;
+class Webp_Encoder extends Specializable_Encoder
 {
     /**
      * Create new encoder object
      *
      * @param null|bool $strip Strip EXIF metadata
      */
-    public function __construct(
-        public int $quality = self::DEFAULT_QUALITY,
-        public ?bool $strip = null
-    ) {
-
+    public function __construct(public int $quality = self::DEFAULT_QUALITY, public ?bool $strip = null)
+    {
     }
 }

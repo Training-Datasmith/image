@@ -1,21 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors\Cmyk;
 
-use Intervention\Image\Colors\AbstractColor;
+use Intervention\Image\Colors\Abstract_Color;
 use Intervention\Image\Colors\Cmyk\Channels\Cyan;
 use Intervention\Image\Colors\Cmyk\Channels\Key;
 use Intervention\Image\Colors\Cmyk\Channels\Magenta;
 use Intervention\Image\Colors\Cmyk\Channels\Yellow;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
-use Intervention\Image\InputHandler;
-use Intervention\Image\Interfaces\ColorChannelInterface;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ColorspaceInterface;
-
-class Color extends AbstractColor
+use Intervention\Image\Input_Handler;
+use Intervention\Image\Interfaces\Color_Channel_Interface;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Colorspace_Interface;
+class Color extends Abstract_Color
 {
     /**
      * Create new instance
@@ -23,128 +21,100 @@ class Color extends AbstractColor
     public function __construct(int $c, int $m, int $y, int $k)
     {
         /** @throws void */
-        $this->channels = [
-            new Cyan($c),
-            new Magenta($m),
-            new Yellow($y),
-            new Key($k),
-        ];
+        $this->channels = [new Cyan($c), new Magenta($m), new Yellow($y), new Key($k)];
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::create()
      */
-    public static function create(mixed $input): ColorInterface
+    public static function create(mixed $input): Color_Interface
     {
-        return InputHandler::withDecoders([
-            Decoders\StringColorDecoder::class,
-        ])->handle($input);
+        return Input_Handler::with_decoders([Decoders\String_Color_Decoder::class])->handle($input);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::colorspace()
      */
-    public function colorspace(): ColorspaceInterface
+    public function colorspace(): Colorspace_Interface
     {
         return new Colorspace();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::toHex()
      */
-    public function toHex(string $prefix = ''): string
+    public function to_hex(string $prefix = ''): string
     {
-        return $this->convertTo(RgbColorspace::class)->toHex($prefix);
+        return $this->convert_to(Rgb_Colorspace::class)->to_hex($prefix);
     }
-
     /**
      * Return the CMYK cyan channel
      */
-    public function cyan(): ColorChannelInterface
+    public function cyan(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Cyan::class);
     }
-
     /**
      * Return the CMYK magenta channel
      */
-    public function magenta(): ColorChannelInterface
+    public function magenta(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Magenta::class);
     }
-
     /**
      * Return the CMYK yellow channel
      */
-    public function yellow(): ColorChannelInterface
+    public function yellow(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Yellow::class);
     }
-
     /**
      * Return the CMYK key channel
      */
-    public function key(): ColorChannelInterface
+    public function key(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Key::class);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::toString()
      */
-    public function toString(): string
+    public function to_string(): string
     {
-        return sprintf(
-            'cmyk(%d%%, %d%%, %d%%, %d%%)',
-            $this->cyan()->value(),
-            $this->magenta()->value(),
-            $this->yellow()->value(),
-            $this->key()->value()
-        );
+        return sprintf('cmyk(%d%%, %d%%, %d%%, %d%%)', $this->cyan()->value(), $this->magenta()->value(), $this->yellow()->value(), $this->key()->value());
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isGreyscale()
      */
-    public function isGreyscale(): bool
+    public function is_greyscale(): bool
     {
-        return 0 === array_sum([
-            $this->cyan()->value(),
-            $this->magenta()->value(),
-            $this->yellow()->value(),
-        ]);
+        return 0 === array_sum([$this->cyan()->value(), $this->magenta()->value(), $this->yellow()->value()]);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isTransparent()
      */
-    public function isTransparent(): bool
+    public function is_transparent(): bool
     {
         return false;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isClear()
      */
-    public function isClear(): bool
+    public function is_clear(): bool
     {
         return false;
     }

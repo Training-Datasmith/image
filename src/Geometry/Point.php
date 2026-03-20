@@ -1,29 +1,23 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry;
 
 use ArrayIterator;
-use Intervention\Image\Interfaces\PointInterface;
+use Intervention\Image\Interfaces\Point_Interface;
 use IteratorAggregate;
 use Traversable;
-
 /**
  * @implements IteratorAggregate<int>
  */
-class Point implements PointInterface, IteratorAggregate
+class Point implements Point_Interface, IteratorAggregate
 {
     /**
      * Create new point instance
      */
-    public function __construct(
-        protected int $x = 0,
-        protected int $y = 0
-    ) {
-
+    public function __construct(protected int $x = 0, protected int $y = 0)
+    {
     }
-
     /**
      * {@inheritdoc}
      *
@@ -33,19 +27,16 @@ class Point implements PointInterface, IteratorAggregate
     {
         return new ArrayIterator([$this->x, $this->y]);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::setX()
      */
-    public function setX(int $x): self
+    public function set_x(int $x): self
     {
         $this->x = $x;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -55,19 +46,16 @@ class Point implements PointInterface, IteratorAggregate
     {
         return $this->x;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::setY()
      */
-    public function setY(int $y): self
+    public function set_y(int $y): self
     {
         $this->y = $y;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -77,31 +65,26 @@ class Point implements PointInterface, IteratorAggregate
     {
         return $this->y;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::moveX()
      */
-    public function moveX(int $value): self
+    public function move_x(int $value): self
     {
         $this->x += $value;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::moveY()
      */
-    public function moveY(int $value): self
+    public function move_y(int $value): self
     {
         $this->y += $value;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -109,35 +92,28 @@ class Point implements PointInterface, IteratorAggregate
      */
     public function move(int $x, int $y): self
     {
-        return $this->moveX($x)->moveY($y);
+        return $this->move_x($x)->move_y($y);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::setPosition()
      */
-    public function setPosition(int $x, int $y): self
+    public function set_position(int $x, int $y): self
     {
-        $this->setX($x);
-        $this->setY($y);
-
+        $this->set_x($x);
+        $this->set_y($y);
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see PointInterface::rotate()
      */
-    public function rotate(float $angle, PointInterface $pivot): self
+    public function rotate(float $angle, Point_Interface $pivot): self
     {
         $sin = round(sin(deg2rad($angle)), 6);
         $cos = round(cos(deg2rad($angle)), 6);
-
-        return $this->setPosition(
-            intval($cos * ($this->x() - $pivot->x()) - $sin * ($this->y() - $pivot->y()) + $pivot->x()),
-            intval($sin * ($this->x() - $pivot->x()) + $cos * ($this->y() - $pivot->y()) + $pivot->y())
-        );
+        return $this->set_position(intval($cos * ($this->x() - $pivot->x()) - $sin * ($this->y() - $pivot->y()) + $pivot->x()), intval($sin * ($this->x() - $pivot->x()) + $cos * ($this->y() - $pivot->y()) + $pivot->y()));
     }
 }

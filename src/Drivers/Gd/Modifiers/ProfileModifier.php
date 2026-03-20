@@ -1,25 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Exceptions\NotSupportedException;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\ProfileModifier as GenericProfileModifier;
-
-class ProfileModifier extends GenericProfileModifier implements SpecializedInterface
+use Intervention\Image\Exceptions\Not_Supported_Exception;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Profile_Modifier as GenericProfileModifier;
+class Profile_Modifier extends Generic_Profile_Modifier implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        throw new NotSupportedException(
-            'Color profiles are not supported by GD driver.'
-        );
+        throw new Not_Supported_Exception('Color profiles are not supported by GD driver.');
     }
 }

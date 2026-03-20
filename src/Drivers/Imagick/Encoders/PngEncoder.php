@@ -1,46 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Encoders;
 
 use Imagick;
-use Intervention\Image\EncodedImage;
-use Intervention\Image\Encoders\PngEncoder as GenericPngEncoder;
-use Intervention\Image\Interfaces\EncodedImageInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-
-class PngEncoder extends GenericPngEncoder implements SpecializedInterface
+use Intervention\Image\Encoded_Image;
+use Intervention\Image\Encoders\Png_Encoder as GenericPngEncoder;
+use Intervention\Image\Interfaces\Encoded_Image_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+class Png_Encoder extends Generic_Png_Encoder implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see EncoderInterface::encode()
      */
-    public function encode(ImageInterface $image): EncodedImageInterface
+    public function encode(Image_Interface $image): Encoded_Image_Interface
     {
         if ($this->indexed) {
             // reduce colors
             $output = clone $image;
-            $output->reduceColors(256);
-
+            $output->reduce_colors(256);
             $output = $output->core()->native();
-            $output->setFormat('PNG');
-            $output->setImageFormat('PNG');
+            $output->set_format('PNG');
+            $output->set_image_format('PNG');
         } else {
             $output = clone $image->core()->native();
-            $output->setFormat('PNG32');
-            $output->setImageFormat('PNG32');
+            $output->set_format('PNG32');
+            $output->set_image_format('PNG32');
         }
-
-        $output->setCompression(Imagick::COMPRESSION_ZIP);
-        $output->setImageCompression(Imagick::COMPRESSION_ZIP);
-
+        $output->set_compression(Imagick::COMPRESSION_ZIP);
+        $output->set_image_compression(Imagick::COMPRESSION_ZIP);
         if ($this->interlaced) {
-            $output->setInterlaceScheme(Imagick::INTERLACE_LINE);
+            $output->set_interlace_scheme(Imagick::INTERLACE_LINE);
         }
-
-        return new EncodedImage($output->getImagesBlob(), 'image/png');
+        return new Encoded_Image($output->get_images_blob(), 'image/png');
     }
 }

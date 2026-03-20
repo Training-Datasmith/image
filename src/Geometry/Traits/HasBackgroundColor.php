@@ -1,42 +1,37 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry\Traits;
 
-trait HasBackgroundColor
+trait Has_Background_Color
 {
-    protected mixed $backgroundColor = null;
-
+    protected mixed $background_color = null;
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::setBackgroundColor()
      */
-    public function setBackgroundColor(mixed $color): self
+    public function set_background_color(mixed $color): self
     {
-        $this->backgroundColor = $color;
-
+        $this->background_color = $color;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::backgroundColor()
      */
-    public function backgroundColor(): mixed
+    public function background_color(): mixed
     {
-        return $this->backgroundColor;
+        return $this->background_color;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::hasBackgroundColor()
      */
-    public function hasBackgroundColor(): bool
+    public function has_background_color(): bool
     {
-        return !empty($this->backgroundColor);
+        return !empty($this->background_color);
     }
 }

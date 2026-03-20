@@ -1,75 +1,66 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry\Traits;
 
-trait HasBorder
+trait Has_Border
 {
-    protected mixed $borderColor = null;
-    protected int $borderSize = 0;
-
+    protected mixed $border_color = null;
+    protected int $border_size = 0;
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::setBorder()
      */
-    public function setBorder(mixed $color, int $size = 1): self
+    public function set_border(mixed $color, int $size = 1): self
     {
-        return $this->setBorderSize($size)->setBorderColor($color);
+        return $this->set_border_size($size)->set_border_color($color);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::setBorderSize()
      */
-    public function setBorderSize(int $size): self
+    public function set_border_size(int $size): self
     {
-        $this->borderSize = $size;
-
+        $this->border_size = $size;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::borderSize()
      */
-    public function borderSize(): int
+    public function border_size(): int
     {
-        return $this->borderSize;
+        return $this->border_size;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::setBorderColor()
      */
-    public function setBorderColor(mixed $color): self
+    public function set_border_color(mixed $color): self
     {
-        $this->borderColor = $color;
-
+        $this->border_color = $color;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::borderColor()
      */
-    public function borderColor(): mixed
+    public function border_color(): mixed
     {
-        return $this->borderColor;
+        return $this->border_color;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::hasBorder()
      */
-    public function hasBorder(): bool
+    public function has_border(): bool
     {
-        return $this->borderSize > 0 && !is_null($this->borderColor);
+        return $this->border_size > 0 && !is_null($this->border_color);
     }
 }

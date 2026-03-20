@@ -1,40 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Typography;
 
-use Intervention\Image\Exceptions\FontException;
-use Intervention\Image\Interfaces\FontInterface;
-
-class Font implements FontInterface
+use Intervention\Image\Exceptions\Font_Exception;
+use Intervention\Image\Interfaces\Font_Interface;
+class Font implements Font_Interface
 {
     protected float $size = 12;
     protected float $angle = 0;
     protected mixed $color = '000000';
-    protected mixed $strokeColor = 'ffffff';
-    protected int $strokeWidth = 0;
+    protected mixed $stroke_color = 'ffffff';
+    protected int $stroke_width = 0;
     protected string $alignment = 'left';
     protected string $valignment = 'bottom';
-    protected float $lineHeight = 1.25;
-    protected ?int $wrapWidth = null;
-
+    protected float $line_height = 1.25;
+    protected ?int $wrap_width = null;
     public function __construct(protected ?string $filename = null)
     {
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setSize()
      */
-    public function setSize(float $size): FontInterface
+    public function set_size(float $size): Font_Interface
     {
         $this->size = $size;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -44,19 +38,16 @@ class Font implements FontInterface
     {
         return $this->size;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setAngle()
      */
-    public function setAngle(float $angle): FontInterface
+    public function set_angle(float $angle): Font_Interface
     {
         $this->angle = $angle;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -66,7 +57,6 @@ class Font implements FontInterface
     {
         return $this->angle;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -74,17 +64,14 @@ class Font implements FontInterface
      *
      * @throws FontException
      */
-    public function setFilename(string $filename): FontInterface
+    public function set_filename(string $filename): Font_Interface
     {
         if (!file_exists($filename)) {
-            throw new FontException('Font file ' . $filename . ' does not exist.');
+            throw new Font_Exception('Font file ' . $filename . ' does not exist.');
         }
-
         $this->filename = $filename;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -94,29 +81,25 @@ class Font implements FontInterface
     {
         return $this->filename;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::hasFilename()
      */
-    public function hasFilename(): bool
+    public function has_filename(): bool
     {
         return !is_null($this->filename) && is_file($this->filename);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setColor()
      */
-    public function setColor(mixed $color): FontInterface
+    public function set_color(mixed $color): Font_Interface
     {
         $this->color = $color;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -126,67 +109,56 @@ class Font implements FontInterface
     {
         return $this->color;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setStrokeColor()
      */
-    public function setStrokeColor(mixed $color): FontInterface
+    public function set_stroke_color(mixed $color): Font_Interface
     {
-        $this->strokeColor = $color;
-
+        $this->stroke_color = $color;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::strokeColor()
      */
-    public function strokeColor(): mixed
+    public function stroke_color(): mixed
     {
-        return $this->strokeColor;
+        return $this->stroke_color;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setStrokeWidth()
      */
-    public function setStrokeWidth(int $width): FontInterface
+    public function set_stroke_width(int $width): Font_Interface
     {
         if (!in_array($width, range(0, 10))) {
-            throw new FontException(
-                'The stroke width must be in the range from 0 to 10.'
-            );
+            throw new Font_Exception('The stroke width must be in the range from 0 to 10.');
         }
-
-        $this->strokeWidth = $width;
-
+        $this->stroke_width = $width;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::strokeWidth()
      */
-    public function strokeWidth(): int
+    public function stroke_width(): int
     {
-        return $this->strokeWidth;
+        return $this->stroke_width;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::hasStrokeEffect()
      */
-    public function hasStrokeEffect(): bool
+    public function has_stroke_effect(): bool
     {
-        return $this->strokeWidth > 0;
+        return $this->stroke_width > 0;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -196,19 +168,16 @@ class Font implements FontInterface
     {
         return $this->alignment;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setAlignment()
      */
-    public function setAlignment(string $value): FontInterface
+    public function set_alignment(string $value): Font_Interface
     {
         $this->alignment = $value;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -218,60 +187,52 @@ class Font implements FontInterface
     {
         return $this->valignment;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setValignment()
      */
-    public function setValignment(string $value): FontInterface
+    public function set_valignment(string $value): Font_Interface
     {
         $this->valignment = $value;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setLineHeight()
      */
-    public function setLineHeight(float $height): FontInterface
+    public function set_line_height(float $height): Font_Interface
     {
-        $this->lineHeight = $height;
-
+        $this->line_height = $height;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::lineHeight()
      */
-    public function lineHeight(): float
+    public function line_height(): float
     {
-        return $this->lineHeight;
+        return $this->line_height;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::setWrapWidth()
      */
-    public function setWrapWidth(?int $width): FontInterface
+    public function set_wrap_width(?int $width): Font_Interface
     {
-        $this->wrapWidth = $width;
-
+        $this->wrap_width = $width;
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see FontInterface::wrapWidth()
      */
-    public function wrapWidth(): ?int
+    public function wrap_width(): ?int
     {
-        return $this->wrapWidth;
+        return $this->wrap_width;
     }
 }

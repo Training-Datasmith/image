@@ -1,35 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SizeInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\ResizeModifier as GenericResizeModifier;
-
-class ResizeModifier extends GenericResizeModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Size_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Resize_Modifier as GenericResizeModifier;
+class Resize_Modifier extends Generic_Resize_Modifier implements Specialized_Interface
 {
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        $resizeTo = $this->getAdjustedSize($image);
-
+        $resize_to = $this->get_adjusted_size($image);
         foreach ($image as $frame) {
-            $frame->native()->scaleImage(
-                $resizeTo->width(),
-                $resizeTo->height()
-            );
+            $frame->native()->scale_image($resize_to->width(), $resize_to->height());
         }
-
         return $image;
     }
-
     /**
      * @throws RuntimeException
      */
-    protected function getAdjustedSize(ImageInterface $image): SizeInterface
+    protected function get_adjusted_size(Image_Interface $image): Size_Interface
     {
         return $image->size()->resize($this->width, $this->height);
     }

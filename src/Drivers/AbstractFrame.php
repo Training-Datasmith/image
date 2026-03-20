@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers;
 
-use Intervention\Image\Interfaces\FrameInterface;
-
-abstract class AbstractFrame implements FrameInterface
+use Intervention\Image\Interfaces\Frame_Interface;
+abstract class Abstract_Frame implements Frame_Interface
 {
     /**
      * Show debug info for the current image
@@ -15,11 +13,6 @@ abstract class AbstractFrame implements FrameInterface
      */
     public function __debugInfo(): array
     {
-        return [
-            'delay' => $this->delay(),
-            'left' => $this->offsetLeft(),
-            'top' => $this->offsetTop(),
-            'dispose' => $this->dispose(),
-        ];
+        return ['delay' => $this->delay(), 'left' => $this->offset_left(), 'top' => $this->offset_top(), 'dispose' => $this->dispose()];
     }
 }

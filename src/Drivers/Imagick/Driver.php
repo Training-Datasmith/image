@@ -1,26 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick;
 
 use Imagick;
-use ImagickPixel;
-use Intervention\Image\Drivers\AbstractDriver;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\NotSupportedException;
+use Imagick_Pixel;
+use Intervention\Image\Drivers\Abstract_Driver;
+use Intervention\Image\Exceptions\Driver_Exception;
+use Intervention\Image\Exceptions\Not_Supported_Exception;
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\FileExtension;
+use Intervention\Image\File_Extension;
 use Intervention\Image\Format;
 use Intervention\Image\Image;
-use Intervention\Image\Interfaces\ColorProcessorInterface;
-use Intervention\Image\Interfaces\ColorspaceInterface;
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\FontProcessorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\MediaType;
-
-class Driver extends AbstractDriver
+use Intervention\Image\Interfaces\Color_Processor_Interface;
+use Intervention\Image\Interfaces\Colorspace_Interface;
+use Intervention\Image\Interfaces\Driver_Interface;
+use Intervention\Image\Interfaces\Font_Processor_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Media_Type;
+class Driver extends Abstract_Driver
 {
     /**
      * {@inheritdoc}
@@ -31,7 +29,6 @@ class Driver extends AbstractDriver
     {
         return 'Imagick';
     }
-
     /**
      * {@inheritdoc}
      *
@@ -39,35 +36,29 @@ class Driver extends AbstractDriver
      *
      * @codeCoverageIgnore
      */
-    public function checkHealth(): void
+    public function check_health(): void
     {
         if (!extension_loaded('imagick') || !class_exists('Imagick')) {
-            throw new DriverException(
-                'Imagick PHP extension must be installed to use this driver.'
-            );
+            throw new Driver_Exception('Imagick PHP extension must be installed to use this driver.');
         }
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::createImage()
      */
-    public function createImage(int $width, int $height): ImageInterface
+    public function create_image(int $width, int $height): Image_Interface
     {
-        $background = new ImagickPixel('rgba(255, 255, 255, 0)');
-
+        $background = new Imagick_Pixel('rgba(255, 255, 255, 0)');
         $imagick = new Imagick();
-        $imagick->newImage($width, $height, $background, 'png');
-        $imagick->setType(Imagick::IMGTYPE_UNDEFINED);
-        $imagick->setImageType(Imagick::IMGTYPE_UNDEFINED);
-        $imagick->setColorspace(Imagick::COLORSPACE_SRGB);
-        $imagick->setImageResolution(96, 96);
-        $imagick->setImageBackgroundColor($background);
-
+        $imagick->new_image($width, $height, $background, 'png');
+        $imagick->set_type(Imagick::IMGTYPE_UNDEFINED);
+        $imagick->set_image_type(Imagick::IMGTYPE_UNDEFINED);
+        $imagick->set_colorspace(Imagick::COLORSPACE_SRGB);
+        $imagick->set_image_resolution(96, 96);
+        $imagick->set_image_background_color($background);
         return new Image($this, new Core($imagick));
     }
-
     /**
      * {@inheritdoc}
      *
@@ -75,85 +66,68 @@ class Driver extends AbstractDriver
      *
      * @throws RuntimeException
      */
-    public function createAnimation(callable $init): ImageInterface
+    public function create_animation(callable $init): Image_Interface
     {
         $imagick = new Imagick();
-        $imagick->setFormat('gif');
-
-        $animation = new class ($this, $imagick) {
-            public function __construct(
-                protected DriverInterface $driver,
-                public Imagick $imagick
-            ) {
-
+        $imagick->set_format('gif');
+        $animation = new class($this, $imagick)
+        {
+            public function __construct(protected Driver_Interface $driver, public Imagick $imagick)
+            {
             }
-
             /**
              * @throws RuntimeException
              */
             public function add(mixed $source, float $delay = 1): self
             {
-                $native = $this->driver->handleInput($source)->core()->native();
-                $native->setImageDelay(intval(round($delay * 100)));
-
-                $this->imagick->addImage($native);
-
+                $native = $this->driver->handle_input($source)->core()->native();
+                $native->set_image_delay(intval(round($delay * 100)));
+                $this->imagick->add_image($native);
                 return $this;
             }
-
             /**
              * @throws RuntimeException
              */
-            public function __invoke(): ImageInterface
+            public function __invoke(): Image_Interface
             {
-                return new Image(
-                    $this->driver,
-                    new Core($this->imagick)
-                );
+                return new Image($this->driver, new Core($this->imagick));
             }
         };
-
         $init($animation);
-
         return call_user_func($animation);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::colorProcessor()
      */
-    public function colorProcessor(ColorspaceInterface $colorspace): ColorProcessorInterface
+    public function color_processor(Colorspace_Interface $colorspace): Color_Processor_Interface
     {
-        return new ColorProcessor($colorspace);
+        return new Color_Processor($colorspace);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::fontProcessor()
      */
-    public function fontProcessor(): FontProcessorInterface
+    public function font_processor(): Font_Processor_Interface
     {
-        return new FontProcessor();
+        return new Font_Processor();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DriverInterface::supports()
      */
-    public function supports(string|Format|FileExtension|MediaType $identifier): bool
+    public function supports(string|Format|File_Extension|Media_Type $identifier): bool
     {
         try {
             $format = Format::create($identifier);
-        } catch (NotSupportedException) {
+        } catch (Not_Supported_Exception) {
             return false;
         }
-
-        return count(Imagick::queryFormats($format->name)) >= 1;
+        return count(Imagick::query_formats($format->name)) >= 1;
     }
-
     /**
      * Return version of ImageMagick library
      *
@@ -161,14 +135,10 @@ class Driver extends AbstractDriver
      */
     public static function version(): string
     {
-        $pattern = '/^ImageMagick (?P<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' .
-            '(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?' .
-            '(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)/';
-
-        if (preg_match($pattern, Imagick::getVersion()['versionString'], $matches) !== 1) {
-            throw new DriverException('Unable to read ImageMagick version number.');
+        $pattern = '/^ImageMagick (?P<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' . '(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?' . '(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)/';
+        if (preg_match($pattern, Imagick::get_version()['versionString'], $matches) !== 1) {
+            throw new Driver_Exception('Unable to read ImageMagick version number.');
         }
-
         return $matches['version'];
     }
 }

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors\Hsl\Channels;
 
-use Intervention\Image\Colors\AbstractColorChannel;
-
-class Luminance extends AbstractColorChannel
+use Intervention\Image\Colors\Abstract_Color_Channel;
+class Luminance extends Abstract_Color_Channel
 {
     /**
      * {@inheritdoc}
@@ -17,7 +15,6 @@ class Luminance extends AbstractColorChannel
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      *

@@ -1,32 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick;
 
 use Imagick;
-use ImagickException;
-use Intervention\Image\Exceptions\AnimationException;
-use Intervention\Image\Interfaces\CollectionInterface;
-use Intervention\Image\Interfaces\CoreInterface;
-use Intervention\Image\Interfaces\FrameInterface;
+use Imagick_Exception;
+use Intervention\Image\Exceptions\Animation_Exception;
+use Intervention\Image\Interfaces\Collection_Interface;
+use Intervention\Image\Interfaces\Core_Interface;
+use Intervention\Image\Interfaces\Frame_Interface;
 use Iterator;
-
 /**
  * @implements Iterator<FrameInterface>
  */
-class Core implements CoreInterface, Iterator
+class Core implements Core_Interface, Iterator
 {
-    protected int $iteratorIndex = 0;
-
+    protected int $iterator_index = 0;
     /**
      * Create new core instance
      */
     public function __construct(protected Imagick $imagick)
     {
-
     }
-
     /**
      * {@inheritdoc}
      *
@@ -35,24 +30,21 @@ class Core implements CoreInterface, Iterator
     public function has(int|string $key): bool
     {
         try {
-            $result = $this->imagick->setIteratorIndex($key);
-        } catch (ImagickException) {
+            $result = $this->imagick->set_iterator_index($key);
+        } catch (Imagick_Exception) {
             return false;
         }
-
         return $result;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::push()
      */
-    public function push(mixed $item): CollectionInterface
+    public function push(mixed $item): Collection_Interface
     {
         return $this->add($item);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -61,92 +53,69 @@ class Core implements CoreInterface, Iterator
     public function get(int|string $key, mixed $default = null): mixed
     {
         try {
-            $this->imagick->setIteratorIndex($key);
-        } catch (ImagickException) {
+            $this->imagick->set_iterator_index($key);
+        } catch (Imagick_Exception) {
             return $default;
         }
-
         return new Frame($this->imagick->current());
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::getAtPosition()
      */
-    public function getAtPosition(int $key = 0, mixed $default = null): mixed
+    public function get_at_position(int $key = 0, mixed $default = null): mixed
     {
         return $this->get($key, $default);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::empty()
      */
-    public function empty(): CollectionInterface
+    public function empty(): Collection_Interface
     {
         $this->imagick->clear();
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::slice()
      */
-    public function slice(int $offset, ?int $length = null): CollectionInterface
+    public function slice(int $offset, ?int $length = null): Collection_Interface
     {
         $allowed_indexes = [];
         $length = is_null($length) ? $this->count() : $length;
         for ($i = $offset; $i < $offset + $length; $i++) {
             $allowed_indexes[] = $i;
         }
-
         $sliced = new Imagick();
         foreach ($this->imagick as $key => $native) {
             if (in_array($key, $allowed_indexes)) {
-                $sliced->addImage($native->getImage());
+                $sliced->add_image($native->get_image());
             }
         }
-
-        $sliced = $sliced->coalesceImages();
-        $sliced->setImageIterations($this->imagick->getImageIterations());
-
+        $sliced = $sliced->coalesce_images();
+        $sliced->set_image_iterations($this->imagick->get_image_iterations());
         $this->imagick = $sliced;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::add()
      */
-    public function add(FrameInterface $frame): CoreInterface
+    public function add(Frame_Interface $frame): Core_Interface
     {
         $imagick = $frame->native();
-
-        $imagick->setImageDelay(
-            (int) round($frame->delay() * 100)
-        );
-
-        $imagick->setImageDispose($frame->dispose());
-
+        $imagick->set_image_delay((int) round($frame->delay() * 100));
+        $imagick->set_image_dispose($frame->dispose());
         $size = $frame->size();
-        $imagick->setImagePage(
-            $size->width(),
-            $size->height(),
-            $frame->offsetLeft(),
-            $frame->offsetTop()
-        );
-
-        $this->imagick->addImage($imagick);
-
+        $imagick->set_image_page($size->width(), $size->height(), $frame->offset_left(), $frame->offset_top());
+        $this->imagick->add_image($imagick);
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -154,9 +123,8 @@ class Core implements CoreInterface, Iterator
      */
     public function count(): int
     {
-        return $this->imagick->getNumberImages();
+        return $this->imagick->get_number_images();
     }
-
     /**
      * {@inheritdoc}
      *
@@ -164,11 +132,9 @@ class Core implements CoreInterface, Iterator
      */
     public function current(): mixed
     {
-        $this->imagick->setIteratorIndex($this->iteratorIndex);
-
+        $this->imagick->set_iterator_index($this->iterator_index);
         return new Frame($this->imagick->current());
     }
-
     /**
      * {@inheritdoc}
      *
@@ -176,9 +142,8 @@ class Core implements CoreInterface, Iterator
      */
     public function next(): void
     {
-        $this->iteratorIndex += 1;
+        $this->iterator_index += 1;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -186,9 +151,8 @@ class Core implements CoreInterface, Iterator
      */
     public function key(): mixed
     {
-        return $this->iteratorIndex;
+        return $this->iterator_index;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -197,14 +161,12 @@ class Core implements CoreInterface, Iterator
     public function valid(): bool
     {
         try {
-            $result = $this->imagick->setIteratorIndex($this->iteratorIndex);
-        } catch (ImagickException) {
+            $result = $this->imagick->set_iterator_index($this->iterator_index);
+        } catch (Imagick_Exception) {
             return false;
         }
-
         return $result;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -212,9 +174,8 @@ class Core implements CoreInterface, Iterator
      */
     public function rewind(): void
     {
-        $this->iteratorIndex = 0;
+        $this->iterator_index = 0;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -224,35 +185,30 @@ class Core implements CoreInterface, Iterator
     {
         return $this->imagick;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::setNative()
      */
-    public function setNative(mixed $native): CoreInterface
+    public function set_native(mixed $native): Core_Interface
     {
         $this->imagick = $native;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::frame()
      */
-    public function frame(int $position): FrameInterface
+    public function frame(int $position): Frame_Interface
     {
         foreach ($this->imagick as $core) {
-            if ($core->getIteratorIndex() === $position) {
+            if ($core->get_iterator_index() === $position) {
                 return new Frame($core);
             }
         }
-
-        throw new AnimationException('Frame #' . $position . ' could not be found in the image.');
+        throw new Animation_Exception('Frame #' . $position . ' could not be found in the image.');
     }
-
     /**
      * {@inheritdoc}
      *
@@ -260,58 +216,50 @@ class Core implements CoreInterface, Iterator
      */
     public function loops(): int
     {
-        return $this->imagick->getImageIterations();
+        return $this->imagick->get_image_iterations();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::setLoops()
      */
-    public function setLoops(int $loops): CoreInterface
+    public function set_loops(int $loops): Core_Interface
     {
-        $this->imagick = $this->imagick->coalesceImages();
-        $this->imagick->setImageIterations($loops);
-
+        $this->imagick = $this->imagick->coalesce_images();
+        $this->imagick->set_image_iterations($loops);
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::first()
      */
-    public function first(): FrameInterface
+    public function first(): Frame_Interface
     {
         return $this->frame(0);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectableInterface::last()
      */
-    public function last(): FrameInterface
+    public function last(): Frame_Interface
     {
         return $this->frame($this->count() - 1);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::toArray()
      */
-    public function toArray(): array
+    public function to_array(): array
     {
         $frames = [];
-
         foreach ($this as $frame) {
             $frames[] = $frame;
         }
-
         return $frames;
     }
-
     /**
      * Clone instance
      */

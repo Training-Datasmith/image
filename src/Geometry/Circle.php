@@ -1,34 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry;
 
-use Intervention\Image\Interfaces\PointInterface;
-
+use Intervention\Image\Interfaces\Point_Interface;
 class Circle extends Ellipse
 {
     /**
      * Create new Circle instance
      */
-    public function __construct(
-        int $diameter,
-        PointInterface $pivot = new Point()
-    ) {
+    public function __construct(int $diameter, Point_Interface $pivot = new Point())
+    {
         parent::__construct($diameter, $diameter, $pivot);
     }
-
     /**
      * Set diameter of circle
      */
-    public function setDiameter(int $diameter): self
+    public function set_diameter(int $diameter): self
     {
-        $this->setWidth($diameter);
-        $this->setHeight($diameter);
-
+        $this->set_width($diameter);
+        $this->set_height($diameter);
         return $this;
     }
-
     /**
      * Get diameter of circle
      */
@@ -36,15 +29,13 @@ class Circle extends Ellipse
     {
         return $this->width();
     }
-
     /**
      * Set radius of circle
      */
-    public function setRadius(int $radius): self
+    public function set_radius(int $radius): self
     {
-        return $this->setDiameter(intval($radius * 2));
+        return $this->set_diameter(intval($radius * 2));
     }
-
     /**
      * Get radius of circle
      */

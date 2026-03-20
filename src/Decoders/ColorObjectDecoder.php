@@ -1,27 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Decoders;
 
-use Intervention\Image\Drivers\AbstractDecoder;
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class ColorObjectDecoder extends AbstractDecoder
+use Intervention\Image\Drivers\Abstract_Decoder;
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class Color_Object_Decoder extends Abstract_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        if (!is_a($input, ColorInterface::class)) {
-            throw new DecoderException('Unable to decode input');
+        if (!is_a($input, Color_Interface::class)) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         return $input;
     }
 }

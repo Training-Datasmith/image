@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SizeInterface;
-
-class ResizeDownModifier extends ResizeModifier
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Size_Interface;
+class Resize_Down_Modifier extends Resize_Modifier
 {
-    protected function getAdjustedSize(ImageInterface $image): SizeInterface
+    protected function get_adjusted_size(Image_Interface $image): Size_Interface
     {
-        return $image->size()->resizeDown($this->width, $this->height);
+        return $image->size()->resize_down($this->width, $this->height);
     }
 }

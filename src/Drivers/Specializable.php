@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers;
 
-use Intervention\Image\Interfaces\SpecializableInterface;
-use Intervention\Image\Traits\CanBeDriverSpecialized;
-
-abstract class Specializable implements SpecializableInterface
+use Intervention\Image\Interfaces\Specializable_Interface;
+use Intervention\Image\Traits\Can_Be_Driver_Specialized;
+abstract class Specializable implements Specializable_Interface
 {
-    use CanBeDriverSpecialized;
+    use Can_Be_Driver_Specialized;
 }

@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
-use Intervention\Image\Exceptions\GeometryException;
-use Intervention\Image\Interfaces\SizeInterface;
-
-class CoverDownModifier extends CoverModifier
+use Intervention\Image\Exceptions\Geometry_Exception;
+use Intervention\Image\Interfaces\Size_Interface;
+class Cover_Down_Modifier extends Cover_Modifier
 {
     /**
      * @throws GeometryException
      */
-    public function getResizeSize(SizeInterface $size): SizeInterface
+    public function get_resize_size(Size_Interface $size): Size_Interface
     {
-        return $size->resizeDown($this->width, $this->height);
+        return $size->resize_down($this->width, $this->height);
     }
 }

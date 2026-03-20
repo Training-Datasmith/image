@@ -1,88 +1,71 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Geometry;
 
-use Intervention\Image\Geometry\Traits\HasBackgroundColor;
-use Intervention\Image\Geometry\Traits\HasBorder;
-use Intervention\Image\Interfaces\DrawableInterface;
-use Intervention\Image\Interfaces\PointInterface;
-
-class Ellipse implements DrawableInterface
+use Intervention\Image\Geometry\Traits\Has_Background_Color;
+use Intervention\Image\Geometry\Traits\Has_Border;
+use Intervention\Image\Interfaces\Drawable_Interface;
+use Intervention\Image\Interfaces\Point_Interface;
+class Ellipse implements Drawable_Interface
 {
-    use HasBorder;
-    use HasBackgroundColor;
-
+    use Has_Border;
+    use Has_Background_Color;
     /**
      * Create new Ellipse
      */
-    public function __construct(
-        protected int $width,
-        protected int $height,
-        protected PointInterface $pivot = new Point()
-    ) {
-
+    public function __construct(protected int $width, protected int $height, protected Point_Interface $pivot = new Point())
+    {
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::position()
      */
-    public function position(): PointInterface
+    public function position(): Point_Interface
     {
         return $this->pivot;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see DrawableInterface::setPosition()
      */
-    public function setPosition(PointInterface $position): self
+    public function set_position(Point_Interface $position): self
     {
         $this->pivot = $position;
-
         return $this;
     }
-
     /**
      * Return pivot point of Ellipse
      */
-    public function pivot(): PointInterface
+    public function pivot(): Point_Interface
     {
         return $this->pivot;
     }
-
     /**
      * Set size of Ellipse
      */
-    public function setSize(int $width, int $height): self
+    public function set_size(int $width, int $height): self
     {
-        return $this->setWidth($width)->setHeight($height);
+        return $this->set_width($width)->set_height($height);
     }
-
     /**
      * Set width of Ellipse
      */
-    public function setWidth(int $width): self
+    public function set_width(int $width): self
     {
         $this->width = $width;
-
         return $this;
     }
-
     /**
      * Set height of Ellipse
      */
-    public function setHeight(int $height): self
+    public function set_height(int $height): self
     {
         $this->height = $height;
-
         return $this;
     }
-
     /**
      * Get width of Ellipse
      */
@@ -90,7 +73,6 @@ class Ellipse implements DrawableInterface
     {
         return $this->width;
     }
-
     /**
      * Get height of Ellipse
      */

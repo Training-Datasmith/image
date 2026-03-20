@@ -1,27 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Decoders;
 
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use SplFileInfo;
-
-class SplFileInfoImageDecoder extends FilePathImageDecoder
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Spl_File_Info;
+class Spl_File_Info_Image_Decoder extends File_Path_Image_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        if (!is_a($input, SplFileInfo::class)) {
-            throw new DecoderException('Unable to decode input');
+        if (!is_a($input, Spl_File_Info::class)) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
-        return parent::decode($input->getRealPath());
+        return parent::decode($input->get_real_path());
     }
 }

@@ -1,26 +1,23 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\FlipModifier as GenericFlipModifier;
-
-class FlipModifier extends GenericFlipModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Flip_Modifier as GenericFlipModifier;
+class Flip_Modifier extends Generic_Flip_Modifier implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
         foreach ($image as $frame) {
             imageflip($frame->native(), IMG_FLIP_VERTICAL);
         }
-
         return $image;
     }
 }

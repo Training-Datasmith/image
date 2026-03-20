@@ -1,128 +1,102 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
-use Intervention\Image\Colors\Cmyk\Decoders\StringColorDecoder as CmykStringColorDecoder;
-use Intervention\Image\Colors\Hsl\Decoders\StringColorDecoder as HslStringColorDecoder;
-use Intervention\Image\Colors\Hsv\Decoders\StringColorDecoder as HsvStringColorDecoder;
-use Intervention\Image\Colors\Rgb\Decoders\HexColorDecoder as RgbHexColorDecoder;
-use Intervention\Image\Colors\Rgb\Decoders\HtmlColornameDecoder;
-use Intervention\Image\Colors\Rgb\Decoders\StringColorDecoder as RgbStringColorDecoder;
-use Intervention\Image\Colors\Rgb\Decoders\TransparentColorDecoder;
-use Intervention\Image\Decoders\Base64ImageDecoder;
-use Intervention\Image\Decoders\BinaryImageDecoder;
-use Intervention\Image\Decoders\ColorObjectDecoder;
-use Intervention\Image\Decoders\DataUriImageDecoder;
-use Intervention\Image\Decoders\EncodedImageObjectDecoder;
-use Intervention\Image\Decoders\FilePathImageDecoder;
-use Intervention\Image\Decoders\FilePointerImageDecoder;
-use Intervention\Image\Decoders\ImageObjectDecoder;
-use Intervention\Image\Decoders\NativeObjectDecoder;
-use Intervention\Image\Decoders\SplFileInfoImageDecoder;
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\NotSupportedException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\DecoderInterface;
-use Intervention\Image\Interfaces\DriverInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\InputHandlerInterface;
-
-class InputHandler implements InputHandlerInterface
+use Intervention\Image\Colors\Cmyk\Decoders\String_Color_Decoder as CmykStringColorDecoder;
+use Intervention\Image\Colors\Hsl\Decoders\String_Color_Decoder as HslStringColorDecoder;
+use Intervention\Image\Colors\Hsv\Decoders\String_Color_Decoder as HsvStringColorDecoder;
+use Intervention\Image\Colors\Rgb\Decoders\Hex_Color_Decoder as RgbHexColorDecoder;
+use Intervention\Image\Colors\Rgb\Decoders\Html_Colorname_Decoder;
+use Intervention\Image\Colors\Rgb\Decoders\String_Color_Decoder as RgbStringColorDecoder;
+use Intervention\Image\Colors\Rgb\Decoders\Transparent_Color_Decoder;
+use Intervention\Image\Decoders\Base64image_Decoder;
+use Intervention\Image\Decoders\Binary_Image_Decoder;
+use Intervention\Image\Decoders\Color_Object_Decoder;
+use Intervention\Image\Decoders\Data_Uri_Image_Decoder;
+use Intervention\Image\Decoders\Encoded_Image_Object_Decoder;
+use Intervention\Image\Decoders\File_Path_Image_Decoder;
+use Intervention\Image\Decoders\File_Pointer_Image_Decoder;
+use Intervention\Image\Decoders\Image_Object_Decoder;
+use Intervention\Image\Decoders\Native_Object_Decoder;
+use Intervention\Image\Decoders\Spl_File_Info_Image_Decoder;
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Exceptions\Driver_Exception;
+use Intervention\Image\Exceptions\Not_Supported_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Decoder_Interface;
+use Intervention\Image\Interfaces\Driver_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Input_Handler_Interface;
+class Input_Handler implements Input_Handler_Interface
 {
     /**
      * Decoder classnames in hierarchical order
      *
      * @var array<string|DecoderInterface>
      */
-    protected array $decoders = [
-        NativeObjectDecoder::class,
-        ImageObjectDecoder::class,
-        ColorObjectDecoder::class,
-        RgbHexColorDecoder::class,
-        RgbStringColorDecoder::class,
-        CmykStringColorDecoder::class,
-        HsvStringColorDecoder::class,
-        HslStringColorDecoder::class,
-        TransparentColorDecoder::class,
-        HtmlColornameDecoder::class,
-        FilePointerImageDecoder::class,
-        FilePathImageDecoder::class,
-        SplFileInfoImageDecoder::class,
-        BinaryImageDecoder::class,
-        DataUriImageDecoder::class,
-        Base64ImageDecoder::class,
-        EncodedImageObjectDecoder::class,
-    ];
-
+    protected array $decoders = [Native_Object_Decoder::class, Image_Object_Decoder::class, Color_Object_Decoder::class, Rgb_Hex_Color_Decoder::class, Rgb_String_Color_Decoder::class, Cmyk_String_Color_Decoder::class, Hsv_String_Color_Decoder::class, Hsl_String_Color_Decoder::class, Transparent_Color_Decoder::class, Html_Colorname_Decoder::class, File_Pointer_Image_Decoder::class, File_Path_Image_Decoder::class, Spl_File_Info_Image_Decoder::class, Binary_Image_Decoder::class, Data_Uri_Image_Decoder::class, Base64image_Decoder::class, Encoded_Image_Object_Decoder::class];
     /**
      * Create new input handler instance with given decoder classnames
      *
      * @param array<string|DecoderInterface> $decoders
      */
-    public function __construct(array $decoders = [], /**
-     * Driver with which the decoder classes are specialized
-     */
-        protected ?DriverInterface $driver = null)
+    public function __construct(
+        array $decoders = [],
+        /**
+         * Driver with which the decoder classes are specialized
+         */
+        protected ?Driver_Interface $driver = null
+    )
     {
         $this->decoders = count($decoders) ? $decoders : $this->decoders;
     }
-
     /**
      * Static factory method
      *
      * @param array<string|DecoderInterface> $decoders
      */
-    public static function withDecoders(array $decoders, ?DriverInterface $driver = null): self
+    public static function with_decoders(array $decoders, ?Driver_Interface $driver = null): self
     {
         return new self($decoders, $driver);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see InputHandlerInterface::handle()
      */
-    public function handle(mixed $input): ImageInterface|ColorInterface
+    public function handle(mixed $input): Image_Interface|Color_Interface
     {
         foreach ($this->decoders as $decoder) {
             try {
                 // decode with driver specialized decoder
                 return $this->resolve($decoder)->decode($input);
-            } catch (DecoderException | NotSupportedException) {
+            } catch (Decoder_Exception|Not_Supported_Exception) {
                 // try next decoder
             }
         }
-
         if (isset($e)) {
-            throw new ($e::class)($e->getMessage());
+            throw new ($e::class)($e->get_message());
         }
-
-        throw new DecoderException('Unable to decode input.');
+        throw new Decoder_Exception('Unable to decode input.');
     }
-
     /**
      * Resolve the given classname to an decoder object
      *
      * @throws DriverException
      * @throws NotSupportedException
      */
-    private function resolve(string|DecoderInterface $decoder): DecoderInterface
+    private function resolve(string|Decoder_Interface $decoder): Decoder_Interface
     {
-        if (($decoder instanceof DecoderInterface) && !$this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
+        if ($decoder instanceof Decoder_Interface && !$this->driver instanceof \Intervention\Image\Interfaces\Driver_Interface) {
             return $decoder;
         }
-
-        if (($decoder instanceof DecoderInterface) && $this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
+        if ($decoder instanceof Decoder_Interface && $this->driver instanceof \Intervention\Image\Interfaces\Driver_Interface) {
             return $this->driver->specialize($decoder);
         }
-
-        if (!$this->driver instanceof \Intervention\Image\Interfaces\DriverInterface) {
+        if (!$this->driver instanceof \Intervention\Image\Interfaces\Driver_Interface) {
             return new $decoder();
         }
-
         return $this->driver->specialize(new $decoder());
     }
 }

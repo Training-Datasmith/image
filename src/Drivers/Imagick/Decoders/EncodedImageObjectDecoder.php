@@ -1,27 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Decoders;
 
-use Intervention\Image\EncodedImage;
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class EncodedImageObjectDecoder extends BinaryImageDecoder
+use Intervention\Image\Encoded_Image;
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class Encoded_Image_Object_Decoder extends Binary_Image_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        if (!is_a($input, EncodedImage::class)) {
-            throw new DecoderException('Unable to decode input');
+        if (!is_a($input, Encoded_Image::class)) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
-        return parent::decode($input->toString());
+        return parent::decode($input->to_string());
     }
 }

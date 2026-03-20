@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Exceptions;
 
-class DecoderException extends RuntimeException
+class Decoder_Exception extends RuntimeException
 {
 }

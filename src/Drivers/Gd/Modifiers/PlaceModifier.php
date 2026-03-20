@@ -1,60 +1,44 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
 use Intervention\Image\Exceptions\RuntimeException;
-use Intervention\Image\Interfaces\FrameInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\PointInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\PlaceModifier as GenericPlaceModifier;
-
-class PlaceModifier extends GenericPlaceModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Frame_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Point_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Place_Modifier as GenericPlaceModifier;
+class Place_Modifier extends Generic_Place_Modifier implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        $watermark = $this->driver()->handleInput($this->element);
-        $position = $this->getPosition($image, $watermark);
-
+        $watermark = $this->driver()->handle_input($this->element);
+        $position = $this->get_position($image, $watermark);
         foreach ($image as $frame) {
             imagealphablending($frame->native(), true);
-
             if ($this->opacity === 100) {
-                $this->placeOpaque($frame, $watermark, $position);
+                $this->place_opaque($frame, $watermark, $position);
             } else {
-                $this->placeTransparent($frame, $watermark, $position);
+                $this->place_transparent($frame, $watermark, $position);
             }
         }
-
         return $image;
     }
-
     /**
      * Insert watermark with 100% opacity
      *
      * @throws RuntimeException
      */
-    private function placeOpaque(FrameInterface $frame, ImageInterface $watermark, PointInterface $position): void
+    private function place_opaque(Frame_Interface $frame, Image_Interface $watermark, Point_Interface $position): void
     {
-        imagecopy(
-            $frame->native(),
-            $watermark->core()->native(),
-            $position->x(),
-            $position->y(),
-            0,
-            0,
-            $watermark->width(),
-            $watermark->height()
-        );
+        imagecopy($frame->native(), $watermark->core()->native(), $position->x(), $position->y(), 0, 0, $watermark->width(), $watermark->height());
     }
-
     /**
      * Insert watermark transparent with current opacity
      *
@@ -70,42 +54,11 @@ class PlaceModifier extends GenericPlaceModifier implements SpecializedInterface
      *
      * @throws RuntimeException
      */
-    private function placeTransparent(FrameInterface $frame, ImageInterface $watermark, PointInterface $position): void
+    private function place_transparent(Frame_Interface $frame, Image_Interface $watermark, Point_Interface $position): void
     {
         $cut = imagecreatetruecolor($watermark->width(), $watermark->height());
-
-        imagecopy(
-            $cut,
-            $frame->native(),
-            0,
-            0,
-            $position->x(),
-            $position->y(),
-            imagesx($cut),
-            imagesy($cut)
-        );
-
-        imagecopy(
-            $cut,
-            $watermark->core()->native(),
-            0,
-            0,
-            0,
-            0,
-            imagesx($cut),
-            imagesy($cut)
-        );
-
-        imagecopymerge(
-            $frame->native(),
-            $cut,
-            $position->x(),
-            $position->y(),
-            0,
-            0,
-            $watermark->width(),
-            $watermark->height(),
-            $this->opacity
-        );
+        imagecopy($cut, $frame->native(), 0, 0, $position->x(), $position->y(), imagesx($cut), imagesy($cut));
+        imagecopy($cut, $watermark->core()->native(), 0, 0, 0, 0, imagesx($cut), imagesy($cut));
+        imagecopymerge($frame->native(), $cut, $position->x(), $position->y(), 0, 0, $watermark->width(), $watermark->height(), $this->opacity);
     }
 }

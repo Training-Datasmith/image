@@ -1,25 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Encoders;
 
-use Intervention\Image\Interfaces\EncodedImageInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class AutoEncoder extends MediaTypeEncoder
+use Intervention\Image\Interfaces\Encoded_Image_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class Auto_Encoder extends Media_Type_Encoder
 {
     /**
      * {@inheritdoc}
      *
      * @see EncoderInterface::encode()
      */
-    public function encode(ImageInterface $image): EncodedImageInterface
+    public function encode(Image_Interface $image): Encoded_Image_Interface
     {
-        return $image->encode(
-            $this->encoderByMediaType(
-                $image->origin()->mediaType()
-            )
-        );
+        return $image->encode($this->encoder_by_media_type($image->origin()->media_type()));
     }
 }

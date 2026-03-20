@@ -1,20 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors\Hsl;
 
-use Intervention\Image\Colors\AbstractColor;
+use Intervention\Image\Colors\Abstract_Color;
 use Intervention\Image\Colors\Hsl\Channels\Hue;
 use Intervention\Image\Colors\Hsl\Channels\Luminance;
 use Intervention\Image\Colors\Hsl\Channels\Saturation;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
-use Intervention\Image\InputHandler;
-use Intervention\Image\Interfaces\ColorChannelInterface;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ColorspaceInterface;
-
-class Color extends AbstractColor
+use Intervention\Image\Input_Handler;
+use Intervention\Image\Interfaces\Color_Channel_Interface;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Colorspace_Interface;
+class Color extends Abstract_Color
 {
     /**
      * Create new color object
@@ -22,108 +20,87 @@ class Color extends AbstractColor
     public function __construct(int $h, int $s, int $l)
     {
         /** @throws void */
-        $this->channels = [
-            new Hue($h),
-            new Saturation($s),
-            new Luminance($l),
-        ];
+        $this->channels = [new Hue($h), new Saturation($s), new Luminance($l)];
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::colorspace()
      */
-    public function colorspace(): ColorspaceInterface
+    public function colorspace(): Colorspace_Interface
     {
         return new Colorspace();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::create()
      */
-    public static function create(mixed $input): ColorInterface
+    public static function create(mixed $input): Color_Interface
     {
-        return InputHandler::withDecoders([
-            Decoders\StringColorDecoder::class,
-        ])->handle($input);
+        return Input_Handler::with_decoders([Decoders\String_Color_Decoder::class])->handle($input);
     }
-
     /**
      * Return the Hue channel
      */
-    public function hue(): ColorChannelInterface
+    public function hue(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Hue::class);
     }
-
     /**
      * Return the Saturation channel
      */
-    public function saturation(): ColorChannelInterface
+    public function saturation(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Saturation::class);
     }
-
     /**
      * Return the Luminance channel
      */
-    public function luminance(): ColorChannelInterface
+    public function luminance(): Color_Channel_Interface
     {
         /** @throws void */
         return $this->channel(Luminance::class);
     }
-
-    public function toHex(string $prefix = ''): string
+    public function to_hex(string $prefix = ''): string
     {
-        return $this->convertTo(RgbColorspace::class)->toHex($prefix);
+        return $this->convert_to(Rgb_Colorspace::class)->to_hex($prefix);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::toString()
      */
-    public function toString(): string
+    public function to_string(): string
     {
-        return sprintf(
-            'hsl(%d, %d%%, %d%%)',
-            $this->hue()->value(),
-            $this->saturation()->value(),
-            $this->luminance()->value()
-        );
+        return sprintf('hsl(%d, %d%%, %d%%)', $this->hue()->value(), $this->saturation()->value(), $this->luminance()->value());
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isGreyscale()
      */
-    public function isGreyscale(): bool
+    public function is_greyscale(): bool
     {
         return $this->saturation()->value() == 0;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isTransparent()
      */
-    public function isTransparent(): bool
+    public function is_transparent(): bool
     {
         return false;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see ColorInterface::isClear()
      */
-    public function isClear(): bool
+    public function is_clear(): bool
     {
         return false;
     }

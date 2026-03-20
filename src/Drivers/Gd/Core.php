@@ -1,30 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd;
 
 use Intervention\Image\Collection;
-use Intervention\Image\Exceptions\AnimationException;
-use Intervention\Image\Interfaces\CoreInterface;
-use Intervention\Image\Interfaces\FrameInterface;
-
-class Core extends Collection implements CoreInterface
+use Intervention\Image\Exceptions\Animation_Exception;
+use Intervention\Image\Interfaces\Core_Interface;
+use Intervention\Image\Interfaces\Frame_Interface;
+class Core extends Collection implements Core_Interface
 {
     protected int $loops = 0;
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::add()
      */
-    public function add(FrameInterface $frame): CoreInterface
+    public function add(Frame_Interface $frame): Core_Interface
     {
         $this->push($frame);
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -34,35 +29,29 @@ class Core extends Collection implements CoreInterface
     {
         return $this->first()->native();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::setNative()
      */
-    public function setNative(mixed $native): self
+    public function set_native(mixed $native): self
     {
         $this->empty()->push(new Frame($native));
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::frame()
      */
-    public function frame(int $position): FrameInterface
+    public function frame(int $position): Frame_Interface
     {
-        $frame = $this->getAtPosition($position);
-
-        if (!($frame instanceof FrameInterface)) {
-            throw new AnimationException('Frame #' . $position . ' could not be found in the image.');
+        $frame = $this->get_at_position($position);
+        if (!$frame instanceof Frame_Interface) {
+            throw new Animation_Exception('Frame #' . $position . ' could not be found in the image.');
         }
-
         return $frame;
     }
-
     /**
      * {@inheritdoc}
      *
@@ -72,39 +61,34 @@ class Core extends Collection implements CoreInterface
     {
         return $this->loops;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CoreInterface::setLoops()
      */
-    public function setLoops(int $loops): self
+    public function set_loops(int $loops): self
     {
         $this->loops = $loops;
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::first()
      */
-    public function first(): FrameInterface
+    public function first(): Frame_Interface
     {
         return parent::first();
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::last()
      */
-    public function last(): FrameInterface
+    public function last(): Frame_Interface
     {
         return parent::last();
     }
-
     /**
      * Clone instance
      */

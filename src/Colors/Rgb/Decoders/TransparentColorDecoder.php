@@ -1,30 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Colors\Rgb\Decoders;
 
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class TransparentColorDecoder extends HexColorDecoder
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class Transparent_Color_Decoder extends Hex_Color_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
         if (!is_string($input)) {
-            throw new DecoderException('Unable to decode input');
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         if (strtolower($input) !== 'transparent') {
-            throw new DecoderException('Unable to decode input');
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         return parent::decode('#ffffff00');
     }
 }

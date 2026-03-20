@@ -1,36 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\DrawPixelModifier as GenericDrawPixelModifier;
-
-class DrawPixelModifier extends GenericDrawPixelModifier implements SpecializedInterface
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+use Intervention\Image\Modifiers\Draw_Pixel_Modifier as GenericDrawPixelModifier;
+class Draw_Pixel_Modifier extends Generic_Draw_Pixel_Modifier implements Specialized_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      */
-    public function apply(ImageInterface $image): ImageInterface
+    public function apply(Image_Interface $image): Image_Interface
     {
-        $color = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-            $this->driver()->handleInput($this->color)
-        );
-
+        $color = $this->driver()->color_processor($image->colorspace())->color_to_native($this->driver()->handle_input($this->color));
         foreach ($image as $frame) {
             imagealphablending($frame->native(), true);
-            imagesetpixel(
-                $frame->native(),
-                $this->position->x(),
-                $this->position->y(),
-                $color
-            );
+            imagesetpixel($frame->native(), $this->position->x(), $this->position->y(), $color);
         }
-
         return $image;
     }
 }

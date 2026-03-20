@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
 use Error;
-use Intervention\Image\Exceptions\NotSupportedException;
-
-enum MediaType: string
+use Intervention\Image\Exceptions\Not_Supported_Exception;
+enum Media_Type : string
 {
     case IMAGE_JPEG = 'image/jpeg';
     case IMAGE_JPG = 'image/jpg';
@@ -37,107 +35,79 @@ enum MediaType: string
     case IMAGE_HEIC = 'image/heic';
     case IMAGE_X_HEIC = 'image/x-heic';
     case IMAGE_HEIF = 'image/heif';
-
     /**
      * Create media type from given identifier
      *
      * @param string|Format|MediaType|FileExtension $identifier
      * @throws NotSupportedException
      */
-    public static function create(string|self|Format|FileExtension $identifier): self
+    public static function create(string|self|Format|File_Extension $identifier): self
     {
         if ($identifier instanceof self) {
             return $identifier;
         }
-
         if ($identifier instanceof Format) {
-            return $identifier->mediaType();
+            return $identifier->media_type();
         }
-
-        if ($identifier instanceof FileExtension) {
-            return $identifier->mediaType();
+        if ($identifier instanceof File_Extension) {
+            return $identifier->media_type();
         }
-
         try {
             $type = self::from(strtolower($identifier));
         } catch (Error) {
             try {
-                $type = FileExtension::from(strtolower($identifier))->mediaType();
+                $type = File_Extension::from(strtolower($identifier))->media_type();
             } catch (Error) {
-                throw new NotSupportedException('Unable to create media type from "' . $identifier . '".');
+                throw new Not_Supported_Exception('Unable to create media type from "' . $identifier . '".');
             }
         }
-
         return $type;
     }
-
     /**
      * Try to create media type from given identifier and return null on failure
      *
      * @param string|Format|MediaType|FileExtension $identifier
      * @return MediaType|null
      */
-    public static function tryCreate(string|self|Format|FileExtension $identifier): ?self
+    public static function try_create(string|self|Format|File_Extension $identifier): ?self
     {
         try {
             return self::create($identifier);
-        } catch (NotSupportedException) {
+        } catch (Not_Supported_Exception) {
             return null;
         }
     }
-
     /**
      * Return the matching format for the current media (MIME) type
      */
     public function format(): Format
     {
         return match ($this) {
-            self::IMAGE_JPEG,
-            self::IMAGE_JPG,
-            self::IMAGE_PJPEG,
-            self::IMAGE_X_JPEG => Format::JPEG,
-            self::IMAGE_WEBP,
-            self::IMAGE_X_WEBP => Format::WEBP,
+            self::IMAGE_JPEG, self::IMAGE_JPG, self::IMAGE_PJPEG, self::IMAGE_X_JPEG => Format::JPEG,
+            self::IMAGE_WEBP, self::IMAGE_X_WEBP => Format::WEBP,
             self::IMAGE_GIF => Format::GIF,
-            self::IMAGE_PNG,
-            self::IMAGE_X_PNG => Format::PNG,
-            self::IMAGE_AVIF,
-            self::IMAGE_X_AVIF => Format::AVIF,
-            self::IMAGE_BMP,
-            self::IMAGE_MS_BMP,
-            self::IMAGE_X_BITMAP,
-            self::IMAGE_X_BMP,
-            self::IMAGE_X_MS_BMP,
-            self::IMAGE_X_XBITMAP,
-            self::IMAGE_X_WINDOWS_BMP,
-            self::IMAGE_X_BMP3,
-            self::IMAGE_X_WIN_BITMAP => Format::BMP,
+            self::IMAGE_PNG, self::IMAGE_X_PNG => Format::PNG,
+            self::IMAGE_AVIF, self::IMAGE_X_AVIF => Format::AVIF,
+            self::IMAGE_BMP, self::IMAGE_MS_BMP, self::IMAGE_X_BITMAP, self::IMAGE_X_BMP, self::IMAGE_X_MS_BMP, self::IMAGE_X_XBITMAP, self::IMAGE_X_WINDOWS_BMP, self::IMAGE_X_BMP3, self::IMAGE_X_WIN_BITMAP => Format::BMP,
             self::IMAGE_TIFF => Format::TIFF,
-            self::IMAGE_JP2,
-            self::IMAGE_JPX,
-            self::IMAGE_X_JP2_CODESTREAM,
-            self::IMAGE_JPM => Format::JP2,
-            self::IMAGE_HEIF,
-            self::IMAGE_HEIC,
-            self::IMAGE_X_HEIC => Format::HEIC,
+            self::IMAGE_JP2, self::IMAGE_JPX, self::IMAGE_X_JP2_CODESTREAM, self::IMAGE_JPM => Format::JP2,
+            self::IMAGE_HEIF, self::IMAGE_HEIC, self::IMAGE_X_HEIC => Format::HEIC,
         };
     }
-
     /**
      * Return the possible file extension for the current media type
      *
      * @return array<FileExtension>
      */
-    public function fileExtensions(): array
+    public function file_extensions(): array
     {
-        return $this->format()->fileExtensions();
+        return $this->format()->file_extensions();
     }
-
     /**
      * Return the first file extension for the current media type
      */
-    public function fileExtension(): FileExtension
+    public function file_extension(): File_Extension
     {
-        return $this->format()->fileExtension();
+        return $this->format()->file_extension();
     }
 }

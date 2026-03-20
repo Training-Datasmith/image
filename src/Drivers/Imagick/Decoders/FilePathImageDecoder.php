@@ -1,46 +1,39 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Decoders;
 
 use Imagick;
-use ImagickException;
-use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-
-class FilePathImageDecoder extends NativeObjectDecoder
+use Imagick_Exception;
+use Intervention\Image\Exceptions\Decoder_Exception;
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+class File_Path_Image_Decoder extends Native_Object_Decoder
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        if (!$this->isFile($input)) {
-            throw new DecoderException('Unable to decode input');
+        if (!$this->is_file($input)) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         try {
             $imagick = new Imagick();
-            $imagick->readImage($input);
-        } catch (ImagickException) {
-            throw new DecoderException('Unable to decode input');
+            $imagick->read_image($input);
+        } catch (Imagick_Exception) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         // decode image
         $image = parent::decode($imagick);
-
         // set file path on origin
-        $image->origin()->setFilePath($input);
-
+        $image->origin()->set_file_path($input);
         // extract exif data for the appropriate formats
-        if (in_array($imagick->getImageFormat(), ['JPEG', 'TIFF', 'TIF'])) {
-            $image->setExif($this->extractExifData($input));
+        if (in_array($imagick->get_image_format(), ['JPEG', 'TIFF', 'TIF'])) {
+            $image->set_exif($this->extract_exif_data($input));
         }
-
         return $image;
     }
 }

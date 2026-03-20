@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image;
 
 use ArrayIterator;
 use Countable;
-use Intervention\Image\Interfaces\CollectionInterface;
+use Intervention\Image\Interfaces\Collection_Interface;
 use IteratorAggregate;
 use Traversable;
-
 /**
  * @implements IteratorAggregate<int|string, mixed>
  */
-class Collection implements CollectionInterface, IteratorAggregate, Countable
+class Collection implements Collection_Interface, IteratorAggregate, Countable
 {
     /**
      * Create new collection object
@@ -22,9 +20,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      */
     public function __construct(protected array $items = [])
     {
-
     }
-
     /**
      * Static constructor
      *
@@ -35,7 +31,6 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
     {
         return new self($items);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -45,7 +40,6 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
     {
         return array_key_exists($key, $this->items);
     }
-
     /**
      * Returns Iterator
      *
@@ -55,17 +49,15 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
     {
         return new ArrayIterator($this->items);
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::toArray()
      */
-    public function toArray(): array
+    public function to_array(): array
     {
         return $this->items;
     }
-
     /**
      * Count items in collection
      */
@@ -73,19 +65,16 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
     {
         return count($this->items);
     }
-
     /**
      * Append new item to collection
      *
      * @return CollectionInterface<int|string, mixed>
      */
-    public function push(mixed $item): CollectionInterface
+    public function push(mixed $item): Collection_Interface
     {
         $this->items[] = $item;
-
         return $this;
     }
-
     /**
      * Return first item in collection
      */
@@ -94,10 +83,8 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
         if ($item = reset($this->items)) {
             return $item;
         }
-
         return null;
     }
-
     /**
      * Returns last item in collection
      */
@@ -106,27 +93,22 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
         if ($item = end($this->items)) {
             return $item;
         }
-
         return null;
     }
-
     /**
      * Return item at given position starting at 0
      */
-    public function getAtPosition(int $key = 0, mixed $default = null): mixed
+    public function get_at_position(int $key = 0, mixed $default = null): mixed
     {
         if ($this->count() == 0) {
             return $default;
         }
-
         $positions = array_values($this->items);
         if (!array_key_exists($key, $positions)) {
             return $default;
         }
-
         return $positions[$key];
     }
-
     /**
      * {@inheritdoc}
      *
@@ -137,17 +119,13 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
         if ($this->count() == 0) {
             return $default;
         }
-
         if (is_int($query) && array_key_exists($query, $this->items)) {
             return $this->items[$query];
         }
-
         if (is_string($query) && !str_contains($query, '.')) {
             return array_key_exists($query, $this->items) ? $this->items[$query] : $default;
         }
-
         $query = explode('.', (string) $query);
-
         $result = $default;
         $items = $this->items;
         foreach ($query as $key) {
@@ -155,62 +133,43 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
                 $result = $default;
                 break;
             }
-
             $result = $items[$key];
             $items = $result;
         }
-
         return $result;
     }
-
     /**
      * Map each item of collection by given callback
      */
     public function map(callable $callback): self
     {
-
-        return new self(
-            array_map(
-                fn (mixed $item) => $callback($item),
-                $this->items,
-            )
-        );
+        return new self(array_map(fn(mixed $item) => $callback($item), $this->items));
     }
-
     /**
      * Run callback on each item of the collection an remove it if it does not return true
      */
     public function filter(callable $callback): self
     {
-        return new self(
-            array_filter(
-                $this->items,
-                fn (mixed $item) => $callback($item),
-            )
-        );
+        return new self(array_filter($this->items, fn(mixed $item) => $callback($item)));
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::empty()
      */
-    public function empty(): CollectionInterface
+    public function empty(): Collection_Interface
     {
         $this->items = [];
-
         return $this;
     }
-
     /**
      * {@inheritdoc}
      *
      * @see CollectionInterface::slice()
      */
-    public function slice(int $offset, ?int $length = null): CollectionInterface
+    public function slice(int $offset, ?int $length = null): Collection_Interface
     {
         $this->items = array_slice($this->items, $offset, $length);
-
         return $this;
     }
 }

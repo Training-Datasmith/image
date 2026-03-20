@@ -1,23 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Modifiers;
 
-use Intervention\Image\Drivers\SpecializableModifier;
-use Intervention\Image\Interfaces\PointInterface;
-
-class FillModifier extends SpecializableModifier
+use Intervention\Image\Drivers\Specializable_Modifier;
+use Intervention\Image\Interfaces\Point_Interface;
+class Fill_Modifier extends Specializable_Modifier
 {
-    public function __construct(
-        public mixed $color,
-        public ?PointInterface $position = null
-    ) {
-
-    }
-
-    public function hasPosition(): bool
+    public function __construct(public mixed $color, public ?Point_Interface $position = null)
     {
-        return $this->position instanceof PointInterface;
+    }
+    public function has_position(): bool
+    {
+        return $this->position instanceof Point_Interface;
     }
 }

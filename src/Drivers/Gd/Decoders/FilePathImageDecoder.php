@@ -1,60 +1,52 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Decoders;
 
-use Intervention\Image\Exceptions\DecoderException;
+use Intervention\Image\Exceptions\Decoder_Exception;
 use Intervention\Image\Format;
-use Intervention\Image\Interfaces\ColorInterface;
-use Intervention\Image\Interfaces\DecoderInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Modifiers\AlignRotationModifier;
-
-class FilePathImageDecoder extends NativeObjectDecoder implements DecoderInterface
+use Intervention\Image\Interfaces\Color_Interface;
+use Intervention\Image\Interfaces\Decoder_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Modifiers\Align_Rotation_Modifier;
+class File_Path_Image_Decoder extends Native_Object_Decoder implements Decoder_Interface
 {
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
      */
-    public function decode(mixed $input): ImageInterface|ColorInterface
+    public function decode(mixed $input): Image_Interface|Color_Interface
     {
-        if (!$this->isFile($input)) {
-            throw new DecoderException('Unable to decode input');
+        if (!$this->is_file($input)) {
+            throw new Decoder_Exception('Unable to decode input');
         }
-
         // detect media (mime) type
-        $mediaType = $this->getMediaTypeByFilePath($input);
-
-        $image = match ($mediaType->format()) {
+        $media_type = $this->get_media_type_by_file_path($input);
+        $image = match ($media_type->format()) {
             // gif files might be animated and therefore cannot
             // be handled by the standard GD decoder.
-            Format::GIF => $this->decodeGif($input),
-            default => parent::decode(match ($mediaType->format()) {
+            Format::GIF => $this->decode_gif($input),
+            default => parent::decode(match ($media_type->format()) {
                 Format::JPEG => @imagecreatefromjpeg($input),
                 Format::WEBP => @imagecreatefromwebp($input),
                 Format::PNG => @imagecreatefrompng($input),
                 Format::AVIF => @imagecreatefromavif($input),
                 Format::BMP => @imagecreatefrombmp($input),
-                default => throw new DecoderException('Unable to decode input'),
+                default => throw new Decoder_Exception('Unable to decode input'),
             }),
         };
-
         // set file path & mediaType on origin
-        $image->origin()->setFilePath($input);
-        $image->origin()->setMediaType($mediaType);
-
+        $image->origin()->set_file_path($input);
+        $image->origin()->set_media_type($media_type);
         // extract exif for the appropriate formats
-        if ($mediaType->format() === Format::JPEG) {
-            $image->setExif($this->extractExifData($input));
+        if ($media_type->format() === Format::JPEG) {
+            $image->set_exif($this->extract_exif_data($input));
         }
-
         // adjust image orientation
-        if ($this->driver()->config()->autoOrientation) {
-            $image->modify(new AlignRotationModifier());
+        if ($this->driver()->config()->auto_orientation) {
+            $image->modify(new Align_Rotation_Modifier());
         }
-
         return $image;
     }
 }

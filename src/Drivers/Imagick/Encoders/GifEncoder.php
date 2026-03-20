@@ -1,34 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Encoders;
 
 use Imagick;
-use Intervention\Image\EncodedImage;
-use Intervention\Image\Encoders\GifEncoder as GenericGifEncoder;
-use Intervention\Image\Interfaces\EncodedImageInterface;
-use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\SpecializedInterface;
-
-class GifEncoder extends GenericGifEncoder implements SpecializedInterface
+use Intervention\Image\Encoded_Image;
+use Intervention\Image\Encoders\Gif_Encoder as GenericGifEncoder;
+use Intervention\Image\Interfaces\Encoded_Image_Interface;
+use Intervention\Image\Interfaces\Image_Interface;
+use Intervention\Image\Interfaces\Specialized_Interface;
+class Gif_Encoder extends Generic_Gif_Encoder implements Specialized_Interface
 {
-    public function encode(ImageInterface $image): EncodedImageInterface
+    public function encode(Image_Interface $image): Encoded_Image_Interface
     {
         $format = 'GIF';
         $compression = Imagick::COMPRESSION_LZW;
-
         $imagick = $image->core()->native();
-
-        $imagick->setFormat($format);
-        $imagick->setImageFormat($format);
-        $imagick->setCompression($compression);
-        $imagick->setImageCompression($compression);
-
+        $imagick->set_format($format);
+        $imagick->set_image_format($format);
+        $imagick->set_compression($compression);
+        $imagick->set_image_compression($compression);
         if ($this->interlaced) {
-            $imagick->setInterlaceScheme(Imagick::INTERLACE_LINE);
+            $imagick->set_interlace_scheme(Imagick::INTERLACE_LINE);
         }
-
-        return new EncodedImage($imagick->getImagesBlob(), 'image/gif');
+        return new Encoded_Image($imagick->get_images_blob(), 'image/gif');
     }
 }
