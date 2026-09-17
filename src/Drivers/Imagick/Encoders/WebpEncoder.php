@@ -28,18 +28,30 @@ class WebpEncoder extends GenericWebpEncoder implements SpecializedInterface
         $imagick = $image->core()->native();
         $imagick->setImageBackgroundColor(new ImagickPixel('transparent'));
 
-        if (!$image->isAnimated()) {
+        if ($image->isAnimated()) {
+            $imagick = $imagick->coalesceImages();
+
+            foreach ($imagick as $frame) {
+                $frame->setImageFormat($format);
+                $frame->setImageCompressionQuality($this->quality);
+
+                if ($this->quality === 100) {
+                    $frame->setOption('webp:lossless', 'true');
+                }
+            }
+
+            $imagick->setFormat($format);
+        } else {
             $imagick = $imagick->mergeImageLayers(Imagick::LAYERMETHOD_MERGE);
-        }
+            $imagick->setFormat($format);
+            $imagick->setImageFormat($format);
+            $imagick->setCompression($compression);
+            $imagick->setImageCompression($compression);
+            $imagick->setImageCompressionQuality($this->quality);
 
-        $imagick->setFormat($format);
-        $imagick->setImageFormat($format);
-        $imagick->setCompression($compression);
-        $imagick->setImageCompression($compression);
-        $imagick->setImageCompressionQuality($this->quality);
-
-        if ($this->quality === 100) {
-            $imagick->setOption('webp:lossless', 'true');
+            if ($this->quality === 100) {
+                $imagick->setOption('webp:lossless', 'true');
+            }
         }
 
         return new EncodedImage($imagick->getImagesBlob(), 'image/webp');
