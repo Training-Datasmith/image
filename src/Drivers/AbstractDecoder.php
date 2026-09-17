@@ -93,12 +93,26 @@ abstract class AbstractDecoder implements DecoderInterface
      */
     protected function parseDataUri(mixed $input): object
     {
-        // The data portion is bounded to 15 MB of base64 text (~11 MB decoded) to prevent ReDoS
-        // on unbounded (.*) back-tracking against very long non-matching strings.
-        $pattern = "/^data:(?P<mediatype>\w+\/[-+.\w]+)?" .
-            "(?P<parameters>(;[-\w]+=[-\w]+)*)(?P<base64>;base64)?,(?P<data>.{0,20971520}+)/s";
+        // Bound payload size before parsing to prevent ReDoS on unbounded back-tracking.
+        $maxDataLength = 20971520;
+        $input = (string) $input;
+        $matches = [];
+        $result = 0;
 
-        $result = preg_match($pattern, (string) $input, $matches);
+        if (strlen($input) <= $maxDataLength + 512) {
+            $headerPattern = "/^data:(?P<mediatype>\w+\/[-+.\w]+)?" .
+                "(?P<parameters>(;[-\w]+=[-\w]+)*)(?P<base64>;base64)?,/";
+
+            if (preg_match($headerPattern, $input, $matches) === 1) {
+                $commaPosition = strpos($input, ',');
+                $data = $commaPosition === false ? '' : substr($input, $commaPosition + 1);
+
+                if (strlen($data) <= $maxDataLength) {
+                    $matches['data'] = $data;
+                    $result = 1;
+                }
+            }
+        }
 
         return new class ($matches, $result) {
             /**
