@@ -23,6 +23,12 @@ if ((${#need_pkgs[@]} > 0)); then
   sudo apt-get install -y --no-install-recommends "${need_pkgs[@]}"
 fi
 
+# AVIF/HEIC encode (Imagick delegates) and GD imageavif() need codec libraries at runtime.
+codec_pkgs=(libheif-plugin-aomenc libaom-dev libgd3)
+export DEBIAN_FRONTEND=noninteractive
+sudo apt-get update -qq
+sudo apt-get install -y --no-install-recommends "${codec_pkgs[@]}"
+
 php -m | grep -q '^gd$'
 php -m | grep -q '^imagick$'
 php -m | grep -q '^exif$'
